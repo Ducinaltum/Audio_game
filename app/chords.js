@@ -1,11 +1,33 @@
-var chords = {
+function Chords() {
+    var perfectTriads = {
+        major: [0, 4, 7],
+        minor: [0, 3, 7]
+    }
 
+    var imperfectTriads = {
+        dim: [0, 3, 6],
+        aug: [0, 4, 8]
+    }
+
+    var level;
+    var exercise;
+
+    var selectChord = function() {
+        var chord;
+        loadOnBuffer(buildStream());
+    }
+
+    function buildStream() {
+        var stream = [];
+
+        return stream;
+    }
+
+    function setChordLevel(lvl){
+        switch(lvl)
+    }
 }
 
-major = [0, 4, 7]
-minor= [0, 3, 7]
-dim= [0, 3, 6]
-aug= [0, 4, 8]
 /*
 majj: [0, 4, 7, 11],
 dominant: [0, 4, 7, 10],

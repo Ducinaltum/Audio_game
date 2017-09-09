@@ -10,14 +10,13 @@ MIDI.loadPlugin({
         console.log(state, progress);
     },
     onsuccess: function() {
-        selectInterval();        
+        //Mostrar UI
     }
 });
 
 function loadOnBuffer(stream){
     sequence.length = 0;
     sequence.push(stream);
-    console.log(sequence)
     playSequence();
 }
 
