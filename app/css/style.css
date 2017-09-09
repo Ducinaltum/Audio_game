@@ -1,0 +1,36 @@
+button{
+    margin: auto;
+}
+
+div{
+    text-align: center;
+}
+
+.Games{
+    text-align: center;
+    width: 100%;
+    height: 60%;
+    padding: 2rem;
+}
+
+.GlobalComands{
+    padding: 2rem;
+    
+}
+
+.gameItself{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 5rem;
+}
+
+#musicScore{
+    width: 100%;    
+}
+
+#feedback{
+    
+}
+
