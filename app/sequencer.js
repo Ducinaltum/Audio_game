@@ -25,6 +25,7 @@ function stop(){
 }
 
 function playSequence(){
+    MIDI.stopAllNotes();
     MIDI.setVolume(0, 127);
     for(var inst = 0; inst < sequence.length; inst++){
         for(var i = 0; i < sequence[inst].length; i++){

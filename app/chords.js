@@ -1,30 +1,75 @@
-function Chords() {
-    var perfectTriads = {
-        major: [0, 4, 7],
-        minor: [0, 3, 7]
-    }
+function Chords(initLevel) {
+    const safeZone = 20;
+
+    var perfectTriads = [
+        major = [0, 4, 7],
+        minor = [0, 3, 7]
+    ]    
 
     var imperfectTriads = {
         dim: [0, 3, 6],
         aug: [0, 4, 8]
     }
 
-    var level;
-    var exercise;
+    var maxLevel = 33
+    var level = initLevel;
+    var chord;
+    var fundamental;
+    var exercise = setChordLevel(level);
+    var direction;
+    
 
-    var selectChord = function() {
-        var chord;
-        loadOnBuffer(buildStream());
+    this.selectChord = function() {
+        direction = setDirection(level);
+        chord = exercise[Math.floor(Math.random() * exercise.length)];        
+        fundamental = setFundamental(chord[chord.length - 1]);
+        console.log(fundamental)
+        loadOnBuffer(buildStream(fundamental));
     }
 
-    function buildStream() {
+    function buildStream(f) {
+        //Habría que pensar en un build para acordes abiertos
         var stream = [];
-
+        var lastTime;
+        (direction == -1)? lastTime = chord.length - 1: lastTime = 0; 
+        for(var i = 0; i < chord.length; i++) {
+            note = chord[i] + f;
+            time = lastTime;
+            stream[i] = new Note(note, time);
+            lastTime += direction;
+        }
         return stream;
     }
 
+    this.getChord = function(){}
+
+    function setDirection(lvl){
+        switch(lvl%4){
+            case 0:
+                return 0;
+                break;
+            case 1:
+                return 1;
+                break;
+            case 2:
+                return -1;
+                break;
+            case 3:
+                return Math.floor(Math.random() * 3) - 1
+        }
+    }
+
+    function setFundamental(higherPitch){
+        var scope = limits.max - limits.min - higherPitch - safeZone;
+        return Math.floor(Math.random() * scope) + limits.min + safeZone;
+    }
+
     function setChordLevel(lvl){
-        switch(lvl)
+        var levelStructure = []
+        switch(Math.floor(lvl/4)){
+            case 0:
+                return levelStructure.concat(perfectTriads);
+        }
     }
 }
 
@@ -62,23 +107,3 @@ minormajj4
 minor74A
 minormajj4A
 */
-
-function Chord(type){
-    chord = [];
-    chord[0] = type[0];
-    tenor = Math.floor(Math.random()*type.length)
-    //for
-    chord[1] = type[tenor%type.length]
-    chord[2] = type[(tenor+1)%type.length]
-    chord[3] = type[(tenor+2)%type.length]
-}
-
-function setChord(type){
-    acorde = new Chord(type)
-}
-
-chords = [];
-chords.push(major,minor,dim,aug)
-
-setChord(chords[Math.floor(Math.random()*chords.length)]);
-

@@ -11,9 +11,9 @@ const sonorities = {
     "FarDisonances": [6, 10, 11],
 }
 
-function simpleIntervals() {
+function simpleIntervals(initLevel) {
     var maxLevel = 33
-    var level = 0;
+    var level = initLevel;
     var fundamental;
     var interval;
     var direction;
@@ -44,7 +44,6 @@ function simpleIntervals() {
 
     function buildStream() {
         var stream = [];
-        console.log(fundamental)
         stream[0] = new Note(fundamental,
             0,
             1);
