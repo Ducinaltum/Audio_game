@@ -1,0 +1,60 @@
+body{
+    overflow: hidden;
+}
+button{    
+    overflow: hidden;
+}
+#gameSelection{
+    display: flex;
+    justify-content: center;
+    z-index: 5;
+}
+
+#gameSelection button{
+    width: 12rem;
+    font-size: 2rem;
+    float: left;
+    border: none;
+    fill: none;
+}
+
+#gameSelection button:hover{border-bottom:1rem solid #1e2f45;}
+
+#gameSelection button:focus {outline:0;}
+
+#globalComands{
+    display: flex;
+    justify-content: space-between;
+    z-index: 4;
+}
+
+#player {
+    display: flex;    
+}
+
+
+#metronome{
+    display: flex;
+    align-self: flex-end;    
+}
+
+#responses{
+    background-color: gray;
+    border-top: 1rem solid #1e2f45;
+    border-bottom: 1rem solid #1e2f45;
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gameItself{
+    display: none;
+    justify-content: center;
+}
+
+
+.gameItself button{
+    width: 5rem;
+    height: 2rem;
+}

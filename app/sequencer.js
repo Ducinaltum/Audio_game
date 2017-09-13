@@ -15,6 +15,7 @@ MIDI.loadPlugin({
 });
 
 function loadOnBuffer(stream){
+    MIDI.stopAllNotes();
     sequence.length = 0;
     sequence.push(stream);
     playSequence();
@@ -25,7 +26,6 @@ function stop(){
 }
 
 function playSequence(){
-    MIDI.stopAllNotes();
     MIDI.setVolume(0, 127);
     for(var inst = 0; inst < sequence.length; inst++){
         for(var i = 0; i < sequence[inst].length; i++){
@@ -35,8 +35,7 @@ function playSequence(){
                 sequence[inst][i].timeInPulse);
             MIDI.noteOff(sequence[inst][i].channel,
                 sequence[inst][i].note,
-                sequence[inst][i].noteOff);
-      
+                sequence[inst][i].noteOff);      
         }
     }   
 }
