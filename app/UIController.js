@@ -11,12 +11,13 @@ function responseIntervals(e) {
 
 function startChords(){
     chords = new Chords(3);
-    chords.selectChord();
-    
+    chords.selectChord();    
 }
 
 function responseChords(e){
-    chords.selectChord()
+    console.log(e)
+    console.log(chords)
+    console.log(chords.getChord())
     if (e === chords.getChord()){
         chords.selectChord()
     }
