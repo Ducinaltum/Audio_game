@@ -18,6 +18,7 @@ function loadOnBuffer(stream){
     MIDI.stopAllNotes();
     sequence.length = 0;
     sequence.push(stream);
+    console.log(sequence)
     playSequence();
 }
 

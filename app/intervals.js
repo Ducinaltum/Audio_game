@@ -51,6 +51,7 @@ function simpleIntervals(initLevel) {
             0 + delay,
             1);
         return stream;
+        console.log(stream)
     }
 
     function setFundamental(distance) {
@@ -75,8 +76,8 @@ function simpleIntervals(initLevel) {
     function setIntervalLevel(lvl) {
         var levelStructure = [];
         switch (Math.floor(lvl / 4)) {
-            //Consonancias perfectas
             case 0:
+                //Consonancias perfectas
                 return levelStructure.concat(sonorities.PerfectConsonances);
                 break;
             case 1:
@@ -117,7 +118,7 @@ function simpleIntervals(initLevel) {
             //Se devuelve un valor random directamente, el ramdom de la llamada 
             //posterior solo podrá tomar el valor que retorne ésta función
             case 8:
-                return [Math.floor(Math.random() * 13)]
+                return [0,1,2,3,4,5,6,7,8,9,10,11,12,13]
                 break;
             //Intervalos compuestos
             case 9:
@@ -128,6 +129,4 @@ function simpleIntervals(initLevel) {
                 break;
         }
     }
-
-
 }

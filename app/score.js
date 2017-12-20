@@ -12,6 +12,7 @@ var c = cnvs.getContext("2d");
 var spacing = cnvs.height / 28;
 
 drawPentagram();
+drawMatrix();
 
  
 function drawMatrix(){
@@ -20,7 +21,7 @@ function drawMatrix(){
             c.beginPath();
             c.lineWidth="1";
             c.strokeStyle="grey";
-            c.rect(i * spacing, j * spacing, spacing, spacing)
+            c.rect(i * spacing, (j * spacing / 2) + spacing /4, spacing, spacing)
             c.stroke();
         }
     }

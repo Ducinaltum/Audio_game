@@ -2,9 +2,8 @@ var activeScreen =null;
 var loadingScreen = null;
 var feedback = document.getElementById("feedbackText");
 
-
 function startIntervals(){            
-    intervals = new simpleIntervals(0);
+    intervals = new simpleIntervals(28);
     intervals.selectInterval();    
 }
 
@@ -31,7 +30,7 @@ function responseChords(e){
 }
 
 function startProgresion(){
-
+    progresion = new Progresion(0)
 }
 
 function responseProgresion(e){
@@ -39,7 +38,7 @@ function responseProgresion(e){
 }
 
 function startMelody(){
-  
+    melody = new Melody(0);
 }
 
 function responseMelody(e){
@@ -64,8 +63,10 @@ function transition(e){
             startChords()
             break;
         case "goProgresion":
+            startProgresion()
             break;
         case "goMelody":
+            startMelody();
             break;
     }
 }
