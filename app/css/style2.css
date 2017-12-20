@@ -38,6 +38,13 @@ button{
     align-self: flex-end;    
 }
 
+#figures{
+    display: flex;
+    flex-direction: column;
+    z-index: 4;
+    justify-content: space-around;
+}
+
 #responses{
     background-color: gray;
     border-top: 1rem solid #1e2f45;
@@ -58,3 +65,4 @@ button{
     width: 5rem;
     height: 2rem;
 }
+

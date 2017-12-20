@@ -45,11 +45,17 @@
 	<div id="feedback" style="position: absolute; height:8vh; top:17vh">
 		<p id="feedbackText">&nbsp</p>
 	</div>
+	<div id="figures" style="position: absolute; top: 25vh; height:40vh">
+		<button> 1 </button>
+		<button> 2 </button>
+		<button> 4 </button>
+		<button> 8 </button>
+		<button> 16 </button>
+		<button> li </button>
+	</div>
 	<canvas id="musicScore" style="position: absolute; top: 25vh; opacity:1;"></canvas>
 	<div id="responses" style="position: absolute; top:65vh; height:20vh; width: 100vw">
-		<div id="progresion" class="gameItself">
-				<p id="chords">&nbsp</p>
-		</div>
+
 		<div id="answers">
 			<div id="Intervals" class="gameItself" display="none">
 				<button id="0" onclick="responseIntervals(this.id)">Unísono</button>
@@ -81,7 +87,9 @@
 				<button id="aum7" onclick="responseChords(this.id)">+7</button>
 			</div>
 			<div id="Progresion" class="gameItself" display="none">
-
+				<div id="progresion">
+					<p id="chords">&nbsp</p>
+				</div>
 			</div>
 			<div id="Melody" class="gameItself" display="none"></div>
 		</div>		
