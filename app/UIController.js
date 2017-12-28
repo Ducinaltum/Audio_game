@@ -1,19 +1,14 @@
 var activeScreen =null;
 var loadingScreen = null;
-var feedback = document.getElementById("feedbackText");
+var intervals;
 
 function startIntervals(){            
-    intervals = new simpleIntervals(28);
-    intervals.selectInterval();    
+    intervals = new simpleIntervals();
+    intervals.createInterval();
 }
 
 function responseIntervals(e) {
-    var usrResponse = (e == Math.abs(intervals.getInterval()));
-    response(usrResponse);
-    if (usrResponse) {
-        intervals.selectInterval();
-    }
-
+    intervals.checkResponse(e);
 }
 
 function startChords(){

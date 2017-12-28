@@ -1,0 +1,29 @@
+el usuario clickea el ejercicio (intervalos)
+
+se inicia la clase que corresponde al manejo del ejercicio
+
+    Se crea la clase IntervalLevelManager que lee el 
+        nivel actual,
+        nivel máximo
+        rondas por nivel
+
+    Esta devuelve el nivel actual y en base a eso se establece el ejercicio
+    Se envia a la UI Cuales son los valores aceptados
+    
+
+    Se crea la instancia de Interval que arma el ejercicio
+        Esta crea el ejercicio en base a las instrucciones de la madre
+        Envia las notas a ejecutar a traves del loadOnBuffer
+    
+    El usuario elige una respuesta
+        Se envia a la clase controladora
+        Esta chequea con la clase Intervalos:
+            si el intervalo es correcto se suma 1 a hit;
+            si no se suma 1 a miss
+
+            se suma 1 a rounds
+
+            se envia a la UI el intervalo de Usuario y el intervalo correcto
+
+    Se reinicia la instancia de interval
+        

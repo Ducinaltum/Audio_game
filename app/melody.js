@@ -3,7 +3,6 @@ function Melody(initLevel){
     var level = initLevel;
     var fundamental;
     var melody;
-    var buildMelody;
     var buildMelody = setMelodyLevel(level);    
     melody = buildMelody();
     loadOnBuffer(buildStream(70));

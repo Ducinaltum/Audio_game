@@ -20,3 +20,26 @@ var authentic = [5,1]
 var broken = [5,6]
 console.log("hi")
 console.log(compoundFirst)
+
+
+var levels = {
+    intervals: 0
+}
+
+const limits = {
+    "min": 20,
+    "max": 108
+}
+
+function clamp(value, max, min = 0){
+    console.log(value)
+    console.log(max)
+    console.log(min)
+    return Math.min(Math.max(value, min), max);
+}
+
+var levels = {
+    intervals: 0,
+    chords: 0,
+    progresion: 0
+}
