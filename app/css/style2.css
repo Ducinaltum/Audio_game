@@ -38,6 +38,10 @@ button{
     align-self: flex-end;    
 }
 
+#progress{
+    display: flex;
+}
+
 #figures{
     display: flex;
     flex-direction: column;

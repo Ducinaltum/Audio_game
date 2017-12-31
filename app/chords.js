@@ -1,53 +1,73 @@
-function Chords(initLevel) {
-    const safeZone = 20;
+const safeZone = 20;
 
-    var perfectTriads = [
-        ["major", [0, 4, 7]],
-        ["minor", [0, 3, 7]]
-    ]
+var perfectTriads = [
+    ["major", [0, 4, 7]],
+    ["minor", [0, 3, 7]]
+]
 
-    var imperfectTriads = [
-        ["dim", [0, 3, 6]],
-        ["aug", [0, 4, 8]]
-    ]
-    
+var imperfectTriads = [
+    ["dim", [0, 3, 6]],
+    ["aug", [0, 4, 8]]
+]
 
-    var maxLevel = 33
-    var level = initLevel;
-    var chord;
-    var fundamental;
-    var exercise = setChordLevel(level);
-    var direction;
-    
+var imperfectTriads = [
+    ["majj7", [0, 4, 7, 11]],
+    ["7", [0, 4, 7, 10]]
+]
 
-    this.selectChord = function() {
-        direction = setDirection(level);
-        chord = exercise[Math.floor(Math.random() * exercise.length)];
-        fundamental = setFundamental(chord[1][chord.length - 1]);
-        loadOnBuffer(buildStream(fundamental));
+var imperfectTriads = [
+    ["m7", [0, 3, 7, 11]],
+    ["mmajj7", [0, 3, 7, 10]]
+]
+
+var imperfectTriads = [
+    ["m7b5", [0, 3, 6, 10]],
+    ["dim7", [0, 3, 6, 9]]
+]
+
+var imperfectTriads = [
+    ["aummajj7", [0, 4, 8, 11]],
+    ["aum7", [0, 4, 8, 10]]
+]
+
+function Chords() {
+    chordManager = new LevelManager(info.chordsMaxLevel, user.chordsLevel);
+    exercise = setChordLevel(chordManager.level);
+    UImanager = new ButtonBasedUIManager("Chords");
+    UImanager.deactivateButtons(splitKeys(exercise));
+
+    this.createChord = function(){
+        chord = new Chord(exercise, setDirection())
+        loadOnBuffer(chord.notes)
     }
 
-    this.getChord = function() {
-        return chord[0];
+    this.checkResponse = function(r){
+        response = r;
+        score = 0;
+        if(response == chord.chord) score = 1;
+        else score = -1;
+        chordManager.addScore(score);
+        UImanager.setFeedback(response, chord.kind);
+        setTimeout(function(){ 
+            UImanager.restoreUIElements();
+        }, 500);
+        this.checkLevel();
     }
 
-    function buildStream(f) {
-        //Habría que pensar en un build para acordes abiertos
-        var structure = chord[1];
-        var stream = [];
-        var lastTime;
-        (direction == -1)? lastTime = structure.length - 1: lastTime = 0; 
-        for(var i = 0; i < structure.length; i++) {
-            note = structure[i] + f;
-            time = lastTime;
-            stream[i] = new Note(note, time);
-            lastTime += direction;
+    this.checkLevel = function(){
+        switch(chordManager.controlNextLevel()){
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                this.createChord()
+                break;
         }
-        return stream;
     }
 
-    function setDirection(lvl){
-        switch(lvl%4){
+    function setDirection(){
+        switch(chordManager.level % 4){
             case 0:
                 return 0;
                 break;
@@ -62,11 +82,6 @@ function Chords(initLevel) {
         }
     }
 
-    function setFundamental(higherPitch){
-        var scope = limits.max - limits.min - higherPitch - safeZone;
-        return Math.floor(Math.random() * scope) + limits.min + safeZone;
-    }
-
     function setChordLevel(lvl){
         var levelStructure = []
         switch(Math.floor(lvl/4)){
@@ -74,6 +89,44 @@ function Chords(initLevel) {
                 return levelStructure.concat(perfectTriads)
         }
     }
+
+    function splitKeys(arr){
+        keysOnly = []
+        arr.forEach(element => {
+            keysOnly.push(element[0])
+        });
+        return keysOnly;
+    }
+}
+
+function Chord(ex, dir){
+    exercise = ex;
+    direction = dir;
+    chord = exercise[Math.floor(Math.random() * exercise.length)];
+    this.kind = chord[0];
+
+    setFundamental = function(chord) {
+        //Este algoritmo se sale de los límite CORREGIR
+        scope = limits.max - limits.min - Math.abs(chord[1][chord[1].length - 1]);
+        note = Math.floor(Math.random() * scope) + limits.min;
+        return note;
+    }
+
+    buildStream = function(fundamental){
+        //Si dirección es 0, es armonico, si es 1 es ascendene si es -1 es descendente
+        var stream = [];
+        if(direction == -1) chord[1].reverse()
+        time = 0;
+        for(var i = 0; i < chord[1].length; i++) {
+            note = chord[1][i];
+            stream[i] = new Note(note + fundamental, time);
+            time += Math.abs(direction);
+        }
+        return stream;
+        
+    }
+    fundamental = setFundamental(chord);
+    this.notes = buildStream(fundamental)
 }
 
 /*

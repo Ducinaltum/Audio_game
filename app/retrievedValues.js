@@ -8,3 +8,9 @@ var user = {
     progresionScore: 0,
     chordsScore: 0,
 }
+
+var info = {
+    intervalsMaxLevel: 33,
+    chordsMaxLevel: 33,
+    progresionMaxLevel: 33
+}

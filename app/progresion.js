@@ -1,63 +1,3 @@
-function Progresion(initLevel) {
-    var maxLevel = 33
-    var level = initLevel;
-    var fundamental;
-    var numberOfChords;
-    var harmonicRithm;
-    var progresion;
-    var exercise = [];
-    var exercise = setProgresionLevel(level);
-
-    function setProgresionLevel(lvl){
-        return buildMajorPrincipals();
-    }
-}
-
-function buildMajorPrincipals(){
-    prog = [];
-    numberOfChords = 8;
-    chords = tonalMajorProgressionChords;
-    chords.forEach(function (element) {
-        element.setDirections(chords);
-    }, this);
-    prog.push(chords[0])
-    for (var i = 1; i < numberOfChords; i++) {
-        var currentChord = prog[i - 1]
-        var nextChord = currentChord.direction[Math.floor(Math.random() * currentChord.direction.length)]
-        prog.push(nextChord);
-    }
-    loadOnBuffer(buildStream());
-    return prog;
-
-    function buildStream(){
-        var chorale = []
-        for(var i = 0; i < prog.length; i++){
-            chorale[i] = majorScale[prog[i].grade - 1]
-            //Esto se puede optimizar
-            if(chorale[i] - chorale[i-1] > 7){
-                chorale[i] -= 12;
-            }
-            else if(chorale[i] - chorale[i-1] < -7){
-                chorale[i] += 12;
-            }
-        }
-        var stream = [];
-        var delay = 2;
-        for(var i = 0; i < prog.length; i++){
-            stream[i] = new Note(chorale[i] + 32,
-                0 + delay,
-                2);
-            delay += 2;
-        }
-        console.log(stream)
-        return stream;
-    }
-
-    function buildChorale(){
-        
-    }
-}
-
 var tonalMajorProgressionChords = [
     new Degree(1, 'M', 'P', 'T'),
     new Degree(2, 'm', 'S', 'SD'),
@@ -67,6 +7,104 @@ var tonalMajorProgressionChords = [
     new Degree(6, 'm', 'S', 'T'),
     new Degree(7, 'd', 'S', 'D'),
 ]
+
+function harmonicProgresion() {
+    var progresionManager = new LevelManager(info.progresionMaxLevel, user.progresionLevel)
+    var exercise = setProgresionLevel(progresionManager.level);
+    UIManager = new TextInputUIManager();
+
+    this.createProgresion = function(){
+        progresion = new Progresion(exercise)
+        loadOnBuffer(progresion.notes)
+    }
+
+    function setProgresionLevel(lvl){
+        switch(lvl){
+            case 0:
+                return buildMajorPrincipals();
+                break;
+            default:
+                return buildMajorPrincipals();
+                break;
+        }
+    }
+}
+
+
+function Progresion(ex){
+    numberOfChords = 8;
+    this.exercise = ex;
+    this.progresion = setProgresion(this.exercise, numberOfChords);
+    voicing = buildChorale(this.progresion);
+    this.notes = buildStream(voicing);
+    //Deshardcodear
+    
+
+    function setProgresion(chords, number){
+        numberOfChords = number;
+        progresion = []
+        progresion.push(chords[0])
+        for (var i = 1; i < this.numberOfChords; i++) {
+            currentChord = progresion[i - 1]
+            nextChord = currentChord.direction[Math.floor(Math.random() * currentChord.direction.length)]
+            progresion.push(nextChord);
+        }
+        return progresion;
+    }
+
+    function buildChorale(progresion){
+        choir = []
+        bass = []
+        tenor = []
+        alto = []
+        soprano = []
+        for(var i = 0; i < progresion.length; i++){
+            bass[i] = majorScale[progresion[i].grade - 1]
+            //Esto se puede optimizar
+            if(bass[i] - bass[i-1] > 7){
+                bass[i] -= 12;
+            }
+            else if(bass[i] - bass[i-1] < -7){
+                bass[i] += 12;
+            }
+        }
+
+        choir[0] = bass;
+        choir[1] = tenor;
+        choir[2] = alto;
+        choir[3] = soprano;
+        return choir;
+    }
+
+    function buildStream(choir){
+        var stream = [];
+        var delay = 0;
+        
+        for(var i = 0; i < choir[0].length; i++)
+        {
+            for(var j = 0; j < choir.length; j++)
+            {
+                if(choir[j][i] != undefined)
+                {
+                    stream[i+j] = new Note(choir[j][i] + 32,
+                        0 + delay,
+                        2);
+                    delay += 2;
+                }
+            }
+        }
+        return stream;
+    }
+}
+
+
+function buildMajorPrincipals(){
+    chords = tonalMajorProgressionChords;
+    chords.forEach(function (element) {
+        element.setDirections(chords);
+    }, this);
+    return chords;
+}
 
 function Degree(d, k, h, t, r = 1){
     this.grade = d;
@@ -93,5 +131,3 @@ function Degree(d, k, h, t, r = 1){
         }
     }
 }
-
-

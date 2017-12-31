@@ -7,24 +7,13 @@ const sonorities = {
 }
 
 function simpleIntervals() {
-    var intervalManager = new intervalLevelManager();
+    var intervalManager = new LevelManager(info.intervalsMaxLevel, user.intervalLevel);
     //Se define que intervalos se van a presentar
     this.exercise = setIntervalLevel(intervalManager.level);
+    UImanager = new ButtonBasedUIManager("Intervals");
+    UImanager.deactivateButtons(this.exercise);
     
-    //Se toman los elemntos de la UI para modificarlos segun corresponda
-    this.feedback = document.getElementById("feedbackText");
-    this.buttons = document.getElementById("Intervals").getElementsByTagName('button');
-    
-
-    //Esta se lama desde la UI y luego de cada respuesta
-
-    this.deactivateButtons = function(){
-        for(var i = 0; i < this.buttons.length; i++)
-            this.buttons[i].disabled = true;
-        this.exercise.forEach(element => {
-            this.buttons[element].disabled = false;
-        });
-    }
+ 
     this.createInterval = function (){
         interval = new Interval (this.exercise, setTiming(), setDirection())
         loadOnBuffer(interval.notes);
@@ -32,28 +21,14 @@ function simpleIntervals() {
 
     this.checkResponse = function(r){
         var response = r;
-        restore = []
-        restore.push(this.buttons[interval.interval]);
-        restore[0].style.background = 'green'
-        if(response == interval.interval) {
-            this.feedback.innerHTML = "¡Correcto!";
-            console.log(this.feedback.innerHTML)
-        }
-        else {
-            this.feedback.innerHTML = "¡Incorrecto!";
-            restore.push(this.buttons[response]);
-            restore[1].style.background = 'red'
-        }
-        intervalManager.addScore(response == interval.interval);
-
+        var score = 0;
+        if(response == interval.interval) score = 1;
+        else score = -1;
+        intervalManager.addScore(score);
+        UImanager.setFeedback(response, interval.interval);
         setTimeout(function(){ 
-            restore.forEach(element => {
-                element.style.background = '';
-            });
-            this.feedback.innerHTML = "&nbsp";
-        }, 
-        500);
-        //Si saco esto funciona el feedback
+            UImanager.restoreUIElements();
+        }, 500);
         this.checkLevel();
     }
 
@@ -137,12 +112,11 @@ function simpleIntervals() {
         else if (intervalManager.level % 4 == 1) return -1;
         return (Math.floor(Math.random() * 2) - 0.5) * 2;
     }
-    
-    this.deactivateButtons();
+   
 }
 
 function Interval(ex, timing, dir){
-
+    //si tomo un enfoque similar a chords capaz que no necesite el timing
     this.exercise = ex;
     this.direction = dir;
     this.time = timing;
@@ -155,6 +129,7 @@ function Interval(ex, timing, dir){
         return note;
     }
     this.buildStream = function() {
+        //Creo quye no es necesario pasar la dureción de la nota
         var stream = [];
         stream[0] = new Note(this.fundamental,
             0,
@@ -168,39 +143,3 @@ function Interval(ex, timing, dir){
     this.notes = this.buildStream();
 } 
 
-function intervalLevelManager()  {
-    this.maxLevel = 33
-    this.level = clamp(user.intervalLevel, this.maxLevel);
-    rounds = 0
-    totalRounds = 0
-    winRatio = 0.8
-    hit = 0;
-    miss = 0;
-    score = 0
-    
-    this.controlNextLevel = function(){
-        ratio = score / rounds;
-        if(rounds>=totalRounds){
-            if(ratio > winRatio) {
-                level++;
-                //Pasa de nivel
-                return 0;
-            }
-            //No pasa de nivel
-            return 1;
-        }
-        //Sigue
-        return 2;
-    }
-
-    this.addScore = function(value){
-        if(value) hit++;
-        else miss++;
-        rounds++;     
-    }
-    setTotalRounds = function(){
-        if(this.level % 4 == 3) return 50;
-        return 30;        
-    }
-    totalRounds = setTotalRounds();
-}

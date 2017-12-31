@@ -1,6 +1,7 @@
 var activeScreen =null;
 var loadingScreen = null;
 var intervals;
+var chords;
 
 function startIntervals(){            
     intervals = new simpleIntervals();
@@ -12,20 +13,17 @@ function responseIntervals(e) {
 }
 
 function startChords(){
-    chords = new Chords(3);
-    chords.selectChord();    
+    chords = new Chords();
+    chords.createChord();    
 }
 
 function responseChords(e){
-    var usrResponse = (e === chords.getChord());
-    response(usrResponse);
-    if (usrResponse){
-        chords.selectChord()
-    }
+    chords.checkResponse(e)
 }
 
 function startProgresion(){
-    progresion = new Progresion(0)
+    progresion = new harmonicProgresion()
+    progresion.createProgresion();
 }
 
 function responseProgresion(e){
