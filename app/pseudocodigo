@@ -43,8 +43,10 @@ se inicia la clase que corresponde al manejo del ejercicio
     Se envia a la UI Cuales son los valores aceptados
     
 
-    Se crea la instancia de Interval que arma el ejercicio
-        Esta crea el ejercicio en base a las instrucciones de la madre
+    Se crea la instancia de Progresion que arma el ejercicio
+        Esta crea el ejercicio en base a las instrucciones de la madre:
+            Elige la progresión en base a la cantidad y los acordes disponibles
+            Arma el coral
         Envia las notas a ejecutar a traves del loadOnBuffer
     
     El usuario elige una respuesta
@@ -58,4 +60,12 @@ se inicia la clase que corresponde al manejo del ejercicio
             se envia a la UI el intervalo de Usuario y el intervalo correcto
 
     Se reinicia la instancia de interval
-        
+
+
+Armar el coral:
+Recibe la progresión en la forma de grados
+Se determinan las notas que tiene que llevar el acorde en base a su modo
+¿en todas las octavas?
+
+
+Para armar el coral se arma un sistema de representación de 1 3 5

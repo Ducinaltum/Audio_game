@@ -1,5 +1,5 @@
 
-//Clase de notas para enciar a reproducir, muy similar al MIDI
+//Clase de notas para enviar a reproducir, muy similar al MIDI
 function Note (pitch, startTime = 0, nLength = 1, chann = 0, velocity = 127){
     this.channel = chann;
     this.note = pitch;
@@ -18,6 +18,12 @@ var compoundFirst = [4, 5, 1]
 var compoundSecond = [4,1,5,1]
 var authentic = [5,1]
 var broken = [5,6]
+
+var chordTypes = {
+    "major": [0,4,7],
+    "minor": [0,3,7],
+    "dim": [0,3,6],
+}
 
 const limits = {
     "min": 20,

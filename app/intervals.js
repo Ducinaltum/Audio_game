@@ -35,8 +35,14 @@ function simpleIntervals() {
     this.checkLevel = function(){
         switch(intervalManager.controlNextLevel()){
             case 0:
+                this.exercise = setIntervalLevel(intervalManager.level);
+                UImanager = new ButtonBasedUIManager("Intervals");
+                UImanager.deactivateButtons(this.exercise);
                 break;
-            case 1:
+            case 1:    
+                this.exercise = setIntervalLevel(intervalManager.level);
+                UImanager = new ButtonBasedUIManager("Intervals");
+                UImanager.deactivateButtons(this.exercise);
                 break;
             case 2:
                 this.createInterval()
