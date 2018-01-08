@@ -10,24 +10,24 @@ var imperfectTriads = [
     ["aug", [0, 4, 8]]
 ]
 
-var imperfectTriads = [
+var majorSeventhPerfectTriads = [
     ["majj7", [0, 4, 7, 11]],
     ["7", [0, 4, 7, 10]]
 ]
 
-var imperfectTriads = [
+var minorSeventhPerfectTriads = [
     ["m7", [0, 3, 7, 11]],
     ["mmajj7", [0, 3, 7, 10]]
 ]
 
-var imperfectTriads = [
+var diminishedSeventhTriads = [
     ["m7b5", [0, 3, 6, 10]],
     ["dim7", [0, 3, 6, 9]]
 ]
 
-var imperfectTriads = [
-    ["aummajj7", [0, 4, 8, 11]],
-    ["aum7", [0, 4, 8, 10]]
+var augmentedSeventhTriads = [
+    ["augmajj7", [0, 4, 8, 11]],
+    ["aug7", [0, 4, 8, 10]]
 ]
 
 function Chords() {

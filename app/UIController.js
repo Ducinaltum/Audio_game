@@ -3,7 +3,8 @@ var loadingScreen = null;
 var intervals;
 var chords;
 
-function startIntervals(){            
+function startIntervals(){      
+
     intervals = new simpleIntervals();
     intervals.createInterval();
 }
@@ -41,13 +42,12 @@ function responseMelody(e){
 function transition(e){
     var from;
     if(activeScreen != null){
-    from = activeScreen;
-    from.style.display = "none";
+        from = activeScreen;
+        from.style.display = "none";
     }
     activeScreen = document.getElementById(e.slice(2))
     //Animar la salida de la pantalla de carga
     //Animate()
-    activeScreen.style.display = "flex";
     switch(e){
         case "goIntervals":
             startIntervals()
