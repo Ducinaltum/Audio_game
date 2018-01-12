@@ -255,15 +255,20 @@ return stream;
 }
 */
 
-function harmonicProgresion() {
-    var progresionManager = new LevelManager(info.progresionMaxLevel, user.progresionLevel)
-    var exercise = setProgresionLevel(progresionManager.level);
-    console.log(exercise)
-    UIManager = new TextInputUIManager("Progresion");
-    console.log(UIManager)
-    UIManager.deactivateFields(exercise[1]);
+function HarmonicProgresionExercise( actualLevel = user.progresionLevel) {
+    typeOfExercise = 'Progresion'
+    ready = true;
+    level = clamp(actualLevel, info.progresionMaxLevel)
+    exercise = setProgresionLevel(level);
+    progresionManager = new LevelManager(level)
+    showScreen(typeOfExercise)
+    deactivateInputFields(exercise[1], typeOfExercise)
+    //deactivateButtons(typeOfExercise, splitKeys(exercise))
+    createProgresion();
+    this.getKindOfExercise = function(){return typeOfExercise}
+    this.getLevel = function(){return level}     
 
-    this.createProgresion = function () {
+    function createProgresion() {
         progresion = new Progresion(exercise)
         loadOnBuffer(progresion.notes)
     }

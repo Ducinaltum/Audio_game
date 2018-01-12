@@ -26,45 +26,46 @@ var chordTypes = {
 }
 
 const limits = {
-    "min": 20,
-    "max": 108
+    "min": 30,
+    "max": 100
 }
 
 function clamp(value, max, min = 0) {
     return Math.min(Math.max(value, min), max);
 }
 
-//User levels
-var levels = {
-    intervals: 0,
-    chords: 0,
-    progresion: 0
-}
-
-function LevelManager(maxLvl, actualLvl) {
-    this.maxLevel = maxLvl
-    this.level = clamp(actualLvl, this.maxLevel);
+function LevelManager(actualLevel) {
     rounds = 0
     totalRounds = 0
     winRatio = 0.8
     hit = 0;
     miss = 0;
     score = 0
+    this.hasFinishedLevel = function (level) {
+        ratio = hit / rounds;
+        correct = (hit / totalRounds) * 100
+        incorrect = (miss / totalRounds) * 100
 
-    this.controlNextLevel = function () {
+        updateProgressBar(correct, incorrect);
 
-        ratio = score / rounds;
         if (rounds >= totalRounds) {
+            hit = 0;
+            miss = 0;
+            rounds = 0;
             if (ratio > winRatio) {
-                level++;
-                //Pasa de nivel
-                return 0;
+                if (level == user.intervalLevel) {
+                    user.intervalLevel++;
+                }
+                progressRestore()
+                endLevelMenu('win')
             }
-            //No pasa de nivel
-            return 1;
+            else {
+                progressRestore()
+                endLevelMenu('loose')
+            }
+            return true
         }
-        //Sigue
-        return 2;
+        return false;        
     }
 
     this.addScore = function (value) {
@@ -72,42 +73,13 @@ function LevelManager(maxLvl, actualLvl) {
         else miss++;
         rounds++;
     }
-    setTotalRounds = function () {
-        if (this.level % 4 == 3) return 50;
-        return 30;
+    setTotalRounds = function (actualLevel) {
+        if (actualLevel % 4 == 3) return 50;
+        return 20;
     }
-    totalRounds = setTotalRounds();
+    totalRounds = setTotalRounds(actualLevel);
 }
 
-function ButtonBasedUIManager(containerName) {
-    //Se toman los elemntos de la UI para modificarlos segun corresponda
-
-    this.feedback = document.getElementById("feedbackText");
-    this.container = document.getElementById(containerName)
-    this.container.style.display = "block";
-    this.progressFeedback;
-    usingElements = [];
-
-    //Habria que establecer la barra de progreso
-    this.deactivateButtons = function (exercise) {
-        deactivateButtons(this.container.id, exercise)
-     }
-
-    this.setFeedback = function (response, value) {
-        send = undefined;
-        //correctAnswer(send[0].id)
-        if (response != value) {
-            send = response;
-        }
-        console.log(send);
-        answer(value, send);
-    }
-
-    this.restoreUIElements = function () {
-        resetElements(this.container.id)
-        //this.feedback.innerHTML = "&nbsp";
-    }
-}
 
 function TextInputUIManager(containerName) {
     //Se toman los elemntos de la UI para modificarlos segun corresponda
@@ -121,7 +93,7 @@ function TextInputUIManager(containerName) {
     this.deactivateFields = function (numberOfChords) {
         individualFields = this.container.getElementsByTagName('input');
         for (var i = 0; i < individualFields.length; i++) {
-            if(i < numberOfChords) usingElements.push(individualFields[i])
+            if (i < numberOfChords) usingElements.push(individualFields[i])
             else individualFields[i].disabled = true;
         }
     }
@@ -141,9 +113,7 @@ function TextInputUIManager(containerName) {
     }
 
     this.restoreUIElements = function () {
-        usingElements.forEach(element => {
-            //element.style.border-color = '';
-        });
-        this.feedback.innerHTML = "&nbsp";
     }
 }
+
+

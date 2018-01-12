@@ -1,5 +1,5 @@
 var user = {
-    intervalLevel: 0,
+    intervalsLevel: 0,
     progresionLevel: 0,
     chordsLevel: 0,
     
@@ -10,7 +10,18 @@ var user = {
 }
 
 var info = {
-    intervalsMaxLevel: 33,
+    intervalsMaxLevel: 39,
     chordsMaxLevel: 33,
     progresionMaxLevel: 33
+}
+
+
+var winText = {
+    primary: '¡Has superado este nivel!',
+    secondary: 'Puede continuar al siguiente'
+}
+
+var looseText = {
+    primary: 'No has logrado superar este nivel',
+    secondary: 'Le recomiendo repetirlo, o volver al nivel anterior'
 }
