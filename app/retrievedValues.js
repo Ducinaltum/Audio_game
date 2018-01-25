@@ -1,7 +1,7 @@
 var user = {
     intervalsLevel: 0,
-    progresionLevel: 0,
-    chordsLevel: 0,
+    progresionLevel: 2,
+    chordsLevel: 12,
     
     totalScore: 0,
     intervalScore: 0,
@@ -11,7 +11,7 @@ var user = {
 
 var info = {
     intervalsMaxLevel: 39,
-    chordsMaxLevel: 33,
+    chordsMaxLevel: 43,
     progresionMaxLevel: 33
 }
 

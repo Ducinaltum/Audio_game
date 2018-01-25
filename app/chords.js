@@ -1,58 +1,31 @@
 const safeZone = 20;
 
-var perfectTriads = [
-    ["major", [0, 4, 7]],
-    ["minor", [0, 3, 7]]
+baseChords = [
+    ['major',
+        [
+            ['7', [['b9'], ['9'], ['#9'], ['#11'], ['13']]],
+            ['majj7', [['9'], ['#11'], ['13']]]
+        ]
+    ],
+    ['minor',
+        [
+            ['7', [['b9'], ['9'], ['#9'], ['#11'], ['13']]],
+            ['majj7', [['9'], ['#11'], ['13']]]
+        ]
+    ],
+    ['dim',
+        [
+            ['7', [['b9'], ['9'], ['#9'], ['#11'], ['13']]],
+            ['majj7', [['9'], ['#11'], ['13']]]
+        ]
+    ],
+    ['aug',
+        [
+            ['7', [['b9'], ['9'], ['#9'], ['#11'], ['13']]],
+            ['majj7', [['9'], ['#11'], ['13']]]
+        ]
+    ]
 ]
-
-var imperfectTriads = [
-    ["dim", [0, 3, 6]],
-    ["aug", [0, 4, 8]]
-]
-
-// 7°
-var majorSeventhPerfectTriads = [
-    ["majj7", [0, 4, 7, 11]],
-    ["7", [0, 4, 7, 10]]
-]
-
-var minorSeventhPerfectTriads = [
-    ["mmajj7", [0, 3, 7, 10]],
-    ["m7", [0, 3, 7, 11]]
-]
-
-var diminishedSeventhTriads = [
-    ["m7b5", [0, 3, 6, 10]],
-    ["dim7", [0, 3, 6, 9]]
-]
-
-var augmentedSeventhTriads = [
-    ["augmajj7", [0, 4, 8, 11]],
-    ["aug7", [0, 4, 8, 10]]
-]
-
-// 9°
-/*
-var majorSeventhPerfectTriads = [
-    ["majj7/9", [0, 4, 7, 11, 14]],
-    ["7/9", [0, 4, 7, 10]]
-]
-
-var minorSeventhPerfectTriads = [
-    ["m7/9", [0, 3, 7, 11]],
-    ["mmajj7/9", [0, 3, 7, 10]]
-]
-
-var diminishedSeventhTriads = [
-    ["m7b5", [0, 3, 6, 10]],
-    ["dim7", [0, 3, 6, 9]]
-]
-
-var augmentedSeventhTriads = [
-    ["augmajj7", [0, 4, 8, 11]],
-    ["aug7", [0, 4, 8, 10]]
-]
-*/
 
 function ChordsExercise( actualLevel = user.chordsLevel) {
     typeOfExercise = 'Chords'
@@ -61,7 +34,7 @@ function ChordsExercise( actualLevel = user.chordsLevel) {
     exercise = setChordLevel(level);
     chordManager = new LevelManager(level);
     showScreen(typeOfExercise)
-    deactivateButtons(typeOfExercise, splitKeys(exercise))
+    deactivateChordsButtons(typeOfExercise, exercise)
 
     createChord();
 
@@ -77,94 +50,137 @@ function ChordsExercise( actualLevel = user.chordsLevel) {
     this.checkResponse = function (response) {
         if (ready) {
             ready = false
-            currentChord = chord.kind
-            correctButtonAnswer(currentChord)
-            if (response == chord.kind){
-                chordManager.addScore(1)
-                updateFeedback("¡Correcto!", 'success')
+            var score = 0;
+            var failedAnswers = [];
+            var strResponse = '';
+            var correctAnswer = chord.buildedChord
+            switch(correctAnswer[0]){
+                case 'minor':
+                    strResponse += 'm'
+                    break;
+                case 'dim':
+                    strResponse += 'm7b5'
+                    break;
+                case 'aug':
+                    strResponse += '+'
+                    break;
+            }            
+            if(correctAnswer[1] != undefined){
+                if(correctAnswer[1] == 'b7') strResponse = '°'
+                else strResponse += correctAnswer[1];
+                if(correctAnswer[2] != undefined) strResponse += '/' + correctAnswer[2]
+            }
+            for (let i = 0; i < correctAnswer.length; i++) {
+                const element = correctAnswer[i];
+                if(element != response[i]) {
+                    failedAnswers[i] = response[i]
+                }
+                else score ++;
+            }
+
+            score = score / correctAnswer.length;
+            chordManager.addScore(score);
+            chordsButtonAnswer(typeOfExercise, correctAnswer, failedAnswers)
+            if (score == 1){
+                updateFeedback("¡Correcto!", 'success', strResponse)
             }
             else {
-                chordManager.addScore(-1);
-                failButtonAnswer(response)
-                updateFeedback("¡Incorrecto!", 'danger')
+                //failChordsButtonAnswer(typeOfExercise, failedAnswers)
+                if (score > 0) {
+                    updateFeedback("¡Medianamente correcto!", 'warning', strResponse)
+                }
+                else {
+                    updateFeedback("¡Incorrecto!", 'danger', strResponse)
+                }
             }
             
             setTimeout(function () {
                 resetElements(typeOfExercise)
+                deactivateChordsButtons(typeOfExercise, exercise)
                 if(!chordManager.hasFinishedLevel()){
                     createChord()
                 }
-            }, 1000);
+            }, 2000);
         }
     }
-
+   
     function setChordLevel(level){
-        var levelStructure = []
-        switch(Math.floor(level/4)){
+        var levelStructure = {};
+        levelStructure.base = []
+        var kind = Math.floor(level/4)
+        if(kind < 3) {
+            levelStructure.depth = 1
+        }
+        else if(kind >= 3 && kind < 10){
+            levelStructure.depth = 2
+        }
+        else if(kind >= 10 && kind < 17){
+            levelStructure.depth = 3
+            kind -= 7
+        }
+        else if(kind >= 17){
+            levelStructure.depth = 3;
+        }
+        switch(kind){
             case 0:
-                return levelStructure.concat(perfectTriads);
+                levelStructure.base[0] = baseChords[0];
+                levelStructure.base[1] = baseChords[1];
                 break;
             case 1:
-                return levelStructure.concat(imperfectTriads);
+                levelStructure.base[0] = baseChords[2];
+                levelStructure.base[1] = baseChords[3];
                 break;
             case 2:
-                return levelStructure.concat(perfectTriads)
-                .concat(imperfectTriads);;
+                levelStructure.base[0] = baseChords[0];
+                levelStructure.base[1] = baseChords[1];
+                levelStructure.base[2] = baseChords[2];
+                levelStructure.base[3] = baseChords[3];
                 break;
+                
+            //Séptimas
             case 3:
-                return levelStructure.concat(majorSeventhPerfectTriads);
+                levelStructure.base[0] = baseChords[0];
                 break;
             case 4:
-                return levelStructure.concat(minorSeventhPerfectTriads);
+                levelStructure[0][0] = baseChords[1];
                 break;
             case 5:
-            return levelStructure.concat(majorSeventhPerfectTriads)
-                .concat(minorSeventhPerfectTriads);
+                levelStructure.base[0] = baseChords[0];
+                levelStructure.base[1] = baseChords[1];
                 break;
             case 6:
-                return levelStructure.concat(diminishedSeventhTriads);
+                levelStructure[0][0] = baseChords[2];
                 break;
             case 7:
-                return levelStructure.concat(augmentedSeventhTriads);
+                levelStructure[0][0] = baseChords[3];
                 break;
             case 8:
-                return levelStructure.concat(diminishedSeventhTriads)
-                .concat(augmentedSeventhTriads);
+                levelStructure.base[0] = baseChords[2];
+                levelStructure.base[1] = baseChords[3];
                 break;
             case 9:
-                return levelStructure.concat(majorSeventhPerfectTriads)
-                .concat(minorSeventhPerfectTriads)
-                .concat(diminishedSeventhTriads)
-                .concat(augmentedSeventhTriads);
+                levelStructure.base[0] = baseChords[0];
+                levelStructure.base[1] = baseChords[1];
+                levelStructure.base[2] = baseChords[2];
+                levelStructure.base[3] = baseChords[3];
                 break;
-            case 10:
-                return levelStructure.concat(perfectTriads)
-                .concat(imperfectTriads)
-                .concat(majorSeventhPerfectTriads)
-                .concat(minorSeventhPerfectTriads)
-                .concat(diminishedSeventhTriads)
-                .concat(augmentedSeventhTriads);
-                break;
-            case 11:
-                return levelStructure.concat(perfectTriads);
-                break;
-            case 12:
-                return levelStructure.concat(perfectTriads);
-                break;
+            case 17:
 
+                break;
         }
+        return levelStructure;
     }
 
     function setDirection(){
         switch(level % 4){
             case 0:
-                return 0;
-                break;
-            case 1:
                 return 1;
                 break;
-            case 2:
+            case 1:
                 return -1;
+                break;
+            case 2:
+                return 0;
                 break;
             case 3:
                 return Math.floor(Math.random() * 3) - 1
@@ -183,14 +199,18 @@ function ChordsExercise( actualLevel = user.chordsLevel) {
 function Chord(ex, dir){
     exercise = ex;
     direction = dir;
-    chord = exercise[Math.floor(Math.random() * exercise.length)];
+    chord = buildChord();
     fundamental = setFundamental(chord);
     this.kind = chord[0];
     this.notes = buildStream(fundamental)
+    this.buildedChord = chord;
 
     function setFundamental(chord) {
         //Este algoritmo se sale de los límite CORREGIR
-        scope = limits.max - limits.min - Math.abs(chord[1][chord[1].length - 1]);
+        var chordScope = 0;
+        if(chord.length <= 1) chordsKeys[chord[chord.length -1][2]]
+        else chordScope = chordScope = chordsKeys[chord[chord.length - 1]];
+        scope = limits.max - limits.min - chordScope;
         note = Math.floor(Math.random() * scope) + limits.min;
         return note;
     }
@@ -198,20 +218,31 @@ function Chord(ex, dir){
     function buildStream(fundamental){
         //Si dirección es 0, es armonico, si es 1 es ascendene si es -1 es descendente
         var stream = [];
-        console.log(direction)
-        if(direction == -1) chord[1].reverse()
+        notes = []        
+        for(n in chord){
+            notes = notes.concat(chordsKeys[chord[n]])
+        }
+        if(direction == -1) notes.reverse()
         time = 0;
-        for(var i = 0; i < chord[1].length; i++) {
-            console.log(time)
-            note = chord[1][i];
+        for(i in notes) {
+            note = notes[i];
             stream[i] = new Note(note + fundamental, time);
             time += Math.abs(direction);
-
         }
         return stream;        
     }
 
-    
+    function buildChord(){
+        chord = []
+        pointer = exercise.base;
+        for(var i = 0; i < exercise.depth; i++){
+            pointerIndex = Math.floor(Math.random() * pointer.length)
+            chord[i] = pointer[pointerIndex][0]
+            pointer = pointer[pointerIndex][1]
+
+        }
+        return chord;
+    }
 }
 
 

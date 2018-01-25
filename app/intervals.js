@@ -1,5 +1,5 @@
 const sonorities = {
-    "PerfectConsonances": [0, 5, 7, 12],
+    "PerfectConsonances": [5, 7, 12],
     "NearConsonances": [3, 4],
     "NearDisonances": [1, 2],
     "FarConsonances": [8, 9],
@@ -13,7 +13,7 @@ function IntervalsExercise(actualLevel = user.intervalsLevel) {
     exercise = setIntervalLevel()
     intervalManager = new LevelManager(this.level);   
     showScreen(typeOfExercise) 
-    deactivateButtons(typeOfExercise, exercise)
+    deactivateIntervalsButtons(typeOfExercise, exercise)
 
     createInterval();
  
@@ -30,14 +30,14 @@ function IntervalsExercise(actualLevel = user.intervalsLevel) {
         if (ready) {
             ready = false;
             currentInterval = Math.abs(interval.interval)
-            correctButtonAnswer(currentInterval)
+            correctIntervalButtonAnswer(typeOfExercise, currentInterval)
             if (response == currentInterval) {
                 intervalManager.addScore(1)
                 updateFeedback("¡Correcto!", 'success')
             }
             else {
-                intervalManager.addScore(-1);
-                failButtonAnswer(response)
+                intervalManager.addScore(0);
+                failIntervalButtonAnswer(typeOfExercise, response)
                 updateFeedback("¡Incorrecto!", 'danger')
             }
 

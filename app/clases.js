@@ -34,6 +34,20 @@ function clamp(value, max, min = 0) {
     return Math.min(Math.max(value, min), max);
 }
 
+function romanize (num) {
+    if (!+num)
+        return NaN;
+    var digits = String(+num).split(""),
+        key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
+               "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
+               "","I","II","III","IV","V","VI","VII","VIII","IX"],
+        roman = "",
+        i = 3;
+    while (i--)
+        roman = (key[+digits.pop() + (i * 10)] || "") + roman;
+    return Array(+digits.join("") + 1).join("M") + roman;
+}
+
 function LevelManager(actualLevel) {
     rounds = 0
     totalRounds = 0
@@ -61,18 +75,20 @@ function LevelManager(actualLevel) {
             }
             else {
                 progressRestore()
-                endLevelMenu('loose')
+                endLevelMenu('loose')                
             }
             return true
         }
         return false;        
     }
 
+    //Actualizar para que funcione con fracciones
     this.addScore = function (value) {
-        if (value > 0) hit++;
-        else miss++;
+        hit += value
+        miss += Math.abs(value  - 1)
         rounds++;
     }
+
     setTotalRounds = function (actualLevel) {
         if (actualLevel % 4 == 3) return 50;
         return 20;
@@ -81,39 +97,54 @@ function LevelManager(actualLevel) {
 }
 
 
-function TextInputUIManager(containerName) {
-    //Se toman los elemntos de la UI para modificarlos segun corresponda
-    this.feedback = document.getElementById("feedbackText");
-    this.container = document.getElementById(containerName)
-    this.container.style.display = "block";
-    this.progressFeedback;
-    usingElements = [];
+function ProgresionInputManager() {
+    //Indica cual es el input seleccionado
+    fieldSelected = null;
+    //Sirve para operar sobre el campo seleccionado
+    actualField = []
+    //guarda un valor para cada boton de input
+    fields = []
 
-    //Habria que establecer la barra de progreso
-    this.deactivateFields = function (numberOfChords) {
-        individualFields = this.container.getElementsByTagName('input');
-        for (var i = 0; i < individualFields.length; i++) {
-            if (i < numberOfChords) usingElements.push(individualFields[i])
-            else individualFields[i].disabled = true;
-        }
+    this.setFieldSelected = function(field){
+        actualField = []
+        fieldSelected = field
     }
+    this.getFieldSelected = function(){return fieldSelected;}
+    this.getFields = function(){return fields}
 
-    this.setFeedback = function (response, value) {
-        restore = []
-        restore.push(document.getElementById(value));
-        //restore[0].style.border-color = 'green';
-        if (response == value) {
-            this.feedback.innerHTML = "¡Correcto!";
-        }
-        else {
-            this.feedback.innerHTML = "¡Incorrecto!";
-            restore.push(document.getElementById(response));
-            //restore[1].style.border-color = 'red';
-        }
-    }
-
-    this.restoreUIElements = function () {
+    this.setField = function(value, index){
+        returnToUI = [];
+        fieldIndex =  fieldSelected.id.slice(2)
+        actualField[index] = value;
+        fields[fieldIndex] = actualField;
+        returnToUI[1] = romanize(actualField[1])
+        $(fieldSelected).val(returnToUI.join(''))
     }
 }
 
+var chordsKeys = {
+    'major':[0, 4, 7],
+    'minor':[0,3,7],
+    'dim':[0,3,6],
+    'aug':[0,4,7],
 
+    '4':5,
+    
+    '5': 7,
+    
+    '6':9,
+
+    'b7': 9,
+    '7': 10,
+    'majj7': 11,
+
+    'b9':13,
+    '9':14,
+    '#9':15,
+
+    '11':17,
+    '#11':18,
+
+    'b13':20,
+    '13':21
+}

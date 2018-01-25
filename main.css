@@ -35,11 +35,11 @@
     -webkit-box-shadow: none;}
 
   button.non-highlight {
-      outline: none;
+    outline: none;
   }
 
-.btn.non-highlight.active.focus, .btn.non-highlight.active:focus, 
-.btn.non-highlight.focus, .btn.non-highlight:active.focus, 
-.btn.non-highlight:active:focus, .btn.non-highlight:focus{
-  outline: none;
-}
+  .btn.non-highlight.active.focus, .btn.non-highlight.active:focus, 
+  .btn.non-highlight.focus, .btn.non-highlight:active.focus, 
+  .btn.non-highlight:active:focus, .btn.non-highlight:focus{
+    outline: none;
+  }
