@@ -38,8 +38,23 @@
     outline: none;
   }
 
-  .btn.non-highlight.active.focus, .btn.non-highlight.active:focus, 
-  .btn.non-highlight.focus, .btn.non-highlight:active.focus, 
-  .btn.non-highlight:active:focus, .btn.non-highlight:focus{
+  .btn.non-highlight.active.focus, 
+  .btn.non-highlight.active:focus, 
+  .btn.non-highlight.focus, 
+  .btn.non-highlight:active.focus, 
+  .btn.non-highlight:active:focus, 
+  .btn.non-highlight:focus{
     outline: none;
   }
+  /**
+  .no-border, 
+  .no-border:active, 
+  .no-border:active:focus, 
+  .no-border:hover, 
+  .no-border:focus {
+    background-color: transparent;
+    outline: none;
+    border: 0;
+    box-shadow: none;
+    }
+    */

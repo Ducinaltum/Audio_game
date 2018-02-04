@@ -69,6 +69,8 @@ function resetElements(parent) {
     $("#correctText").html("&nbsp")
     $("#feedback").removeClass("alert-success")
         .removeClass("alert-danger");
+    
+    $("#play-pause").prop("disabled", false)
 }
 
 //Feedback Text
@@ -99,8 +101,7 @@ function endLevelMenu(outcome) {
     if (outcome == "loose") {
         $('#repeat').addClass('btn-primary').removeClass('btn-default')
         $('#next').addClass("btn-default").removeClass('btn-primary')
-        //Arreglar por que solo funciona con intervalos
-        if (intervals.level >= user.intervalsLevel) {
+        if (currentExercise.getLevel() >= user[currentExercise.getKindOfExercise().toLowerCase() +'Level']) {
             $('#next').prop("disabled", true);
         }
         $('#endLevelPrimary').html(looseText.primary)
@@ -147,7 +148,24 @@ function initiateExercise(kind) {
 
 
 
-
-
-//$("<p />", { text: "Hej" }).appendTo("#contentl1");
+$(document).keypress(function (e) {
+    var key = e.which;
+    if(key == 13)  {
+        if (currentExercise != null) {
+            $('#' + currentExercise.getKindOfExercise().toLowerCase() + 'Response').click();        }
+    }
+    if(key == 32)  {
+        if (currentExercise != null) {
+            $('#play-pause').click();
+        }
+    }
+    
+});   
+$(document).click(function(){
+    if(currentExercise != null) {
+        if(currentExercise.getKindOfExercise() == 'Chords' || currentExercise.getKindOfExercise() == 'Intervals'){
+            $('#' + currentExercise.getKindOfExercise() + 'KeyInput').focus();
+        }
+    }
+})
 

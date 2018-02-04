@@ -2,21 +2,23 @@ const safeZone = 20;
 
 baseChords = [
     ['major',
-        [
+        [   
             ['7', [['b9'], ['9'], ['#9'], ['#11'], ['13']]],
             ['majj7', [['9'], ['#11'], ['13']]]
         ]
     ],
     ['minor',
         [
-            ['7', [['b9'], ['9'], ['#9'], ['#11'], ['13']]],
-            ['majj7', [['9'], ['#11'], ['13']]]
+            ['6'],
+            ['7', [['9'], ['11'], ['13']]],
+            ['majj7', [['9'], ['11'], ['13']]]
+            //11 b13
         ]
     ],
     ['dim',
         [
-            ['7', [['b9'], ['9'], ['#9'], ['#11'], ['13']]],
-            ['majj7', [['9'], ['#11'], ['13']]]
+            ['b7'],
+            ['7', [['11'], ['b13']]]
         ]
     ],
     ['aug',
@@ -24,7 +26,11 @@ baseChords = [
             ['7', [['b9'], ['9'], ['#9'], ['#11'], ['13']]],
             ['majj7', [['9'], ['#11'], ['13']]]
         ]
-    ]
+    ],
+    ['sus'],
+    ['4'],
+    ['2'],
+    ['6'],
 ]
 
 function ChordsExercise( actualLevel = user.chordsLevel) {
@@ -52,33 +58,19 @@ function ChordsExercise( actualLevel = user.chordsLevel) {
             ready = false
             var score = 0;
             var failedAnswers = [];
-            var strResponse = '';
             var correctAnswer = chord.buildedChord
-            switch(correctAnswer[0]){
-                case 'minor':
-                    strResponse += 'm'
-                    break;
-                case 'dim':
-                    strResponse += 'm7b5'
-                    break;
-                case 'aug':
-                    strResponse += '+'
-                    break;
-            }            
-            if(correctAnswer[1] != undefined){
-                if(correctAnswer[1] == 'b7') strResponse = '°'
-                else strResponse += correctAnswer[1];
-                if(correctAnswer[2] != undefined) strResponse += '/' + correctAnswer[2]
-            }
-            for (let i = 0; i < correctAnswer.length; i++) {
-                const element = correctAnswer[i];
-                if(element != response[i]) {
+            var strResponse = buildFeedbackAnswer(correctAnswer)
+            var posibilities = 0;
+            var index = 0;
+            if (exercise.base.length == 1) index = 1
+            for (let i = index; i < correctAnswer.length; i++) {
+                if (correctAnswer[i] != response[i]) {
                     failedAnswers[i] = response[i]
                 }
-                else score ++;
+                else score++;
+                posibilities++;
             }
-
-            score = score / correctAnswer.length;
+            score = score / posibilities;
             chordManager.addScore(score);
             chordsButtonAnswer(typeOfExercise, correctAnswer, failedAnswers)
             if (score == 1){
@@ -96,8 +88,9 @@ function ChordsExercise( actualLevel = user.chordsLevel) {
             
             setTimeout(function () {
                 resetElements(typeOfExercise)
+                //La línea de abajo es innecesaria, solo sirve para pintar de azul la base del acorde si solo se está trabajando con una
                 deactivateChordsButtons(typeOfExercise, exercise)
-                if(!chordManager.hasFinishedLevel()){
+                if(!chordManager.hasFinishedLevel(level, typeOfExercise)){
                     createChord()
                 }
             }, 2000);
@@ -137,22 +130,22 @@ function ChordsExercise( actualLevel = user.chordsLevel) {
                 levelStructure.base[3] = baseChords[3];
                 break;
                 
-            //Séptimas
+            //Séptimas = Depth = 2
             case 3:
                 levelStructure.base[0] = baseChords[0];
                 break;
             case 4:
-                levelStructure[0][0] = baseChords[1];
+                levelStructure.base[0] = baseChords[1];
                 break;
             case 5:
                 levelStructure.base[0] = baseChords[0];
                 levelStructure.base[1] = baseChords[1];
                 break;
             case 6:
-                levelStructure[0][0] = baseChords[2];
+                levelStructure.base[0] = baseChords[2];
                 break;
             case 7:
-                levelStructure[0][0] = baseChords[3];
+                levelStructure.base[0] = baseChords[3];
                 break;
             case 8:
                 levelStructure.base[0] = baseChords[2];
@@ -187,12 +180,48 @@ function ChordsExercise( actualLevel = user.chordsLevel) {
         }
     }
 
-    function splitKeys(arr){
-        keysOnly = []
-        arr.forEach(element => {
-            keysOnly.push(element[0])
-        });
-        return keysOnly;
+    function buildFeedbackAnswer(correctChord){
+        answer = [];
+        if(correctChord[1] != undefined){
+            switch(correctChord[0]){
+                case 'minor':
+                    answer[0] = 'm'
+                    break;
+                case 'aug':
+                    answer[0] = '+'
+                    break;
+                default:
+                    answer[0] = ''
+                    break;
+            }          
+            if(correctChord[0] == 'dim'){ 
+                if(correctChord[1] == 'b7') answer[0] = '°'
+                else{
+                    answer[0] = 'm'
+                    answer[1] = correctChord[1]
+                    answer[3] = 'b5'
+                }
+            }
+            else answer[1] = correctChord[1];
+            if(correctChord[2] != undefined) answer[2] = '/' + correctChord[2]
+        }
+        else {
+            switch(correctChord[0]){
+                case 'major':
+                    answer[0] = 'Mayor'
+                    break;
+                case 'minor':
+                    answer[0] = 'menor'
+                    break;
+                case 'dim':
+                    answer[0] = 'disminuido'
+                    break;
+                case 'aug':
+                    answer[0] = 'aumentado'
+                    break;
+            }   
+        }
+        return answer.join('')        
     }
 }
 
@@ -239,7 +268,7 @@ function Chord(ex, dir){
             pointerIndex = Math.floor(Math.random() * pointer.length)
             chord[i] = pointer[pointerIndex][0]
             pointer = pointer[pointerIndex][1]
-
+            if(pointer === undefined) break;
         }
         return chord;
     }

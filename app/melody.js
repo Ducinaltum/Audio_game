@@ -40,7 +40,6 @@ function generateSerie(length){
         s.push([i, 1]);
     }
     s = shuffle(s);
-    console.log(s);
     return s;
 }
 

@@ -131,7 +131,6 @@ function HarmonicProgresionExercise( actualLevel = user.progresionLevel) {
     showScreen(typeOfExercise)
     deactivateInputFields(exercise[1], typeOfExercise)
     createProgresion();
-
     this.getKindOfExercise = function(){return typeOfExercise}
     this.getLevel = function(){return level}     
 

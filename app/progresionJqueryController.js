@@ -1,5 +1,6 @@
 //Progresion Input Fields
 function deactivateInputFields(numberOfChords, container) {
+    $("#play-pause").prop("disabled", false)
     $('#' + container + " .form-control").prop('disabled', true).popover('hide')
     individualFields = $('#' + container + " .form-control");
     for (var i = 0; i < numberOfChords; i++) {
@@ -74,7 +75,8 @@ $('#extensions .btn').click(function(){
 
 
 $('#progresionResponse').click(function () {
-    currentExercise.checkResponse();
+    $("#play-pause").prop("disabled", true)
+    currentExercise.checkResponse();    
 })
 
 function failChordAnswer(grade, kind, index) {

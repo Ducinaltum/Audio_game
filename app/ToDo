@@ -1,10 +1,19 @@
 Agregar los niveles de acordes especiales
 
 Implementar para colocar Input de teclado
+    Chords = listo
 
 Acomodar el boton play
 
+SemiDone - Desactivar boton de play después de la respuesta hasta el nuevo ejercicio para que no se superpongan los sonidos
+
 Agregar ejercicios multi intervalo
+
+Play con espacio
+
+Cuando en progresión el usuario elige un modo específico mayor/menor, los acordes se acomodan respondiendo a este modo
+
+Pasar a ejercicio siguiente con enter?
 
 --------------------------------------------------------------------
 

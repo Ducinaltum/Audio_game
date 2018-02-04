@@ -23,6 +23,7 @@ var chordTypes = {
     "major": [0, 4, 7],
     "minor": [0, 3, 7],
     "dim": [0, 3, 6],
+    "aug": [0, 4, 8],
 }
 
 const limits = {
@@ -55,7 +56,7 @@ function LevelManager(actualLevel) {
     hit = 0;
     miss = 0;
     score = 0
-    this.hasFinishedLevel = function (level) {
+    this.hasFinishedLevel = function (level, kind) {
         ratio = hit / rounds;
         correct = (hit / totalRounds) * 100
         incorrect = (miss / totalRounds) * 100
@@ -67,8 +68,8 @@ function LevelManager(actualLevel) {
             miss = 0;
             rounds = 0;
             if (ratio > winRatio) {
-                if (level == user.intervalLevel) {
-                    user.intervalLevel++;
+                if (level == user[kind.toLowerCase()+'Level']) {
+                    user[kind.toLowerCase()+'Level']++;
                 }
                 progressRestore()
                 endLevelMenu('win')
@@ -104,6 +105,7 @@ function ProgresionInputManager() {
     actualField = []
     //guarda un valor para cada boton de input
     fields = []
+    
 
     this.setFieldSelected = function(field){
         actualField = []
@@ -111,7 +113,6 @@ function ProgresionInputManager() {
     }
     this.getFieldSelected = function(){return fieldSelected;}
     this.getFields = function(){return fields}
-
     this.setField = function(value, index){
         returnToUI = [];
         fieldIndex =  fieldSelected.id.slice(2)
@@ -126,17 +127,29 @@ var chordsKeys = {
     'major':[0, 4, 7],
     'minor':[0,3,7],
     'dim':[0,3,6],
-    'aug':[0,4,7],
+    'aug':[0,4,8],
 
+    'b2':1,
+    '2':2,
+    
+    'b3':3,
+    '3':4,
+    
     '4':5,
+    '#4':6,
     
+    'b5':6,
     '5': 7,
+    '#5':8,
     
+    'b6':8,
     '6':9,
 
     'b7': 9,
     '7': 10,
     'majj7': 11,
+
+    '8':12,
 
     'b9':13,
     '9':14,

@@ -43,7 +43,7 @@ function IntervalsExercise(actualLevel = user.intervalsLevel) {
 
             setTimeout(function () {
                 resetElements(typeOfExercise)
-                if (!intervalManager.hasFinishedLevel()) {
+                if (!intervalManager.hasFinishedLevel(level, typeOfExercise)) {
                     createInterval()
                 }
             }, 1000);
@@ -56,7 +56,6 @@ function IntervalsExercise(actualLevel = user.intervalsLevel) {
             case 0:
                 //Consonancias perfectas
                 return levelStructure.concat(sonorities.PerfectConsonances);
-                console.log('here')
                 break;
             case 1:
                 //Consonancias cercanas

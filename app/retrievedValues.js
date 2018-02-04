@@ -1,7 +1,7 @@
 var user = {
     intervalsLevel: 0,
-    progresionLevel: 2,
-    chordsLevel: 12,
+    progresionLevel: 0,
+    chordsLevel: 24,
     
     totalScore: 0,
     intervalScore: 0,
