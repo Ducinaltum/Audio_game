@@ -5,15 +5,18 @@ Implementar para colocar Input de teclado
 
 Acomodar el boton play
 
-SemiDone - Desactivar boton de play después de la respuesta hasta el nuevo ejercicio para que no se superpongan los sonidos
-
-Agregar ejercicios multi intervalo
-
-Play con espacio
+SemiDone - Desactivar boton de play después de la respuesta hasta el nuevo ejercicio 
+    para que no se superpongan los sonidos
 
 Cuando en progresión el usuario elige un modo específico mayor/menor, los acordes se acomodan respondiendo a este modo
 
 Pasar a ejercicio siguiente con enter?
+
+Observar si se hace neceario realizar intervalos multiples de maner descendente
+
+Hay un error cuando la ventana pierde focus()
+
+Make responsive
 
 --------------------------------------------------------------------
 

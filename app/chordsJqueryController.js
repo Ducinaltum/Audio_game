@@ -29,7 +29,7 @@ function deactivateChordsButtons(parent, e) {
         exercise.forEach(element => {
             $("#" + parent + " #" + element[0]).prop("disabled", false)
         });
-        if (depth != 1) $('#chordsBase #major').removeClass('btn-default')
+        $('#chordsBase #major').removeClass('btn-default')
             .addClass('btn-primary')
     }
     $('#ChordsKeyInput').focus()
@@ -146,17 +146,17 @@ $('#ChordsKeyInput').on('input', function () {
     if (input[input.length -1] != ' ') {
         
         var acceptedText = []
-        var strReturn = chordsRegEx.exec(this.value)
+        var strReturn = chordsRegEx.exec(this.value).splice(1)
         if (strReturn != null) {
-            if (strReturn[1] == '°') {
+            if (strReturn[0] == '°') {
                 acceptedText[0] = 'dim'
                 acceptedText[1] = 'b7'
             }
             else {
-                acceptedText[0] = handInputTable[strReturn[1]]
-                acceptedText[1] = strReturn[2]
-                if (strReturn[3] != undefined) acceptedText[2] = strReturn[3].replace('s', '#');
-                if (strReturn[6] != undefined) acceptedText[0] = 'dim';
+                acceptedText[0] = handInputTable[strReturn[0]]
+                acceptedText[1] = strReturn[1]
+                if (strReturn[2] != undefined) acceptedText[2] = strReturn[2].replace('s', '#');
+                if (strReturn[5] != undefined) acceptedText[0] = 'dim';
             }
         }
         if (!$('#chordsBase #' + acceptedText[0]).hasClass('btn-primary') && !$('#chordsBase #' + acceptedText[0]).prop("disabled")) {

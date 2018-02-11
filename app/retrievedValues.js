@@ -1,5 +1,5 @@
 var user = {
-    intervalsLevel: 0,
+    intervalsLevel: 11*4,
     progresionLevel: 0,
     chordsLevel: 24,
     
@@ -10,7 +10,7 @@ var user = {
 }
 
 var info = {
-    intervalsMaxLevel: 39,
+    intervalsMaxLevel: 144,
     chordsMaxLevel: 43,
     progresionMaxLevel: 33
 }

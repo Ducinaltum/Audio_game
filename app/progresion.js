@@ -1,12 +1,3 @@
-function Grade(g, k, t = '', h = '', d = '', dir = [], inv = 5) {
-    this.grade = g;
-    this.kind = k;
-    this.tonalFunction = t;
-    this.hierarchy = h;
-    this.distanceToTonic = d;
-    this.direction = dir;
-    this.inversion = inv;
-}
 
 function buildDirections(chords){
     chords.forEach(element => {
@@ -24,21 +15,21 @@ function buildDirections(chords){
 
 function majorPrincipals() {
     arr = []
-    arr.push(new Grade(1, "major", "T", "P", 0, [1,4,5]));
-    arr.push(new Grade(4, "major", "SD", "P", 5, [1,4,5]));
-    arr.push(new Grade(5, "major", "D", "P", 7, [1,5]));
+    arr.push(new Grade(1, new Chord('major'), "T", "P", 0, [1,4,5]));
+    arr.push(new Grade(4, new Chord('major'), "SD", "P", 5, [1,4,5]));
+    arr.push(new Grade(5, new Chord('major'), "D", "P", 7, [1,5]));
     return arr;
 }
 
 function majorSecondaries(){
     arr = [];
-    arr.push(new Grade(1, "major", "T", "P", 0, [1,2,4,5,6,7]))
-    arr.push(new Grade(4, "major", "SD", "P", 5, [1,2,4,5,6,7]))
-    arr.push(new Grade(5, "major", "D", "P", 7, [1,5,6,7]));
+    arr.push(new Grade(1, new Chord('major'), "T", "P", 0, [1,2,4,5,6,7]))
+    arr.push(new Grade(4, new Chord('major'), "SD", "P", 5, [1,2,4,5,6,7]))
+    arr.push(new Grade(5, new Chord('major'), "D", "P", 7, [1,5,6,7]));
 
-    arr.push(new Grade(2, "minor", "T", "S", 2, [1,5,6,7]))
-    arr.push(new Grade(6, "minor", "SD", "S", 9, [2,4,5,7]))
-    arr.push(new Grade(7, "dim", "D", "S", 11, [1]))
+    arr.push(new Grade(2, new Chord('minor'), "T", "S", 2, [1,5,6,7]))
+    arr.push(new Grade(6, new Chord('minor'), "SD", "S", 9, [2,4,5,7]))
+    arr.push(new Grade(7, new Chord('dim'), "D", "S", 11, [1]))
     return arr;
 }
 
@@ -67,19 +58,19 @@ function minorSecondaries(){
 
 function expandedMinor(){
     arr = [];
-    arr.push(new Grade(1, "minor", "T", "P", 0, [1,2,3,4,5,6,7]))
-    arr.push(new Grade(4, "minor", "SD", "P", 5, [1,2,3,4,5,6,7]))
+    arr.push(new Grade('1', "minor", "T", "P", 0, [1,2,3,4,5,6,7]))
+    arr.push(new Grade('4', "minor", "SD", "P", 5, [1,2,3,4,5,6,7]))
     //Capaz que al 6 no
-    arr.push(new Grade(5, "major", "D", "P", 7, [1,3,5,6,7]));
+    arr.push(new Grade('5', "major", "D", "P", 7, [1,3,5,6,7]));
 
-    arr.push(new Grade(2, "dim", "SD", "S", 2, [1,3,5,6,7]))
-    arr.push(new Grade(3, "major", "T", "S", 3, [2,4,5,6,7]))
-    arr.push(new Grade(6, "major", "SD", "S", 8, [1,2,3,5,7]))
-    arr.push(new Grade(7, "dim", "D", "S", 11, [1]))
+    arr.push(new Grade('2', "dim", "SD", "S", 2, [1,3,5,6,7]))
+    arr.push(new Grade('3', "major", "T", "S", 3, [2,4,5,6,7]))
+    arr.push(new Grade('6', "major", "SD", "S", 8, [1,2,3,5,7]))
+    arr.push(new Grade('7', "dim", "D", "S", 11, [1]))
 
-    arr.push(new Grade(2, "minor", "SD", "S", 2, [1]))
-    arr.push(new Grade(3, "aug", "D", "S", 3, [1]))
-    arr.push(new Grade(4, "major", "SD", "S", 5, [1]))
+    arr.push(new Grade('2', "minor", "SD", "S", 2, [1]))
+    arr.push(new Grade('3', "aug", "D", "S", 3, [1]))
+    arr.push(new Grade('4', "major", "SD", "S", 5, [1]))
     //Hay que pasarlo invertido
     //arr.push(new Grade(5, "minor", "D", "S", 11, [1]))
     
@@ -88,11 +79,12 @@ function expandedMinor(){
     return arr;
 }
 
-var onMajorPrincipalsSecondaryDominats = [
-    new Grade(5/4, "major", "D", "P", 0),
-    new Grade(5/5, "major", "D", "P", 5),
-    new Grade(7/4, "dim", "D", "S", 0),
-    new Grade(7/5, "dim", "D", "S", 5),
+var onMajorPrincipalsSecondaryDominats = [/*
+    new Grade('5/4', "major", "D", "P", 0),
+    new Grade('5/5', "major", "D", "P", 5),
+    new Grade('7/4', "dim", "D", "S", 0),
+    new Grade('7/5', "dim", "D", "S", 5),
+    */
 ];
 
 var onMajorSecondariesSecondaryDominats = [];
@@ -140,19 +132,19 @@ function HarmonicProgresionExercise( actualLevel = user.progresionLevel) {
         loadOnBuffer(progresion.notes)
     }
 
-    this.checkResponse = function(){
+    this.checkResponse = function(response){
         if (ready) {
             ready = false
             grades = [];
             gradeHits = 0
             kindHits = 0
-            response = parseResponse(this.inputManager.getFields());
+            //response = parseResponse(this.inputManager.getFields());
             parsedResponse = []
             for (var i = 0; i < progresion.progresion.length; i++) {
                 grades[i] = 0;
                 if (progresion.progresion[i].grade == response[i].grade) {
                     gradeHits++;
-                    if (progresion.progresion[i].kind == response[i].kind) {
+                    if (progresion.progresion[i].chord.kind == response[i].kind) {
                         kindHits = 1;
                         grades[i] = 1;
                     }
@@ -251,13 +243,13 @@ function HarmonicProgresionExercise( actualLevel = user.progresionLevel) {
                 setPrincipalsDirection(retrieveExercise)
                 break;
         }
-        deactivateInputFields(number, typeOfExercise)
         return [retrieveExercise, number]
     }
 
     function parseResponse(response){
         retrieve = []
         for(var i = 0; i < response.length; i++){
+            
             raw = response[i];
             var modifier, grade, kind, seventh, ninth, eleventh, thirteenth;
             (raw[0] != undefined)? modifier = raw[0]: modifier = '';
@@ -295,6 +287,7 @@ function Progresion(ex) {
             nextChord = currentChord.direction[Math.floor(Math.random() * currentChord.direction.length)]
             progresion.push(nextChord);
         }
+        console.log(progresion)
         return progresion;
     }
 
@@ -304,8 +297,8 @@ function Progresion(ex) {
             octave = 0
             retrieve = []
             while (octave < limits.max) {
-                for (var i = 0; i < chordTypes[note.kind].length; i++) {
-                    retrieve.push(octave + chordTypes[note.kind][i] + note.distanceToTonic);
+                for (var i = 0; i < chordTypes[note.chord.kind].length; i++) {
+                    retrieve.push(octave + chordTypes[note.chord.kind][i] + note.distanceToTonic);
                 }
                 octave += 12;
             }

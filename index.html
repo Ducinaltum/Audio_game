@@ -41,7 +41,7 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+        <!--<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">
@@ -66,7 +66,30 @@
                     </li>
                 </ul>
             </div>
-        </nav>
+        </nav>-->
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#gameSelector">
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span> 
+                </button>
+                <a class="navbar-brand" href="#">AudioGame</a>
+              </div>
+              <div class="collapse navbar-collapse" id="gameSelector">
+                <ul class="nav navbar-nav">
+                  <li><a id="goIntervals" href="#">Intervalos</a></li>
+                  <li><a id="goChords" href="#">Acordes</a></li> 
+                  <li><a id="goProgresion" href="#">Progresión</a></li> 
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                  <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                  <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                </ul>
+              </div>
+            </div>
+          </nav>
     </header>
 
     <!-- MODAL -->
@@ -171,40 +194,40 @@
         <br>
         <div id=compoundIntervals class="btn-group btn-group-justified" role="group" aria-label="...">
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default non-highlight">9m</button>
+                <button type="button" class="btn btn-default non-highlight" id="13">9m</button>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default non-highlight">9M</button>
+                <button type="button" class="btn btn-default non-highlight" id="14">9M</button>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default non-highlight">10m</button>
+                <button type="button" class="btn btn-default non-highlight" id="15">10m</button>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default non-highlight">10M</button>
+                <button type="button" class="btn btn-default non-highlight" id="16">10M</button>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default non-highlight">11J</button>
+                <button type="button" class="btn btn-default non-highlight" id="17">11J</button>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default non-highlight">11A/12d</button>
+                <button type="button" class="btn btn-default non-highlight" id="18">11A/12d</button>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default non-highlight">12J</button>
+                <button type="button" class="btn btn-default non-highlight" id="19">12J</button>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default non-highlight">13m</button>
+                <button type="button" class="btn btn-default non-highlight" id="20">13m</button>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default non-highlight">13M</button>
+                <button type="button" class="btn btn-default non-highlight" id="21">13M</button>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default non-highlight">14m</button>
+                <button type="button" class="btn btn-default non-highlight" id="22">14m</button>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default non-highlight">14M</button>
+                <button type="button" class="btn btn-default non-highlight" id="23">14M</button>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default non-highlight">15J</button>
+                <button type="button" class="btn btn-default non-highlight" id="24">15J</button>
             </div>
         </div>
     </div>

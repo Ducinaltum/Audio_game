@@ -10,37 +10,50 @@ function IntervalsExercise(actualLevel = user.intervalsLevel) {
     typeOfExercise = 'Intervals'
     ready = true;
     level = clamp(actualLevel, info.intervalsMaxLevel);
+    simultaneousIntervals = 1;
     exercise = setIntervalLevel()
-    intervalManager = new LevelManager(this.level);   
-    showScreen(typeOfExercise) 
+    intervalManager = new LevelManager(this.level);
+    showScreen(typeOfExercise)
     deactivateIntervalsButtons(typeOfExercise, exercise)
 
     createInterval();
- 
-    this.getKindOfExercise = function(){return typeOfExercise}
-    this.getLevel = function(){return level}
-    
-    function createInterval(){
+
+    this.getKindOfExercise = function () { return typeOfExercise }
+    this.getLevel = function () { return level }
+    this.getNumberOfIntervals = function () { return simultaneousIntervals }
+
+    function createInterval() {
         ready = true;
-        interval = new Interval (exercise, setTiming(), setDirection())
+        var sendExercise = exercise.slice(0)
+        interval = new Interval(sendExercise, setTiming(), setDirection(), simultaneousIntervals)
         loadOnBuffer(interval.notes);
     }
 
     this.checkResponse = function (response) {
         if (ready) {
             ready = false;
-            currentInterval = Math.abs(interval.interval)
-            correctIntervalButtonAnswer(typeOfExercise, currentInterval)
-            if (response == currentInterval) {
-                intervalManager.addScore(1)
-                updateFeedback("¡Correcto!", 'success')
+            currentIntervals = interval.getIntervals()
+            score = 0
+            for (var i = 0; i < currentIntervals.length; i++) {
+                var hit = false;
+                correctIntervalButtonAnswer(typeOfExercise, currentIntervals[i])
+                for (let n = 0; n < response.length; n++) {
+                    if (response[n] == currentIntervals[i]) {
+                        hit = true;
+                        score++;
+                        response.splice(n, 1)
+                    }
+                }
+                if (!hit) {
+                    intervalManager.addScore(0);
+                }
             }
-            else {
-                intervalManager.addScore(0);
-                failIntervalButtonAnswer(typeOfExercise, response)
-                updateFeedback("¡Incorrecto!", 'danger')
-            }
-
+            for (var fail in response) failIntervalButtonAnswer(typeOfExercise, response[fail])
+            score /= currentIntervals.length
+            intervalManager.addScore(score)
+            if (score == 1) updateFeedback("¡Correcto!", 'success')
+            else if (score > 0) updateFeedback("¡Medianamente correcto!", 'warning')
+            else updateFeedback("¡Incorrecto!", 'danger')
             setTimeout(function () {
                 resetElements(typeOfExercise)
                 if (!intervalManager.hasFinishedLevel(level, typeOfExercise)) {
@@ -51,8 +64,12 @@ function IntervalsExercise(actualLevel = user.intervalsLevel) {
     }
 
     function setIntervalLevel() {
+        procesedLevel = Math.floor(level / 4)
+        if(procesedLevel < 10) simultaneousIntervals = 1;
+        else if(procesedLevel >= 10 && procesedLevel < 18) simultaneousIntervals = 2;
+        else simultaneousIntervals = 3;
         levelStructure = [];
-        switch (Math.floor(level / 4)) {
+        switch (procesedLevel) {
             case 0:
                 //Consonancias perfectas
                 return levelStructure.concat(sonorities.PerfectConsonances);
@@ -92,27 +109,168 @@ function IntervalsExercise(actualLevel = user.intervalsLevel) {
                 return levelStructure.concat(sonorities.FarDisonances);
                 break;
             //Todos los intervalos dentro de la octava
-            //Se devuelve un valor random directamente, el ramdom de la llamada 
-            //posterior solo podrá tomar el valor que retorne ésta función
             case 8:
-                intervals = [];
-                for(var i = 0; i < 14; i++){
-                    intervals.push(i)
+                for (var i = 1; i < 13; i++) {
+                    levelStructure.push(i)
                 }
-                return intervals
+                return levelStructure
                 break;
             //Intervalos compuestos
             case 9:
+                for (var i = 1; i < 25; i++) {
+                    levelStructure.push(i)
+                }
+                return levelStructure;
+                break;
+
+            //Tres notas
+
+            //Intervalos perfectos
+            case 10:
+                return levelStructure.concat(sonorities.PerfectConsonances);
+                break;
+            //Intervalos perfectos 2 octavas
+            case 11:
+                levelStructure = levelStructure.concat(sonorities.PerfectConsonances)
+                levelStructure = levelStructure.concat(levelStructure.map(function (x) {
+                    return octavate(x, 1)
+                }));
+                return levelStructure
+                break;
+            case 12:
+                //3ras y 6tas
+                return levelStructure.concat(sonorities.NearConsonances)
+                    .concat(sonorities.FarConsonances)
+                break;
+            //3ras y 6tas 2 octavas
+            case 13:
+                levelStructure = levelStructure.concat(sonorities.NearConsonances)
+                    .concat(sonorities.FarConsonances)
+                levelStructure = levelStructure.concat(levelStructure.map(function (x) {
+                    return octavate(x, 1)
+                }));
+                return levelStructure;
+                break;
+            //Perfectos 3ras y 6tas 2 octavas
+            case 14:
+                levelStructure = levelStructure.concat(sonorities.PerfectConsonances)
+                    .concat(sonorities.NearConsonances)
+                    .concat(sonorities.FarConsonances)
+                levelStructure = levelStructure.concat(levelStructure.map(function (x) {
+                    return octavate(x, 1)
+                }));
+                return levelStructure;
+                break;
+            //2das y 7mas
+            case 15:
+                levelStructure = levelStructure.concat(sonorities.NearDisonances)
+                    .concat(sonorities.FarDisonances)
+                break;
+            //2das y 7mas 2 octavas
+            case 16:
+                levelStructure = levelStructure.concat(sonorities.NearDisonances)
+                    .concat(sonorities.FarDisonances)
+                levelStructure = levelStructure.concat(levelStructure.map(function (x) {
+                    return octavate(x, 1)
+                }));
+                return levelStructure;
+                return levelStructure
+                break;
+            //Todo 2 octavas
+            case 17:
                 intervals = [];
-                for(var i = 0; i < 25; i++){
+                for (var i = 1; i < 25; i++) {
                     intervals.push(i)
                 }
                 return intervals;
                 break;
-            //Todo el puto registro sonoro
-            default:
+
+            //Cuatro notas
+
+            //Intervalos perfectos
+            case 10:
+                return levelStructure.concat(sonorities.PerfectConsonances);
+                levelStructure = levelStructure.concat(levelStructure.map(function (x) {
+                    return octavate(x, 1)
+                }));
+                break;
+            //Intervalos perfectos 3 octavas
+            case 11:
+                levelStructure = levelStructure.concat(sonorities.PerfectConsonances)
+                levelStructure = levelStructure.concat(levelStructure.map(function (x) {
+                    return octavate(x, 1)
+                }));
+                levelStructure = levelStructure.concat(levelStructure.map(function (x) {
+                    return octavate(x, 2)
+                }));
+                return levelStructure
+                break;
+            case 12:
+                //3ras y 6tas
+                return levelStructure.concat(sonorities.NearConsonances)
+                    .concat(sonorities.FarConsonances)
+                levelStructure = levelStructure.concat(levelStructure.map(function (x) {
+                    return octavate(x, 1)
+                }));
+                break;
+            //3ras y 6tas 3 octavas
+            case 13:
+                levelStructure = levelStructure.concat(sonorities.NearConsonances)
+                    .concat(sonorities.FarConsonances)
+                levelStructure = levelStructure.concat(levelStructure.map(function (x) {
+                    return octavate(x, 1)
+                }));
+                levelStructure = levelStructure.concat(levelStructure.map(function (x) {
+                    return octavate(x, 2)
+                }));
+                return levelStructure;
+                break;
+            //Perfectos 3ras y 6tas 3 octavas
+            case 14:
+                levelStructure = levelStructure.concat(sonorities.PerfectConsonances)
+                    .concat(sonorities.NearConsonances)
+                    .concat(sonorities.FarConsonances)
+                levelStructure = levelStructure.concat(levelStructure.map(function (x) {
+                    return octavate(x, 1)
+                }));
+                levelStructure = levelStructure.concat(levelStructure.map(function (x) {
+                    return octavate(x, 2)
+                }));
+                return levelStructure;
+                break;
+            //2das y 7mas
+            case 15:
+                levelStructure = levelStructure.concat(sonorities.NearDisonances)
+                    .concat(sonorities.FarDisonances)
+                levelStructure = levelStructure.concat(levelStructure.map(function (x) {
+                    return octavate(x, 1)
+                }));
+                break;
+            //2das y 7mas 3 octavas
+            case 16:
+                levelStructure = levelStructure.concat(sonorities.NearDisonances)
+                    .concat(sonorities.FarDisonances)
+                levelStructure = levelStructure.concat(levelStructure.map(function (x) {
+                    return octavate(x, 1)
+                }));
+                levelStructure = levelStructure.concat(levelStructure.map(function (x) {
+                    return octavate(x, 2)
+                }));
+                return levelStructure
+                break;
+            //Todo 2 octavas
+            case 17:
+                intervals = [];
+                for (var i = 1; i < 37; i++) {
+                    intervals.push(i)
+                }
+                return intervals;
                 break;
         }
+    }
+
+    function setNumberOfIntervals() {
+        Mathf.loor(Math.floor(level / 4) / 9)
     }
 
     function setTiming() {
@@ -121,40 +279,59 @@ function IntervalsExercise(actualLevel = user.intervalsLevel) {
         return 0;
     }
 
-    function setDirection()  {
+    function setDirection() {
         if (level % 4 == 0) return 1;
         else if (level % 4 == 1) return -1;
         return (Math.floor(Math.random() * 2) - 0.5) * 2;
     }
-   
+
 }
 
-function Interval(ex, timing, dir){
+function Interval(ex, timing, dir, numberOfIntervals) {
     //si tomo un enfoque similar a chords capaz que no necesite el timing
-    this.exercise = ex;
-    this.direction = dir;
-    this.time = timing;
-    this.interval = this.exercise[Math.floor(Math.random() * this.exercise.length)] * this.direction;
+    intervalExercise = ex;
+    direction = dir;
+    time = timing;
+    intervals = setIntervals(numberOfIntervals);
+    this.interval = intervals[intervals.length - 1];
+    fundamental = setFundamental();
+    this.notes = buildStream();
 
-    this.setFundamental = function() {
-        scope = limits.max - limits.min - Math.abs(this.interval);
+    this.getIntervals = function () {
+        return intervals;
+    }
+
+    function setIntervals() {
+        arr = []
+        for (let i = 0; i < numberOfIntervals; i++) {
+            index = Math.floor(Math.random() * intervalExercise.length)
+            arr[i] = intervalExercise[index];
+            intervalExercise.splice(index, 1);
+        }
+        arr.sort(function (a, b) { return a - b })
+        return arr;
+    }
+    function setFundamental() {
+        scope = limits.max - limits.min - intervals[intervals.length - 1];
         //Este algoritmo se sale de los límite por que no tiene en cuanta los valores negativos CORREGIR
         note = Math.floor(Math.random() * scope) + limits.min;
-        if (this.direction < 0) note += Math.abs(this.interval);
+        if (direction < 0) note += intervals[intervals.length - 1];
         return note;
     }
 
-    this.buildStream = function() {
+    function buildStream() {
         var stream = [];
-        stream[0] = new Note(this.fundamental,
+        elapsedTime = time;
+        stream[0] = new Note(fundamental,
             0,
             1);
-        stream[1] = new Note(this.fundamental + this.interval,
-            0 + this.time,
-            1);
+        for (let i = 0; i < numberOfIntervals; i++) {
+            stream[i + 1] = new Note(fundamental + intervals[i],
+                0 + elapsedTime,
+                1);
+            elapsedTime += time;
+        }
         return stream;
     }
-    this.fundamental = this.setFundamental();
-    this.notes = this.buildStream();
-} 
+}
 

@@ -9,10 +9,28 @@ function deactivateIntervalsButtons(parent, exercise) {
     });
 }
 
+var selectedButtons = []
+
 $('#Intervals .btn').click(function (e) {
-    $("#play-pause").prop("disabled", true)
-    currentExercise.checkResponse(this.id)
+    if (!$(this).hasClass('btn-primary')) {
+        $(this).removeClass('btn-default')
+            .addClass('btn-primary')
+        selectedButtons.push(this.id)
+        if (selectedButtons.length >= currentExercise.getNumberOfIntervals()) {
+            $("#play-pause").prop("disabled", true)
+            currentExercise.checkResponse(selectedButtons)
+            selectedButtons = []
+        }
+    }
+    else{
+        $(this).removeClass('btn-primary')
+            .addClass('btn-default')
+        selectedButtons = selectedButtons.filter(function(element){
+            element != this.id
+        })
+    }
 })
+
 // Response Buttons feedback
 function correctIntervalButtonAnswer(parent, value) {
     $("#" + parent + " #" + value).addClass("btn-success");

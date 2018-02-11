@@ -49,7 +49,7 @@ function ChordsExercise( actualLevel = user.chordsLevel) {
 
     function createChord(){
         ready = true;
-        chord = new Chord(exercise, setDirection())
+        chord = new ChordBuilder(exercise, setDirection())
         loadOnBuffer(chord.notes)
     }
 
@@ -225,7 +225,7 @@ function ChordsExercise( actualLevel = user.chordsLevel) {
     }
 }
 
-function Chord(ex, dir){
+function ChordBuilder(ex, dir){
     exercise = ex;
     direction = dir;
     chord = buildChord();

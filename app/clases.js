@@ -9,6 +9,30 @@ function Note(pitch, startTime = 0, nLength = 1, chann = 0, velocity = 127) {
     this.noteOff = startTime + nLength;
 }
 
+function Chord(k, d, s, e){
+    this.kind = k;
+    this.depth = d
+    this.seven = s
+    this.extensions = e;
+    /*
+    if(seven == undefined) {
+        if(extensions == undefined){
+
+        }
+    }
+    */
+}
+
+function Grade(g, c, t = '', h = '', d = '', dir = [], inv = 5) {
+    this.grade = g;
+    this.chord = c;
+    this.tonalFunction = t;
+    this.hierarchy = h;
+    this.distanceToTonic = d;
+    this.direction = dir;
+    this.inversion = inv;
+}
+
 //Scales
 var majorScale = [0, 2, 4, 5, 7, 9, 11]
 var minorScale = [0, 2, 3, 5, 7, 8, 10]
@@ -47,6 +71,10 @@ function romanize (num) {
     while (i--)
         roman = (key[+digits.pop() + (i * 10)] || "") + roman;
     return Array(+digits.join("") + 1).join("M") + roman;
+}
+
+function octavate(note, oct){
+    return note + (12 * oct)
 }
 
 function LevelManager(actualLevel) {
@@ -105,8 +133,6 @@ function ProgresionInputManager() {
     actualField = []
     //guarda un valor para cada boton de input
     fields = []
-    
-
     this.setFieldSelected = function(field){
         actualField = []
         fieldSelected = field

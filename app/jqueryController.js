@@ -132,9 +132,10 @@ function goToLevel(level) {
     Exercise = initiateExercise(kind);
     currentExercise = new Exercise(newlevel);
 }
+
 function initiateExercise(kind) {
     switch (kind) {
-        case 'intervals':
+        case 'Intervals':
             return IntervalsExercise;
             break;
         case 'Chords':
@@ -156,7 +157,9 @@ $(document).keypress(function (e) {
     }
     if(key == 32)  {
         if (currentExercise != null) {
-            $('#play-pause').click();
+            if(!$('#play-pause').prop("disabled")){
+                $('#play-pause').click();
+            }
         }
     }
     
