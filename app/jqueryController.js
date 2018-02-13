@@ -2,6 +2,10 @@ var activeScreen = null;
 var loadingScreen = null;
 var currentExercise = null;
 
+var btnSuccess = "btn-success"
+var btnFail = "btn-danger"
+var btnCorrection = "btn-info"
+
 var testPattern = /(b|#)?(I|II|III|IV|V|VI|VII)(m|dim|\+)?[(/)(b|#)?(I|II|III|IV|V|VI|VII)]?[(b|#)?(7|9|11|13)]?[(/)(b|#)?(7|9|11|13)]*/
 
 $('#gameSelector a').click(function () {
@@ -153,7 +157,8 @@ $(document).keypress(function (e) {
     var key = e.which;
     if(key == 13)  {
         if (currentExercise != null) {
-            $('#' + currentExercise.getKindOfExercise().toLowerCase() + 'Response').click();        }
+
+            $('#' + currentExercise.getKindOfExercise().toLowerCase() + 'Response').focus().click();        }
     }
     if(key == 32)  {
         if (currentExercise != null) {
@@ -163,10 +168,11 @@ $(document).keypress(function (e) {
         }
     }
     
-});   
+});
+
 $(document).click(function(){
     if(currentExercise != null) {
-        if(currentExercise.getKindOfExercise() == 'Chords' || currentExercise.getKindOfExercise() == 'Intervals'){
+        if(currentExercise.getKindOfExercise() == 'Chords'){
             $('#' + currentExercise.getKindOfExercise() + 'KeyInput').focus();
         }
     }

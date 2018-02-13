@@ -181,7 +181,7 @@ function ChordsExercise( actualLevel = user.chordsLevel) {
     }
 
     function buildFeedbackAnswer(correctChord){
-        answer = [];
+        var answer = [];
         if(correctChord[1] != undefined){
             switch(correctChord[0]){
                 case 'minor':

@@ -69,27 +69,39 @@
         </nav>-->
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
-              <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#gameSelector">
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span> 
-                </button>
-                <a class="navbar-brand" href="#">AudioGame</a>
-              </div>
-              <div class="collapse navbar-collapse" id="gameSelector">
-                <ul class="nav navbar-nav">
-                  <li><a id="goIntervals" href="#">Intervalos</a></li>
-                  <li><a id="goChords" href="#">Acordes</a></li> 
-                  <li><a id="goProgresion" href="#">Progresión</a></li> 
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                  <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                  <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                </ul>
-              </div>
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#gameSelector">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">AudioGame</a>
+                </div>
+                <div class="collapse navbar-collapse" id="gameSelector">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a id="goIntervals" href="#">Intervalos</a>
+                        </li>
+                        <li>
+                            <a id="goChords" href="#">Acordes</a>
+                        </li>
+                        <li>
+                            <a id="goProgresion" href="#">Progresión</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#">
+                                <span class="glyphicon glyphicon-user"></span> Sign Up</a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="glyphicon glyphicon-log-in"></span> Login</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-          </nav>
+        </nav>
     </header>
 
     <!-- MODAL -->
@@ -343,13 +355,13 @@
         </div>
         <br>
         <div id='inputButtons'>
-            <div>
-                <div id="gradesModifier" class="btn-group btn-group-lg" role="group">
+            <div id="gradeSelector">
+                <div id="gradeModifier" class="btn-group btn-group-lg" role="group">
                     <button id='b' type="button" class="btn btn-default disabled">b</button>
                     <button id='#' type="button" class="btn btn-default disabled">#</button>
                     <button id='/' type="button" class="btn btn-default disabled">/</button>
                 </div>
-                <div id="grades" class="btn-group btn-group-lg" role="group">
+                <div id="grade" class="btn-group btn-group-lg" role="group">
                     <button id='1' type="button" class="btn btn-default">I</button>
                     <button id='2' type="button" class="btn btn-default">II</button>
                     <button id='3' type="button" class="btn btn-default">III</button>
@@ -361,35 +373,58 @@
             </div>
             <br>
             <div>
-                <div id="chordType" class="btn-group btn-group-lg" role="group">
-                    <button type="major" class="btn btn-default">M</button>
-                    <button type="m" class="btn btn-default">m</button>
-                    <button type="dim" class="btn btn-default">dim</button>
-                    <button type="aug" class="btn btn-default">+</button>
+                <div id="kind" class="btn-group btn-group-lg" role="group">
+                    <button id="major" type="button" class="btn btn-default">M</button>
+                    <button id="minor" class="btn btn-default">m</button>
+                    <button id="dim" class="btn btn-default">dim</button>
+                    <button id="aug" class="btn btn-default">+</button>
                 </div>
             </diV>
             <br>
             <div>
-                <div id='extensions'>
-                    <div class="btn-group btn-group-lg" role="group">
+                <div id='extentions'>
+                    <div id="seven" class="btn-group btn-group-lg" role="group">
                         <button id='b7' type="button" class="btn btn-default disabled">b7</button>
                         <button id='7' type="button" class="btn btn-default disabled">7</button>
                         <button id='majj7' type="button" class="btn btn-default disabled">majj7</button>
                     </div>
-                    <div class="btn-group btn-group-lg" role="group">
-                        <button id='b9' type="button" class="btn btn-default disabled">b9</button>
-                        <button id='9' type="button" class="btn btn-default disabled">9</button>
-                        <button id='#9' type="button" class="btn btn-default disabled">#9</button>
-                    </div>
-                    <div class="btn-group btn-group-lg" role="group">
-                        <button id='11' type="button" class="btn btn-default disabled">11</button>
-                        <button id='11#' type="button" class="btn btn-default disabled">#11</button>
-                    </div>
-                    <div class="btn-group btn-group-lg" role="group">
-                        <button id='13' type="button" class="btn btn-default disabled">13</button>
+                    <br>
+                    <div id="extention">
+                        <div class="btn-group btn-group-lg" role="group">
+                            <button id='b9' type="button" class="btn btn-default disabled">b9</button>
+                            <button id='9' type="button" class="btn btn-default disabled">9</button>
+                            <button id='#9' type="button" class="btn btn-default disabled">#9</button>
+                        </div>
+                        <div class="btn-group btn-group-lg" role="group">
+                            <button id='11' type="button" class="btn btn-default disabled">11</button>
+                            <button id='11#' type="button" class="btn btn-default disabled">#11</button>
+                        </div>
+                        <div class="btn-group btn-group-lg" role="group">
+                            <button id='13' type="button" class="btn btn-default disabled">13</button>
+                        </div>
                     </div>
                 </div>
             </diV>
+            <br>
+            <div id="secondaryDominantSelector">
+                <div id="isSecondaryDominat" class="btn-group btn-group-lg" role="group">
+                    <button id='of' type="button" class="btn btn-default disabled">/</button>
+                </div>
+                <div id="secondaryDominatModifier" class="btn-group btn-group-lg" role="group">
+                    <button id='b' type="button" class="btn btn-default disabled">b</button>
+                    <button id='#' type="button" class="btn btn-default disabled">#</button>
+                    <button id='/' type="button" class="btn btn-default disabled">/</button>
+                </div>
+                <div id="secondaryDominat" class="btn-group btn-group-lg" role="group">
+                    <button id='1' type="button" class="btn btn-default">I</button>
+                    <button id='2' type="button" class="btn btn-default">II</button>
+                    <button id='3' type="button" class="btn btn-default">III</button>
+                    <button id='4' type="button" class="btn btn-default">IV</button>
+                    <button id='5' type="button" class="btn btn-default">V</button>
+                    <button id='6' type="button" class="btn btn-default">VI</button>
+                    <button id='7' type="button" class="btn btn-default">VII</button>
+                </div>
+            </div>
             <br>
             <button id='progresionResponse' type="button" class="btn btn-default btn-lg">Respuesta</button>
         </div>

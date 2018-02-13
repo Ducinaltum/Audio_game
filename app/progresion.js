@@ -1,4 +1,3 @@
-
 function buildDirections(chords){
     chords.forEach(element => {
         direction = []
@@ -13,46 +12,66 @@ function buildDirections(chords){
     });
 }
 
+var mayorMode = {
+    '1': 'major',
+    '2': 'minor',
+    '3': 'minor',
+    '4': 'major',
+    '5': 'major',
+    '6': 'minor',
+    '7': 'dim',
+}
+
+var minorMode = {
+    '1': 'minor',
+    '2': 'dim',
+    '3': 'major',
+    '4': 'minor',
+    '5': 'major',
+    '6': 'major',
+    '7': 'dim',
+}
+
 function majorPrincipals() {
     arr = []
-    arr.push(new Grade(1, new Chord('major'), "T", "P", 0, [1,4,5]));
-    arr.push(new Grade(4, new Chord('major'), "SD", "P", 5, [1,4,5]));
-    arr.push(new Grade(5, new Chord('major'), "D", "P", 7, [1,5]));
+    arr.push(new Grade('1', new Chord('major'), "T", "P", 0, [1,4,5]));
+    arr.push(new Grade('4', new Chord('major'), "SD", "P", 5, [1,4,5]));
+    arr.push(new Grade('5', new Chord('major'), "D", "P", 7, [1,5]));
     return arr;
 }
 
 function majorSecondaries(){
     arr = [];
-    arr.push(new Grade(1, new Chord('major'), "T", "P", 0, [1,2,4,5,6,7]))
-    arr.push(new Grade(4, new Chord('major'), "SD", "P", 5, [1,2,4,5,6,7]))
-    arr.push(new Grade(5, new Chord('major'), "D", "P", 7, [1,5,6,7]));
+    arr.push(new Grade('1', new Chord('major'), "T", "P", 0, [1,2,4,5,6,7]))
+    arr.push(new Grade('4', new Chord('major'), "SD", "P", 5, [1,2,4,5,6,7]))
+    arr.push(new Grade('5', new Chord('major'), "D", "P", 7, [1,5,6,7]));
 
-    arr.push(new Grade(2, new Chord('minor'), "T", "S", 2, [1,5,6,7]))
-    arr.push(new Grade(6, new Chord('minor'), "SD", "S", 9, [2,4,5,7]))
-    arr.push(new Grade(7, new Chord('dim'), "D", "S", 11, [1]))
+    arr.push(new Grade('2', new Chord('minor'), "T", "S", 2, [1,5,6,7]))
+    arr.push(new Grade('6', new Chord('minor'), "SD", "S", 9, [2,4,5,7]))
+    arr.push(new Grade('7', new Chord('dim'), "D", "S", 11, [1]))
     return arr;
 }
 
 //Acomodar la distancia a tónica
 function minorPrincipals() {
     arr = []
-    arr.push(new Grade(1, "minor", "T", "P", 0, [1,4,5]));
-    arr.push(new Grade(4, "minor", "SD", "P", 5, [1,4,5]));
-    arr.push(new Grade(5, "major", "D", "P", 7, [1,5]));
+    arr.push(new Grade('1', "minor", "T", "P", 0, [1,4,5]));
+    arr.push(new Grade('4', "minor", "SD", "P", 5, [1,4,5]));
+    arr.push(new Grade('5', "major", "D", "P", 7, [1,5]));
     return arr;
 }
 
 function minorSecondaries(){
     arr = [];
-    arr.push(new Grade(1, "minor", "T", "P", 0, [1,2,3,4,5,6,7]))
-    arr.push(new Grade(4, "minor", "SD", "P", 5, [1,2,3,4,5,6,7]))
+    arr.push(new Grade('1', "minor", "T", "P", 0, [1,2,3,4,5,6,7]))
+    arr.push(new Grade('4', "minor", "SD", "P", 5, [1,2,3,4,5,6,7]))
     //Capaz que al 6 no
-    arr.push(new Grade(5, "major", "D", "P", 7, [1,3,5,6,7]));
+    arr.push(new Grade('5', "major", "D", "P", 7, [1,3,5,6,7]));
 
-    arr.push(new Grade(2, "dim", "SD", "S", 2, [1,3,5,6,7]))
-    arr.push(new Grade(3, "major", "T", "S", 3, [2,4,5,6,7]))
-    arr.push(new Grade(6, "major", "SD", "S", 8, [1,2,3,5,7]))
-    arr.push(new Grade(7, "dim", "D", "S", 11, [1]))
+    arr.push(new Grade('2', "dim", "SD", "S", 2, [1,3,5,6,7]))
+    arr.push(new Grade('3', "major", "T", "S", 3, [2,4,5,6,7]))
+    arr.push(new Grade('6', "major", "SD", "S", 8, [1,2,3,5,7]))
+    arr.push(new Grade('7', "dim", "D", "S", 11, [1]))
     return arr;
 }
 
@@ -119,7 +138,8 @@ function HarmonicProgresionExercise( actualLevel = user.progresionLevel) {
     level = clamp(actualLevel, info.progresionMaxLevel)
     exercise = setProgresionLevel(level);
     progresionManager = new LevelManager(level)
-    this.inputManager = new ProgresionInputManager();
+    var mode;
+    this.inputManager = new ProgresionInputManager();    
     showScreen(typeOfExercise)
     deactivateInputFields(exercise[1], typeOfExercise)
     createProgresion();
@@ -138,7 +158,6 @@ function HarmonicProgresionExercise( actualLevel = user.progresionLevel) {
             grades = [];
             gradeHits = 0
             kindHits = 0
-            //response = parseResponse(this.inputManager.getFields());
             parsedResponse = []
             for (var i = 0; i < progresion.progresion.length; i++) {
                 grades[i] = 0;
@@ -152,7 +171,7 @@ function HarmonicProgresionExercise( actualLevel = user.progresionLevel) {
             };
             for(var i = 0; i < grades.length; i++){
                 if(grades[i] != 1){
-                    failChordAnswer(romanize(progresion.progresion[i].grade), progresion.progresion[i].kind, i)
+                    failChordAnswer(romanize(progresion.progresion[i].grade), progresion.progresion[i].chord.kind, i)
                 }
                 else{
                     correctChordAnswer(i)
@@ -165,7 +184,8 @@ function HarmonicProgresionExercise( actualLevel = user.progresionLevel) {
 
             setTimeout(function () {
                 resetElements(typeOfExercise)
-                if (!progresionManager.hasFinishedLevel()) {
+                deactivateInputFields(exercise[1], typeOfExercise)
+                if (!progresionManager.hasFinishedLevel(level, typeOfExercise)) {
                     createProgresion()
                 }
             }, 2000);
@@ -245,27 +265,6 @@ function HarmonicProgresionExercise( actualLevel = user.progresionLevel) {
         }
         return [retrieveExercise, number]
     }
-
-    function parseResponse(response){
-        retrieve = []
-        for(var i = 0; i < response.length; i++){
-            
-            raw = response[i];
-            var modifier, grade, kind, seventh, ninth, eleventh, thirteenth;
-            (raw[0] != undefined)? modifier = raw[0]: modifier = '';
-            (raw[1] != undefined)? grade = raw[1]: grade = '';
-
-            (raw[2] != undefined)? kind = raw[2]: kind = 'major';
-            (raw[3] != undefined)? seventh = raw[3]: seventh = '';
-            (raw[4] != undefined)? ninth = raw[4]: ninth = '';
-            (raw[5] != undefined)? eleventh = raw[5]: eleventh = '';
-            (raw[6] != undefined)? thirteenth = raw[6]: thirteenth = '';
-
-            retrieve[i] = new Grade (modifier + grade, 
-                kind + seventh + ninth + eleventh + thirteenth);
-        };
-        return retrieve
-    }
 }
 
 
@@ -287,7 +286,6 @@ function Progresion(ex) {
             nextChord = currentChord.direction[Math.floor(Math.random() * currentChord.direction.length)]
             progresion.push(nextChord);
         }
-        console.log(progresion)
         return progresion;
     }
 

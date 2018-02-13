@@ -1,39 +1,51 @@
 //Layout del ejercicio
 var selectedChordPath = []
-var container;
-success = "btn-success"
-fail = "btn-danger"
-correction = "btn-info"
-hasSeventh = false;
-hasExtention = false;
-pointer = 0;
+var container = 'Chords';
 
+var hasSeventh = false;
+var hasExtention = false;
+var pointer = 0;
+var chordsRegEx = /^(m|°|d|dim|a|aug|aum|\+)?(b7|7|majj|majj7)?((|\/)(b9|9|#9|11|#11|b13|13))?(b5)?$/
+var answer = {}
 
 function deactivateChordsButtons(parent, e) {
     var exercise = e.base;
     var depth = e.depth;
+    answer.kind = '';
+    answer.seven = '';
+    answer.extention = '';
+    answer.b5 = '';
     if (depth > 1) hasSeventh = true;
     if (depth > 2) hasExtention = true;
-    container = parent;
     $("#" + parent + "InputButtons :input").prop("disabled", true)
         .removeClass('btn-primary')
         .addClass('btn-default')
     if (exercise.length == 1) {
         selectedChordPath[0] = exercise[0];
-        $("#" + parent + " #" + exercise[0][0]).prop("disabled", false)
+        $("#" + parent + " #" + selectedChordPath[0][0]).prop("disabled", false)
             .removeClass('btn-default')
             .addClass('btn-primary');
+        answer.kind = selectedChordPath[0][0]
         activateSevenths();
     }
     else {
         exercise.forEach(element => {
             $("#" + parent + " #" + element[0]).prop("disabled", false)
         });
-        $('#chordsBase #major').removeClass('btn-default')
-            .addClass('btn-primary')
     }
     $('#ChordsKeyInput').focus()
 }
+
+$('#ChordsKeyInput').focus(function(){
+    var display;
+    if(answer.kind == 'dim'){
+        if(answer.seven == 'b7') display = '°'
+        else if(answer.seven == '7') display = 'm7b5'
+        else display = 'dim'
+    }
+    else display = formatChordsToDisplay[answer.kind] + answer.seven + answer.extention;
+    this.value = display;
+})
 
 //Selection Buttons
 $('#chordsBase .btn').click(function () {
@@ -42,6 +54,7 @@ $('#chordsBase .btn').click(function () {
             .addClass('btn-default')
         $(this).removeClass('btn-default')
             .addClass('btn-primary')
+        answer.kind = this.id;
         activateSevenths();
     }
     $('#ChordsKeyInput').focus()
@@ -72,6 +85,7 @@ $('#chordsSevenths .btn').click(function () {
                 selectedChordPath[1] = element;
             }
         }
+        answer.seven = this.id;
         activateExtensions();
     }
     $('#ChordsKeyInput').focus()
@@ -101,6 +115,7 @@ $('#chordsExtentions .btn').click(function () {
                 selectedChordPath[2] = element;
             }
         }
+        answer.extention = this.id
     }
     $('#ChordsKeyInput').focus()
 })
@@ -111,70 +126,52 @@ function activateSpecials() {
 
 //Recepción de respuesta
 $('#chordsResponse').click(function () {
-    sendChordsResponse()
+    answer.kind = $('#chordsBase .btn-primary').attr('id');
+    answer.seven = $('#chordsSevenths .btn-primary').attr('id');
+    answer.extention = $('#chordsExtentions .btn-primary').attr('id')
+    if (answer.extention != undefined) answer.extention = answer.extention.replace('s', '#');
+    $("#play-pause").prop("disabled", true)
+    currentExercise.checkResponse([answer.kind, answer.seven, answer.extention]);
 })
 
-//Feedback
-function chordsButtonAnswer(parent, correctValue, failValue) {
-    for (let i = 0; i < correctValue.length; i++) {
-        if (failValue[i] != undefined) {
-            $("#" + parent + " #" + correctValue[i].replace('#', 's')).addClass(correction);
-            $("#" + parent + " #" + failValue[i].replace('#', 's')).addClass(fail);
-        }
-        else {
-            $("#" + parent + " #" + correctValue[i].replace('#', 's')).addClass(success);
-        }
-    }
-    $('#ChordsKeyInput').val('')
-}
-
-function sendChordsResponse() {
-    response = []
-    response[0] = $('#chordsBase .btn-primary').attr('id');
-    response[1] = $('#chordsSevenths .btn-primary').attr('id');
-    response[2] = $('#chordsExtentions .btn-primary').attr('id')
-    if (response[2] != undefined) response[2] = response[2].replace('s', '#');
-    $("#play-pause").prop("disabled", true)
-    currentExercise.checkResponse(response);
-}
-
-
-
-var chordsRegEx = /^(m|°|d|dim|a|aug|aum|\+)?(b7|7|majj|majj7)?((|\/)(b9|9|#9|11|#11|b13|13))?(b5)?$/
 $('#ChordsKeyInput').on('input', function () {
     input = this.value;
-    if (input[input.length -1] != ' ') {
-        
+    if (input[input.length -1] != ' ') {    
         var acceptedText = []
-        var strReturn = chordsRegEx.exec(this.value).splice(1)
+        var strReturn = chordsRegEx.exec(this.value)
+        
         if (strReturn != null) {
-            if (strReturn[0] == '°') {
-                acceptedText[0] = 'dim'
-                acceptedText[1] = 'b7'
+            strReturn = strReturn.splice(1)
+            answer.kind = strReturn[0]
+            answer.seven = strReturn[1]
+            answer.exercise = strReturn[2]
+            answer.b5 = strReturn[5]
+            if (answer.kind == '°') {
+                answer.kind = 'dim'
+                answer.seven = 'b7'
             }
             else {
-                acceptedText[0] = handInputTable[strReturn[0]]
-                acceptedText[1] = strReturn[1]
-                if (strReturn[2] != undefined) acceptedText[2] = strReturn[2].replace('s', '#');
-                if (strReturn[5] != undefined) acceptedText[0] = 'dim';
+                answer.kind = handInputTable[answer.kind]
+                if (answer.extention != '') answer.extention = answer.extention.replace('s', '#');
+                if (answer.b5 != '') answer.kind = 'dim';
             }
         }
-        if (!$('#chordsBase #' + acceptedText[0]).hasClass('btn-primary') && !$('#chordsBase #' + acceptedText[0]).prop("disabled")) {
+        if (!$('#chordsBase #' + answer.kind).hasClass('btn-primary') && !$('#chordsBase #' + acceptedText[0]).prop("disabled")) {
             $('#chordsBase .btn').removeClass('btn-primary')
                 .addClass('btn-default')
-            $('#chordsBase #' + acceptedText[0]).removeClass('btn-default')
+            $('#chordsBase #' + answer.kind).removeClass('btn-default')
                 .addClass('btn-primary')
         }
-        if (!$('#chordsSevenths #' + acceptedText[1]).hasClass('btn-primary') && !$('#chordsBase #' + acceptedText[0]).prop("disabled")) {
+        if (!$('#chordsSevenths #' + answer.seven).hasClass('btn-primary') && !$('#chordsBase #' + acceptedText[0]).prop("disabled")) {
             $('#chordsSevenths .btn').removeClass('btn-primary')
                 .addClass('btn-default')
-            $('#chordsSevenths #' + acceptedText[1]).removeClass('btn-default')
+            $('#chordsSevenths #' + answer.seven).removeClass('btn-default')
                 .addClass('btn-primary')
         }
-        if (!$('#chordsExtentions #' + acceptedText[2]).hasClass('btn-primary') && !$('#chordsBase #' + acceptedText[0]).prop("disabled")) {
+        if (!$('#chordsExtentions #' + answer.extention).hasClass('btn-primary') && !$('#chordsBase #' + acceptedText[0]).prop("disabled")) {
             $('#chordsExtentions .btn').removeClass('btn-primary')
                 .addClass('btn-default')
-            $('#chordsExtentions #' + acceptedText[2]).removeClass('btn-default')
+            $('#chordsExtentions #' + answer.extention).removeClass('btn-default')
                 .addClass('btn-primary')
         }
     }
@@ -184,20 +181,16 @@ $('#ChordsKeyInput').on('input', function () {
     }
 })
 
-
-handInputTable = {
-    'M': 'major',
-    'undefined': 'major',
-
-    'm': 'minor',
-    'min': 'minor',
-    'minor': 'minor',
-
-    'd': 'dim',
-    'dim': 'dim',
-
-    'aug': 'aug',
-    'a': 'aug',
-    'aum': 'aug',
-    '+': 'aug',
+//Feedback
+function chordsButtonAnswer(parent, correctValue, failValue) {
+    for (let i = 0; i < correctValue.length; i++) {
+        if (failValue[i] != undefined) {
+            $("#" + parent + " #" + correctValue[i].replace('#', 's')).addClass(btnCorrection);
+            $("#" + parent + " #" + failValue[i].replace('#', 's')).addClass(btnFail);
+        }
+        else {
+            $("#" + parent + " #" + correctValue[i].replace('#', 's')).addClass(btnSuccess);
+        }
+    }
+    $('#ChordsKeyInput').val('')
 }

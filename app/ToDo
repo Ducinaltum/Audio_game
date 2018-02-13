@@ -1,22 +1,26 @@
 Agregar los niveles de acordes especiales
-
-Implementar para colocar Input de teclado
-    Chords = listo
+Agregar los niveles de acordes de estructuras superiores
 
 Acomodar el boton play
 
 SemiDone - Desactivar boton de play después de la respuesta hasta el nuevo ejercicio 
     para que no se superpongan los sonidos
 
-Cuando en progresión el usuario elige un modo específico mayor/menor, los acordes se acomodan respondiendo a este modo
+Cuando en progresión el usuario elige un modo específico mayor/menor, los acordes se deberían acomodar respondiendo a este modo
 
 Pasar a ejercicio siguiente con enter?
 
-Observar si se hace neceario realizar intervalos multiples de maner descendente
+Observar si se hace neceario realizar intervalos multiples de manera descendente
 
 Hay un error cuando la ventana pierde focus()
 
 Make responsive
+
+Solucionar en acordes que cuando el usuario haga click se borre la respuesta colocada y empiece de cero (mirar el ejercicio con dim para ver el problema)
+    En progresion lo solucione con:
+    $(this).one('mouseup', function() {
+        $(this).select();
+    });
 
 --------------------------------------------------------------------
 
@@ -90,4 +94,4 @@ Se determinan las notas que tiene que llevar el acorde en base a su modo
 ¿en todas las octavas?
 
 
-Para armar el coral se arma un sistema de representación de 1 3 5
+Para armar el coral se arma un sistema de representación de 1 3 5?

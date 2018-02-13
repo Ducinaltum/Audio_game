@@ -43,6 +43,31 @@ var compoundSecond = [4, 1, 5, 1]
 var authentic = [5, 1]
 var broken = [5, 6]
 
+handInputTable = {
+    'M': 'major',
+    '': 'major',
+    undefined: 'major',
+
+    'm': 'minor',
+    'min': 'minor',
+    'minor': 'minor',
+
+    'd': 'dim',
+    'dim': 'dim',
+
+    'aug': 'aug',
+    'a': 'aug',
+    'aum': 'aug',
+    '+': 'aug',
+}
+
+formatChordsToDisplay = {
+    'major': '',
+    'minor': 'm',
+    'dim': 'dim',
+    'aug': '+'
+}
+
 var chordTypes = {
     "major": [0, 4, 7],
     "minor": [0, 3, 7],
@@ -61,7 +86,7 @@ function clamp(value, max, min = 0) {
 
 function romanize (num) {
     if (!+num)
-        return NaN;
+        return num;
     var digits = String(+num).split(""),
         key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
                "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
@@ -71,6 +96,21 @@ function romanize (num) {
     while (i--)
         roman = (key[+digits.pop() + (i * 10)] || "") + roman;
     return Array(+digits.join("") + 1).join("M") + roman;
+}
+
+function deromanize (str) {
+    if(str != undefined){
+	    var	str = str.toUpperCase(),
+		validator = /^M*(?:D?C{0,3}|C[MD])(?:L?X{0,3}|X[CL])(?:V?I{0,3}|I[XV])$/,
+		token = /[MDLV]|C[MD]?|X[CL]?|I[XV]?/g,
+		key = {M:1000,CM:900,D:500,CD:400,C:100,XC:90,L:50,XL:40,X:10,IX:9,V:5,IV:4,I:1},
+		num = 0, m;
+	    if (!(str && validator.test(str)))
+		    return str;
+	    while (m = token.exec(str))
+    		num += key[m[0]];
+        return num;
+    }
 }
 
 function octavate(note, oct){
