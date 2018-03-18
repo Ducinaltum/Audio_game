@@ -1,97 +1,25 @@
-Agregar los niveles de acordes especiales
-Agregar los niveles de acordes de estructuras superiores
+Implementar
+-----------
 
-Acomodar el boton play
+Hacer que los V de tengan 7° (Deshabilitar el (V/IV mientras tanto))
 
-SemiDone - Desactivar boton de play después de la respuesta hasta el nuevo ejercicio 
-    para que no se superpongan los sonidos
+Realizar el screen de seleccion de nivel
 
-Cuando en progresión el usuario elige un modo específico mayor/menor, los acordes se deberían acomodar respondiendo a este modo
+Realizar todo el sistema de guardado
+(Ya está guardando los levels)
 
-Pasar a ejercicio siguiente con enter?
 
-Observar si se hace neceario realizar intervalos multiples de manera descendente
+Game design
+-----------
 
+QA
+--
 Hay un error cuando la ventana pierde focus()
 
+Hacer funcione el stopAllNotes()
+
+
+
+Next step
+---------
 Make responsive
-
-Solucionar en acordes que cuando el usuario haga click se borre la respuesta colocada y empiece de cero (mirar el ejercicio con dim para ver el problema)
-    En progresion lo solucione con:
-    $(this).one('mouseup', function() {
-        $(this).select();
-    });
-
---------------------------------------------------------------------
-
-el usuario clickea el ejercicio (intervalos)
-
-se inicia la clase que corresponde al manejo del ejercicio
-
-    Se crea la clase IntervalLevelManager que lee el 
-        nivel actual,
-        nivel máximo
-        rondas por nivel
-
-    Esta devuelve el nivel actual y en base a eso se establece el ejercicio
-    Se envia a la UI Cuales son los valores aceptados
-    
-
-    Se crea la instancia de Interval que arma el ejercicio
-        Esta crea el ejercicio en base a las instrucciones de la madre
-        Envia las notas a ejecutar a traves del loadOnBuffer
-    
-    El usuario elige una respuesta
-        Se envia a la clase controladora
-        Esta chequea con la clase Intervalos:
-            si el intervalo es correcto se suma 1 a hit;
-            si no se suma 1 a miss
-
-            se suma 1 a rounds
-
-            se envia a la UI el intervalo de Usuario y el intervalo correcto
-
-    Se reinicia la instancia de intervalos
-
-
-------------------------------------------------------------------------------------
-
-el usuario clickea el ejercicio (progresión)
-
-se inicia la clase que corresponde al manejo del ejercicio
-
-    Se crea la clase IntervalLevelManager que lee el 
-        nivel actual,
-        nivel máximo
-        rondas por nivel
-
-    Esta devuelve el nivel actual y en base a eso se establece el ejercicio
-    Se envia a la UI Cuales son los valores aceptados
-    
-
-    Se crea la instancia de Progresion que arma el ejercicio
-        Esta crea el ejercicio en base a las instrucciones de la madre:
-            Elige la progresión en base a la cantidad y los acordes disponibles
-            Arma el coral
-        Envia las notas a ejecutar a traves del loadOnBuffer
-    
-    El usuario elige una respuesta
-        Se envia a la clase controladora
-        Esta chequea con la clase Intervalos:
-            si el intervalo es correcto se suma 1 a hit;
-            si no se suma 1 a miss
-
-            se suma 1 a rounds
-
-            se envia a la UI el intervalo de Usuario y el intervalo correcto
-
-    Se reinicia la instancia de interval
-
-
-Armar el coral:
-Recibe la progresión en la forma de grados
-Se determinan las notas que tiene que llevar el acorde en base a su modo
-¿en todas las octavas?
-
-
-Para armar el coral se arma un sistema de representación de 1 3 5?

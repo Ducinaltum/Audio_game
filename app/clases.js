@@ -11,8 +11,8 @@ function Note(pitch, startTime = 0, nLength = 1, chann = 0, velocity = 127) {
 
 function Chord(k, d, s, e){
     this.kind = k;
-    this.depth = d
-    this.seven = s
+    this.depth = d;
+    this.seven = s;
     this.extensions = e;
     /*
     if(seven == undefined) {
@@ -23,15 +23,59 @@ function Chord(k, d, s, e){
     */
 }
 
-function Grade(g, c, t = '', h = '', d = '', dir = [], inv = 5) {
+function Grade(g, c, d = '', dir = [], mode = 'major', inv = 5) {
     this.grade = g;
     this.chord = c;
-    this.tonalFunction = t;
-    this.hierarchy = h;
+    //this.tonalFunction = t;
+    //this.hierarchy = h;
     this.distanceToTonic = d;
     this.direction = dir;
     this.inversion = inv;
+    this.inMode = mode;
+    this.seven = getSeven();
+    function getSeven(){
+        var posibleSeven;
+        if(this.chord == 'minor'){
+            posibleSeven = '7';
+        }
+        else if(this.chord == 'major'){
+            if(this.grade == '5'){
+                posibleSeven = '7'
+            }
+            else{
+                posibleSeven = 'majj7'
+            }
+        }
+        else if(this.chord == 'aug'){
+            if(this.grade == '3'){
+                posibleSeven = 'majj7';
+            }
+            else {
+                posibleSeven = '7'
+            }
+        }
+        else if(this.chord == 'dim'){
+            if(this.grade == '2' || (this.grade == '7' && this.inMode == 'major')){
+                posibleSeven = '7'
+            }
+            else {
+                posibleSeven = 'b7'
+            }
+        }
+        return posibleSeven;
+    }
 }
+/*
+var gradeEquivalences = {
+    'V/IV': 'V/IV',
+    'I': 'V/IV',
+    'IMIX': 'V/IV',
+
+    'VII/IV': 'VII/IV',
+    'III': 'VII/IV',
+    '': 'VII/IV',
+}
+*/
 
 //Scales
 var majorScale = [0, 2, 4, 5, 7, 9, 11]
@@ -43,10 +87,36 @@ var compoundSecond = [4, 1, 5, 1]
 var authentic = [5, 1]
 var broken = [5, 6]
 
-handInputTable = {
+var progresionMode = {
+    major : {
+        '1': 'major',
+        'b2': 'major',
+        '2': 'minor',
+        'b3': 'major',
+        '3': 'minor',
+        '4': 'major',
+        '#4': 'dim',
+        '5': 'major',
+        'b6': 'major',
+        '6': 'minor',
+        'b7': 'major',
+        '7': 'dim'
+    },
+    minor : {
+        '1': 'minor',
+        '2': 'dim',
+        '3': 'major',
+        '4': 'minor',
+        '5': 'major',
+        '6': 'major',
+        '7': 'dim'
+    }
+}
+
+var handInputTable = {
+    'major': 'major',
     'M': 'major',
     '': 'major',
-    undefined: 'major',
 
     'm': 'minor',
     'min': 'minor',
@@ -61,7 +131,7 @@ handInputTable = {
     '+': 'aug',
 }
 
-formatChordsToDisplay = {
+var formatChordsToDisplay = {
     'major': '',
     'minor': 'm',
     'dim': 'dim',
@@ -109,7 +179,7 @@ function deromanize (str) {
 		    return str;
 	    while (m = token.exec(str))
     		num += key[m[0]];
-        return num;
+        return num.toString();
     }
 }
 
@@ -138,6 +208,7 @@ function LevelManager(actualLevel) {
             if (ratio > winRatio) {
                 if (level == user[kind.toLowerCase()+'Level']) {
                     user[kind.toLowerCase()+'Level']++;
+                    localStorage[kind.toLowerCase()+'Level'] = user[kind.toLowerCase()+'Level']
                 }
                 progressRestore()
                 endLevelMenu('win')
@@ -163,30 +234,6 @@ function LevelManager(actualLevel) {
         return 20;
     }
     totalRounds = setTotalRounds(actualLevel);
-}
-
-
-function ProgresionInputManager() {
-    //Indica cual es el input seleccionado
-    fieldSelected = null;
-    //Sirve para operar sobre el campo seleccionado
-    actualField = []
-    //guarda un valor para cada boton de input
-    fields = []
-    this.setFieldSelected = function(field){
-        actualField = []
-        fieldSelected = field
-    }
-    this.getFieldSelected = function(){return fieldSelected;}
-    this.getFields = function(){return fields}
-    this.setField = function(value, index){
-        returnToUI = [];
-        fieldIndex =  fieldSelected.id.slice(2)
-        actualField[index] = value;
-        fields[fieldIndex] = actualField;
-        returnToUI[1] = romanize(actualField[1])
-        $(fieldSelected).val(returnToUI.join(''))
-    }
 }
 
 var chordsKeys = {

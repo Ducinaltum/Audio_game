@@ -55,6 +55,7 @@
 	};
 
 	midi.stopAllNotes = function() {
+		console.log('enters 1')
 		output.cancel();
 		for (var channel = 0; channel < 16; channel ++) {
 			output.send([0xB0 + channel, 0x7B, 0]);

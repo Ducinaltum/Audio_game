@@ -1,5 +1,4 @@
 var activeScreen = null;
-var loadingScreen = null;
 var currentExercise = null;
 
 var btnSuccess = "btn-success"
@@ -111,7 +110,7 @@ function endLevelMenu(outcome) {
         $('#endLevelPrimary').html(looseText.primary)
         $('#endLevelSecondary').html(looseText.secondary)
     }
-    $("#endOfExercise").modal('show');
+    $('#endOfExercise').modal('show');
 }
 
 //Modal click handlers
@@ -129,15 +128,16 @@ $('#previous').click(function () {
 function showScreen(container) {
     $("#" + container).css("display", "block");
 }
+
 function goToLevel(level) {
-    newlevel = currentExercise.getLevel() + level;
-    kind = currentExercise.getKindOfExercise();
+    var newlevel = currentExercise.getLevel() + level;
+    var kind = currentExercise.getKindOfExercise();
+    var Exercise = setExerciseConstructor(kind);
     currentExercise = null
-    Exercise = initiateExercise(kind);
     currentExercise = new Exercise(newlevel);
 }
 
-function initiateExercise(kind) {
+function setExerciseConstructor(kind) {
     switch (kind) {
         case 'Intervals':
             return IntervalsExercise;
@@ -151,14 +151,17 @@ function initiateExercise(kind) {
     }
 }
 
-
-
 $(document).keypress(function (e) {
     var key = e.which;
     if(key == 13)  {
-        if (currentExercise != null) {
-
-            $('#' + currentExercise.getKindOfExercise().toLowerCase() + 'Response').focus().click();        }
+        if($('#endOfExercise').hasClass('in')){
+            $('#endOfExercise .btn-primary').click();
+        }
+        else{
+            if (currentExercise != null) {
+                $('#' + currentExercise.getKindOfExercise().toLowerCase() + 'Response').focus().click();        
+            }
+        }
     }
     if(key == 32)  {
         if (currentExercise != null) {

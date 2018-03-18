@@ -311,6 +311,7 @@ function Interval(ex, timing, dir, numberOfIntervals) {
         arr.sort(function (a, b) { return a - b })
         return arr;
     }
+    
     function setFundamental() {
         scope = limits.max - limits.min - intervals[intervals.length - 1];
         //Este algoritmo se sale de los límite por que no tiene en cuanta los valores negativos CORREGIR

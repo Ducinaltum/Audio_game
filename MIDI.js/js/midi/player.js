@@ -30,6 +30,7 @@ midi.resume = function(onsuccess) {
 
 midi.pause = function() {
 	var tmp = midi.restart;
+	console.log('enters 1')
 	stopAudio();
 	midi.restart = tmp;
 };

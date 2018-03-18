@@ -1,5 +1,22 @@
 const safeZone = 20;
 
+chordsTree = {
+    'major': {
+        '7': {
+            'b9': null,
+            '9': null,
+            '#9': null,
+            '#11': null,
+            '13': null,
+        },
+        'majj7': {
+            '9': null,
+            '#11': null,
+            '13': null,
+        }
+    }
+}
+
 baseChords = [
     ['major',
         [   
@@ -28,9 +45,6 @@ baseChords = [
         ]
     ],
     ['sus'],
-    ['4'],
-    ['2'],
-    ['6'],
 ]
 
 function ChordsExercise( actualLevel = user.chordsLevel) {
@@ -157,8 +171,7 @@ function ChordsExercise( actualLevel = user.chordsLevel) {
                 levelStructure.base[2] = baseChords[2];
                 levelStructure.base[3] = baseChords[3];
                 break;
-            case 17:
-
+            case 10:
                 break;
         }
         return levelStructure;
