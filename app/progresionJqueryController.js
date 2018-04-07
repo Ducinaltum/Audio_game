@@ -73,7 +73,7 @@ function inputChord(){
                 //no deberia funcionar
                 if (value != undefined) {
                     if (key == 'isSecondaryDominat') {
-                        value = 'isSecondary';+
+                        value = 'isSecondary';
                     }
                     $('#' + key + ' #' + value.replace('#', 's')).removeClass('btn-default')
                         .addClass('btn-primary')

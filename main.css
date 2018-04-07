@@ -99,3 +99,7 @@ body {
   .btn.non-highlight:focus{
     outline: none;
   }
+
+  .btn.menu{
+    display: inline-block;
+  }

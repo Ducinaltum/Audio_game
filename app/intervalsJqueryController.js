@@ -3,7 +3,6 @@ function deactivateIntervalsButtons(parent, exercise) {
     $("#play-pause").prop("disabled", false)
     $("#" + parent + " :input").prop("disabled", true);
     $("#" + parent + "KeyInput").prop("disabled", false);
-
     exercise.forEach(element => {
         $("#" + parent + " #" + element).prop("disabled", false);
     });

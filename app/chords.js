@@ -1,56 +1,12 @@
 const safeZone = 20;
 
-chordsTree = {
-    'major': {
-        '7': {
-            'b9': null,
-            '9': null,
-            '#9': null,
-            '#11': null,
-            '13': null,
-        },
-        'majj7': {
-            '9': null,
-            '#11': null,
-            '13': null,
-        }
-    }
-}
 
-baseChords = [
-    ['major',
-        [   
-            ['7', [['b9'], ['9'], ['#9'], ['#11'], ['13']]],
-            ['majj7', [['9'], ['#11'], ['13']]]
-        ]
-    ],
-    ['minor',
-        [
-            ['6'],
-            ['7', [['9'], ['11'], ['13']]],
-            ['majj7', [['9'], ['11'], ['13']]]
-            //11 b13
-        ]
-    ],
-    ['dim',
-        [
-            ['b7'],
-            ['7', [['11'], ['b13']]]
-        ]
-    ],
-    ['aug',
-        [
-            ['7', [['b9'], ['9'], ['#9'], ['#11'], ['13']]],
-            ['majj7', [['9'], ['#11'], ['13']]]
-        ]
-    ],
-    ['sus'],
-]
 
 function ChordsExercise( actualLevel = user.chordsLevel) {
     typeOfExercise = 'Chords'
     ready = true;
     level = clamp(actualLevel, info.chordsMaxLevel)
+    console.log
     exercise = setChordLevel(level);
     chordManager = new LevelManager(level);
     showScreen(typeOfExercise)
@@ -63,7 +19,7 @@ function ChordsExercise( actualLevel = user.chordsLevel) {
 
     function createChord(){
         ready = true;
-        chord = new ChordBuilder(exercise, setDirection())
+        chord = new ChordBuilder(exercise, exercise.direction())
         loadOnBuffer(chord.notes)
     }
 
@@ -112,84 +68,56 @@ function ChordsExercise( actualLevel = user.chordsLevel) {
     }
    
     function setChordLevel(level){
-        var levelStructure = {};
-        levelStructure.base = []
-        var kind = Math.floor(level/4)
-        if(kind < 3) {
-            levelStructure.depth = 1
+        var procesedLevel = {
+            exerciseLevel:null,
+            base:[],
+            kind:null,
+            direction:null,
+            depth:null,
+            name:''
+        };
+        procesedLevel.exerciseLevel = Math.floor(level / 4)  
+        procesedLevel.kind = level % 4
+        procesedLevel.direction = setDirection(procesedLevel.kind);
+        procesedLevel.name = $('#cho' + procesedLevel.exerciseLevel).text();
+        if( procesedLevel.exerciseLevel < 3) {
+            procesedLevel.depth = 1
         }
-        else if(kind >= 3 && kind < 10){
-            levelStructure.depth = 2
+        else if( procesedLevel.exerciseLevel >= 3 &&  procesedLevel.exerciseLevel < 10){
+            procesedLevel.depth = 2
         }
-        else if(kind >= 10 && kind < 17){
-            levelStructure.depth = 3
-            kind -= 7
+        else if( procesedLevel.exerciseLevel >= 10 &&  procesedLevel.exerciseLevel < 17){
+            procesedLevel.depth = 3
+            procesedLevel.exerciseLevel -= 7
         }
-        else if(kind >= 17){
-            levelStructure.depth = 3;
+        else if( procesedLevel.exerciseLevel >= 17){
+            procesedLevel.depth = 3;
         }
-        switch(kind){
-            case 0:
-                levelStructure.base[0] = baseChords[0];
-                levelStructure.base[1] = baseChords[1];
-                break;
-            case 1:
-                levelStructure.base[0] = baseChords[2];
-                levelStructure.base[1] = baseChords[3];
-                break;
-            case 2:
-                levelStructure.base[0] = baseChords[0];
-                levelStructure.base[1] = baseChords[1];
-                levelStructure.base[2] = baseChords[2];
-                levelStructure.base[3] = baseChords[3];
-                break;
-                
-            //Séptimas = Depth = 2
-            case 3:
-                levelStructure.base[0] = baseChords[0];
-                break;
-            case 4:
-                levelStructure.base[0] = baseChords[1];
-                break;
-            case 5:
-                levelStructure.base[0] = baseChords[0];
-                levelStructure.base[1] = baseChords[1];
-                break;
-            case 6:
-                levelStructure.base[0] = baseChords[2];
-                break;
-            case 7:
-                levelStructure.base[0] = baseChords[3];
-                break;
-            case 8:
-                levelStructure.base[0] = baseChords[2];
-                levelStructure.base[1] = baseChords[3];
-                break;
-            case 9:
-                levelStructure.base[0] = baseChords[0];
-                levelStructure.base[1] = baseChords[1];
-                levelStructure.base[2] = baseChords[2];
-                levelStructure.base[3] = baseChords[3];
-                break;
-            case 10:
-                break;
-        }
-        return levelStructure;
+        procesedLevel.base = chordsLevels[procesedLevel.exerciseLevel]();
+        return procesedLevel;
     }
 
-    function setDirection(){
-        switch(level % 4){
+    function setDirection(kind){
+        switch(kind){
             case 0:
-                return 1;
+                return function(){
+                    return 1;
+                };
                 break;
             case 1:
+            return function(){
                 return -1;
+                };
                 break;
             case 2:
-                return 0;
+                return function(){
+                    return 0;
+                };
                 break;
             case 3:
-                return Math.floor(Math.random() * 3) - 1
+                return function(){
+                    return Math.floor(Math.random() * 3) - 1
+                };
         }
     }
 

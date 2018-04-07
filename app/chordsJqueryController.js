@@ -17,6 +17,7 @@ function deactivateChordsButtons(parent, e) {
     answer.seven = undefined;
     answer.extention = undefined;
     answer.b5 = undefined;
+    console.log(recievedExercise)
     if (depth > 1) hasSeventh = true;
     if (depth > 2) hasExtention = true;
     $("#" + parent + "InputButtons :input").prop("disabled", true)
@@ -107,9 +108,11 @@ function activateExtensions() {
     if (hasExtention) {
         $('#chordsExtentions .btn').prop("disabled", true)
         var iteration = selectedChordPath[1][1]
-        for (let i = 0; i < iteration.length; i++) {
-            element = iteration[i][0].replace('#', 's')
-            $("#" + container + " #" + element).prop("disabled", false);
+        if (iteration != undefined) {
+            for (let i = 0; i < iteration.length; i++) {
+                element = iteration[i][0].replace('#', 's')
+                $("#" + container + " #" + element).prop("disabled", false);
+            }
         }
     }
 }

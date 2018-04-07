@@ -4,13 +4,22 @@ Implementar
 Hacer que los V de tengan 7° (Deshabilitar el (V/IV mientras tanto))
 
 Realizar el screen de seleccion de nivel
+(in progress)
 
 Realizar todo el sistema de guardado
 (Ya está guardando los levels)
 
+Dieferentes texturas para el dictado armónico
+
+Darle tiempo al usuario para ver la respuesta
 
 Game design
 -----------
+
+Alterar las progresiones en el modo menor para impedir que haga 2-6-2 o 6-2-6
+Generar ejercicios de progresiones que puedan estar en un modo u otro
+Alterar las disposiciones en los ejercicios de acordes
+Limitar la cantidad de acordes alterados por dictado
 
 QA
 --
@@ -18,6 +27,9 @@ Hay un error cuando la ventana pierde focus()
 
 Hacer funcione el stopAllNotes()
 
+Me salta un error cuando me toca un ° en el último ejercicio
+
+si falta colocar algun acorde en la progresion no toma la respuesta
 
 
 Next step

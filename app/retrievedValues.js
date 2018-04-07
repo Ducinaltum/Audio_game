@@ -90,7 +90,7 @@ var user = {
 
 var info = {
     intervalsMaxLevel: 144,
-    chordsMaxLevel: 43,
+    chordsMaxLevel: 68,
     progresionMaxLevel: 33
 }
 

@@ -181,3 +181,11 @@ $(document).click(function(){
     }
 })
 
+$('.selector').click(function(){
+    var container = $(this).parent().parent().attr('id');
+    $('#' + container + ' .selector').removeClass('btn-primary')
+        .addClass('btn-default');
+    $(this).removeClass('btn-default')
+        .addClass('btn-primary');
+})
+
