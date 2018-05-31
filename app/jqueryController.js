@@ -7,47 +7,6 @@ var btnCorrection = "btn-info"
 
 var testPattern = /(b|#)?(I|II|III|IV|V|VI|VII)(m|dim|\+)?[(/)(b|#)?(I|II|III|IV|V|VI|VII)]?[(b|#)?(7|9|11|13)]?[(/)(b|#)?(7|9|11|13)]*/
 
-$('#gameSelector a').click(function () {
-    if (activeScreen != null ) {
-        activeScreen.hide();
-    }
-    goTo = this.id
-    activeScreen = $('#' + goTo.slice(2))
-    activeScreen.show()
-
-    switch (this.id) {
-        case 'goIntervals':
-            if (currentExercise != null) {
-                if (currentExercise.getKindOfExercise() != 'Intervals') {
-                    progressRestore()
-                    currentExercise = new IntervalsExercise();
-                }
-            }
-            else {
-                currentExercise = new IntervalsExercise();
-            }
-            break;
-        case 'goChords':
-            if (currentExercise != null) {
-                if (currentExercise.getKindOfExercise() != 'Chords') {
-                    progressRestore()
-                    currentExercise = new ChordsExercise();
-                }
-            }
-            else currentExercise = new ChordsExercise();
-            break;
-        case 'goProgresion':
-            if (currentExercise != null) {
-                if (currentExercise.getKindOfExercise() != 'Progresion') {
-                    progressRestore()
-                    currentExercise = new HarmonicProgresionExercise();
-                }
-            }
-            else currentExercise = new HarmonicProgresionExercise();
-            break;
-    }
-})
-
 //Global
 function resetElements(parent) {
     if (parent == 'Progresion') {
@@ -126,7 +85,13 @@ $('#previous').click(function () {
 
 //Screen management
 function showScreen(container) {
+    var inputs = $('#inputZone').children()
+    for(var i = 0; i < inputs.length; i++){
+        $(inputs[i]).hide().prop('disabled', true);
+    }
+    $("#" + container).show().prop('disabled', true);
     $("#" + container).css("display", "block");
+
 }
 
 function goToLevel(level) {
@@ -159,7 +124,10 @@ $(document).keypress(function (e) {
         }
         else{
             if (currentExercise != null) {
-                $('#' + currentExercise.getKindOfExercise().toLowerCase() + 'Response').focus().click();        
+                var responseButton = $('#' + currentExercise.getKindOfExercise().toLowerCase() + 'Response')
+                if(!responseButton.is(":focus")){
+                    responseButton.focus().click();
+                }
             }
         }
     }
@@ -188,4 +156,32 @@ $('.selector').click(function(){
     $(this).removeClass('btn-default')
         .addClass('btn-primary');
 })
+$('#home').click(function(){
+    goToHome();
+})
+$(document).on('hide.bs.modal','#endOfExercise', function () {
+    $('.collapse').collapse()
+    //goToHome();
+//Do stuff here
+});
 
+function goToHome(){
+    $('#exercise').hide().prop('disabled', true);
+    $('#exerciseSelector').show().prop('disabled', false);
+};
+
+function goToExercise(){
+    $('#exerciseSelector').hide().prop('disabled', true);
+    $('#exercise').show().prop('disabled', false);    
+};
+
+$('.continue').click(function(){
+    var kind = this.id.replace("continue", "");
+    var level = user[kind.toLowerCase() + "Level"]
+    console.log(level)
+    var Exercise = setExerciseConstructor(kind);
+    currentExercise = null
+    currentExercise = new Exercise(level);
+    goToExercise();
+
+})

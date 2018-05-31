@@ -88,6 +88,6 @@ $('#chordsSelection .list-group-item').click(function (e) {
     }
     levelSelected += Number($('#chordMode .btn-primary').attr('id'))
     currentExercise = new ChordsExercise(levelSelected);
-    console.log(levelSelected)
+    goToExercise();
 })
 

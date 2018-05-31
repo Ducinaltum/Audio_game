@@ -127,5 +127,6 @@ $('#intervalsSelection .list-group-item').click(function (e) {
     }
     initLevel += Number($('#intervalMode .btn-primary').attr('id'))
     currentExercise = new IntervalsExercise((levelSelected * 4) + initLevel);
+    goToExercise();
 })
 

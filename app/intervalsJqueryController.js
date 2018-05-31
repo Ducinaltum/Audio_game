@@ -1,5 +1,6 @@
 //Deactivate unused buttons
 function deactivateIntervalsButtons(parent, exercise) {
+    $("#intervalsResponse").prop("disabled", true)
     $("#play-pause").prop("disabled", false)
     $("#" + parent + " :input").prop("disabled", true);
     $("#" + parent + "KeyInput").prop("disabled", false);
@@ -10,13 +11,15 @@ function deactivateIntervalsButtons(parent, exercise) {
 
 var selectedButtons = []
 
-$('#Intervals .btn').click(function (e) {
+$('#intervalsResponses .btn').click(function (e) {
     if (!$(this).hasClass('btn-primary')) {
         $(this).removeClass('btn-default')
             .addClass('btn-primary')
         selectedButtons.push(this.id)
         if (selectedButtons.length >= currentExercise.getNumberOfIntervals()) {
-            $("#play-pause").prop("disabled", true)
+            //$("#play-pause").prop("disabled", true)
+            $("#intervalsResponse").prop("disabled", false)
+            $("#intervalsResponse").focus();
             currentExercise.checkResponse(selectedButtons)
             selectedButtons = []
         }
@@ -37,3 +40,8 @@ function correctIntervalButtonAnswer(parent, value) {
 function failIntervalButtonAnswer(parent, value) {
     $("#" + parent + " #" + value).addClass("btn-danger");
 }
+
+$("#intervalsResponse").click(function(){
+    $("#intervalsResponse").prop("disabled", true)
+    currentExercise.createNextQuestion();
+})

@@ -4,9 +4,8 @@ const safeZone = 20;
 
 function ChordsExercise( actualLevel = user.chordsLevel) {
     typeOfExercise = 'Chords'
-    ready = true;
+    state = 'idle';
     level = clamp(actualLevel, info.chordsMaxLevel)
-    console.log
     exercise = setChordLevel(level);
     chordManager = new LevelManager(level);
     showScreen(typeOfExercise)
@@ -16,16 +15,25 @@ function ChordsExercise( actualLevel = user.chordsLevel) {
 
     this.getKindOfExercise = function(){return typeOfExercise}
     this.getLevel = function(){return level}
+    this.getState = function(){return state}
+    this.createNextQuestion = function(){
+        createChord();
+    }
 
     function createChord(){
-        ready = true;
-        chord = new ChordBuilder(exercise, exercise.direction())
-        loadOnBuffer(chord.notes)
+        resetElements(typeOfExercise)
+        //La línea de abajo es innecesaria, solo sirve para pintar de azul la base del acorde si solo se está trabajando con una
+        deactivateChordsButtons(typeOfExercise, exercise)
+        if(!chordManager.hasFinishedLevel(level, typeOfExercise)){
+            state = 'playing';
+            chord = new ChordBuilder(exercise, exercise.direction())
+            loadOnBuffer(chord.notes)
+        }
     }
 
     this.checkResponse = function (response) {
-        if (ready) {
-            ready = false
+        if (state == 'playing') {
+            state = 'answer'
             var score = 0;
             var failedAnswers = [];
             var correctAnswer = chord.buildedChord
@@ -55,15 +63,6 @@ function ChordsExercise( actualLevel = user.chordsLevel) {
                     updateFeedback("¡Incorrecto!", 'danger', strResponse)
                 }
             }
-            
-            setTimeout(function () {
-                resetElements(typeOfExercise)
-                //La línea de abajo es innecesaria, solo sirve para pintar de azul la base del acorde si solo se está trabajando con una
-                deactivateChordsButtons(typeOfExercise, exercise)
-                if(!chordManager.hasFinishedLevel(level, typeOfExercise)){
-                    createChord()
-                }
-            }, 2000);
         }
     }
    

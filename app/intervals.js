@@ -1,6 +1,6 @@
 function IntervalsExercise(actualLevel = user.intervalsLevel) {
     typeOfExercise = 'Intervals'
-    ready = true;
+    state = 'idle';
     level = clamp(actualLevel, info.intervalsMaxLevel);
     simultaneousIntervals = 1;
     exercise = setIntervalLevel()
@@ -13,18 +13,24 @@ function IntervalsExercise(actualLevel = user.intervalsLevel) {
     this.getKindOfExercise = function () { return typeOfExercise }
     this.getLevel = function () { return level }
     this.getNumberOfIntervals = function () { return exercise.numberOfIntervals }
+    this.createNextQuestion = function(){
+        createInterval();
+    }
 
     function createInterval() {
-        ready = true;
-        //Esto se realiza para duplicar el array y no mandar el original por que se modifica
-        var sendExercise = exercise.intervals.slice(0)
-        interval = new Interval(sendExercise, exercise.timing(), exercise.direction(), exercise.numberOfIntervals)
-        loadOnBuffer(interval.notes);
+        resetElements(typeOfExercise)
+        if (!intervalManager.hasFinishedLevel(level, typeOfExercise)) {
+            state = 'playing';
+            //Esto se realiza para duplicar el array y no mandar el original por que se modifica
+            var sendExercise = exercise.intervals.slice(0)
+            interval = new Interval(sendExercise, exercise.timing(), exercise.direction(), exercise.numberOfIntervals)
+            loadOnBuffer(interval.notes);
+        }
     }
 
     this.checkResponse = function (response) {
-        if (ready) {
-            ready = false;
+        if (state == 'playing') {
+            state = 'answer'
             currentIntervals = interval.getIntervals()
             score = 0
             for (var i = 0; i < currentIntervals.length; i++) {
@@ -47,12 +53,6 @@ function IntervalsExercise(actualLevel = user.intervalsLevel) {
             if (score == 1) updateFeedback("¡Correcto!", 'success')
             else if (score > 0) updateFeedback("¡Medianamente correcto!", 'warning')
             else updateFeedback("¡Incorrecto!", 'danger')
-            setTimeout(function () {
-                resetElements(typeOfExercise)
-                if (!intervalManager.hasFinishedLevel(level, typeOfExercise)) {
-                    createInterval()
-                }
-            }, 1000);
         }
     }
 

@@ -103,3 +103,13 @@ body {
   .btn.menu{
     display: inline-block;
   }
+
+  .equal {
+    display: flex;
+    display: -webkit-flex;
+    flex-wrap: wrap;
+  }
+
+  .glyphicon.glyphicon-play {
+    font-size: 75px;
+}

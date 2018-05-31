@@ -17,7 +17,6 @@ function deactivateChordsButtons(parent, e) {
     answer.seven = undefined;
     answer.extention = undefined;
     answer.b5 = undefined;
-    console.log(recievedExercise)
     if (depth > 1) hasSeventh = true;
     if (depth > 2) hasExtention = true;
     $("#" + parent + "InputButtons :input").prop("disabled", true)
@@ -141,13 +140,21 @@ function activateSpecials() {
 
 //Recepción de respuesta
 $('#chordsResponse').click(function () {
-    answer.kind = $('#chordsBase .btn-primary').attr('id');
-    answer.seven = $('#chordsSevenths .btn-primary').attr('id');
-    answer.extention = $('#chordsExtentions .btn-primary').attr('id')
-    if (answer.extention != undefined) answer.extention = answer.extention.replace('s', '#');
-    $("#play-pause").prop("disabled", true)
-    if(answer.kind == undefined) answer.kind = 'major'
-    currentExercise.checkResponse([answer.kind, answer.seven, answer.extention]);
+    if (currentExercise.getState() == 'playing') {
+        answer.kind = $('#chordsBase .btn-primary').attr('id');
+        answer.seven = $('#chordsSevenths .btn-primary').attr('id');
+        answer.extention = $('#chordsExtentions .btn-primary').attr('id')
+        if (answer.extention != undefined) answer.extention = answer.extention.replace('s', '#');
+        //$("#play-pause").prop("disabled", true)
+        if (answer.kind == undefined) answer.kind = 'major'
+        currentExercise.checkResponse([answer.kind, answer.seven, answer.extention]);
+        $(this).text('Siguiente');
+        $(this).focus();
+    }
+    else if (currentExercise.getState() == 'answer') {
+        currentExercise.createNextQuestion();
+        $(this).text('Respuesta');
+    }
 })
 
 $('#ChordsKeyInput').on('input', function () {

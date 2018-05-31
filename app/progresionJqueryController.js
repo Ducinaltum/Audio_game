@@ -201,11 +201,18 @@ $('#Progresion #secondaryDominat .btn').click(function () {
 
 //Button response
 $('#progresionResponse').click(function () {
-    currentExercise.checkResponse(getResponses());    
+    if (currentExercise.getState() == 'playing') {
+        currentExercise.checkResponse(getResponses());   
+        $(this).text('Siguiente');
+    }
+    else if (currentExercise.getState() == 'answer') { 
+        currentExercise.createNextQuestion();
+        $(this).text('Respuesta');
+    }
 })
 
-function getResponses() {
-    $("#play-pause").prop("disabled", true)
+function getResponses() {    
+    //$("#play-pause").prop("disabled", true)
     var buttons = $('#Progresion #inputFields .form-control').get()
     var responses = []
     responseChords.forEach(element => {

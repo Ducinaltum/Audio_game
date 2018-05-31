@@ -1,37 +1,51 @@
 Implementar
 -----------
-
-Hacer que los V de tengan 7° (Deshabilitar el (V/IV mientras tanto))
-
-Realizar el screen de seleccion de nivel
-(in progress)
-
 Realizar todo el sistema de guardado
 (Ya está guardando los levels)
-
-Dieferentes texturas para el dictado armónico
-
-Darle tiempo al usuario para ver la respuesta
 
 Game design
 -----------
 
 Alterar las progresiones en el modo menor para impedir que haga 2-6-2 o 6-2-6
-Generar ejercicios de progresiones que puedan estar en un modo u otro
+
 Alterar las disposiciones en los ejercicios de acordes
-Limitar la cantidad de acordes alterados por dictado
+
 
 QA
 --
-Hay un error cuando la ventana pierde focus()
+
+Hay un error cuando la ventana pierde focus() (solved?)
 
 Hacer funcione el stopAllNotes()
 
-Me salta un error cuando me toca un ° en el último ejercicio
+Me salta un error cuando me toca un ° en el último ejercicio (solved?)
 
-si falta colocar algun acorde en la progresion no toma la respuesta
+Si falta colocar algun acorde en la progresion, ésta no toma la respuesta
+
+El acorde m7/11 b5 se lee mal en la casilla de input
+
+Eligiendo el ultimo nivel de acordes y ganándolo me llevó de nuevo al menú
+
+Si se apreta la barra cuando se está reproduciendo se superponen las reproducciones
+
+Será necesario limitar la cantidad de acordes alterados por dictado?
 
 
-Next step
----------
-Make responsive
+
+
+
+
+
+
+
+
+
+
+
+
+
+For posterity
+-------------
+Make procedural textures
+Make score input 
+Add chromatic and modal harmony
