@@ -1,7 +1,5 @@
 const safeZone = 20;
 
-
-
 function ChordsExercise( actualLevel = user.chordsLevel) {
     typeOfExercise = 'Chords'
     state = 'idle';

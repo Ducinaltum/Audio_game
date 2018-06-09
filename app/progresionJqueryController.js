@@ -225,7 +225,8 @@ function getResponses() {
         retrievedChord.kind = element.kind;
         retrievedChord.seven = element.seven;
         retrievedChord.extention = element.extention;
-        if(retrievedChord.grade != undefined) {
+        console.log(retrievedChord)
+        if(retrievedChord.grade != undefined && retrievedChord.grade != "") {
             if(retrievedChord.kind == undefined){
                 var gradeOf = gradeParserRegEx.exec(retrievedChord.grade)
                 retrievedChord.kind = progresionMode[mode][[gradeOf[1], gradeOf[2]].join('')];

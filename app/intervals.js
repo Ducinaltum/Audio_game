@@ -35,19 +35,21 @@ function IntervalsExercise(actualLevel = user.intervalsLevel) {
             score = 0
             for (var i = 0; i < currentIntervals.length; i++) {
                 var hit = false;
-                correctIntervalButtonAnswer(typeOfExercise, currentIntervals[i])
-                for (let n = 0; n < response.length; n++) {
+                for (var n = 0; n < response.length; n++) {
                     if (response[n] == currentIntervals[i]) {
                         hit = true;
-                        score++;
                         response.splice(n, 1)
+                        score++;
                     }
                 }
                 if (!hit) {
                     intervalManager.addScore(0);
                 }
+                correctIntervalButtonAnswer(typeOfExercise, currentIntervals[i])
             }
-            for (var fail in response) failIntervalButtonAnswer(typeOfExercise, response[fail])
+            for (var fail in response) {
+                failIntervalButtonAnswer(typeOfExercise, response[fail])
+            }
             score /= currentIntervals.length
             intervalManager.addScore(score)
             if (score == 1) updateFeedback("¡Correcto!", 'success')

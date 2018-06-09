@@ -1,8 +1,3 @@
-Implementar
------------
-Realizar todo el sistema de guardado
-(Ya está guardando los levels)
-
 Game design
 -----------
 
@@ -14,22 +9,15 @@ Alterar las disposiciones en los ejercicios de acordes
 QA
 --
 
-Hay un error cuando la ventana pierde focus() (solved?)
 
 Hacer funcione el stopAllNotes()
 
-Me salta un error cuando me toca un ° en el último ejercicio (solved?)
-
-Si falta colocar algun acorde en la progresion, ésta no toma la respuesta
-
-El acorde m7/11 b5 se lee mal en la casilla de input
-
-Eligiendo el ultimo nivel de acordes y ganándolo me llevó de nuevo al menú
-
 Si se apreta la barra cuando se está reproduciendo se superponen las reproducciones
 
-Será necesario limitar la cantidad de acordes alterados por dictado?
 
+Los acordes m7b5 con extensión se leen mal en la casilla de input
+
+Eligiendo el ultimo nivel de acordes y ganándolo me llevó de nuevo al menú
 
 
 

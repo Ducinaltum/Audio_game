@@ -19,7 +19,8 @@ function resetElements(parent) {
         $('#ex0').focus()
     }
     else {
-        $("#" + parent + " :input:enabled").removeClass("btn-success")
+        //$("#" + parent + " :input:enabled").removeClass("btn-success")
+        $("#" + parent + " :input").removeClass("btn-success")
             .removeClass("btn-danger")
             .removeClass("btn-info")
             .removeClass("btn-primary")

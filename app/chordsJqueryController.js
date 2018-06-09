@@ -134,10 +134,6 @@ $('#chordsExtentions .btn').click(function () {
     $('#ChordsKeyInput').focus()
 })
 
-function activateSpecials() {
-
-}
-
 //Recepción de respuesta
 $('#chordsResponse').click(function () {
     if (currentExercise.getState() == 'playing') {
