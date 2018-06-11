@@ -13,37 +13,15 @@ function inputChord(){
     this.gradeModifier = undefined;
     this.grade = undefined;
     this.kind = undefined;
-    this.seven = undefined;
-    this.extention = undefined;
-    this.b5 = undefined;
-    this.isSecondaryDominat = undefined;
-    this.secondaryDominatModifier = undefined;
     this.secondaryDominat = undefined;
 
-    //Esta función toma los valores de la caja de texto y los distribuye a sus variables correspondientes
-    this.buildFromString = function(input){
-        if (input != null) {
-            this.gradeModifier = input[1]
-            this.grade = deromanize(input[2]).toString()
-            this.kind = input[3]
-            this.seven = input[4]
-            this.extention = input[7]
-            this.b5 = input[8]
-            this.isSecondaryDominat = input[10]
-            this.secondaryDominatModifier = input[11]
-            this.secondaryDominat = deromanize(input[12])
-        }
-        processChord(this);
-    }
     //Convierte los valores del obajeto en una cadena para que la visualice el usuario
     this.getChordAsString = function(){
         var chord = this
         var grade = [chord.gradeModifier, romanize(this.grade)].join('')
         var kind = [formatChordsToDisplay[chord.kind]].join('')
-        var seven = [chord.seven].join('')
-        var extention = [chord.extention].join('')
         var secondaryDominat = [chord.isSecondaryDominat, chord.secondaryDominatModifier, romanize(chord.secondaryDominat)].join('')
-        var retrieve = grade + kind + seven + extention + secondaryDominat;
+        var retrieve = grade + kind + secondaryDominat;
         return retrieve;
     }
 
@@ -94,11 +72,18 @@ var mode;
 
 function initiateExercise(numberOfChords, container, exerciseMode) {
     $("#play-pause").prop("disabled", false)
-    $('#' + container + " .form-control").prop('disabled', true).popover('hide')
-    individualFields = $('#' + container + " .form-control");
+    $('#' + container + " #firstSection").prop('disabled', false).popover('hide')
+    if(numberOfChords > 4) {
+        $('#' + container + " #secondSection").prop('disabled', false).popover('hide')
+        $('#' + container + " #secondSection").show();
+    }
+    else {
+        $('#' + container + " #secondSection").prop("disabled", true).popover('hide')
+        $('#' + container + " #secondSection").hide();
+    }
+    individualFields = $('#' + container + " .chord-bar");
     mode = exerciseMode;
     for (var i = 0; i < numberOfChords; i++) {
-        individualFields[i].disabled = false;
         responseChords[i] = new inputChord();        
     }
     activeChordIndex = 0
@@ -106,7 +91,7 @@ function initiateExercise(numberOfChords, container, exerciseMode) {
 }
 
 //Progresion buttons and fields
-$('#Progresion #inputFields .form-control').on('input', function () {
+/*$('#Progresion #inputFields .form-control').on('input', function () {
     var index = this.id.slice(2)
     var input = this.value
     //Si agregó algo nuevo (si no hay espacio al final): procesar y cargar en el respectivo acorde
@@ -116,8 +101,8 @@ $('#Progresion #inputFields .form-control').on('input', function () {
     }
     //Si no agregó nada nuevo (si no hay espacio al final) no hacer nada
     responseChords[activeChordIndex].buildFromString(progresionRegEx.exec(input))
-})
-
+})*/
+/*
 $('#Progresion #inputFields .form-control').focus(function () {
     $(this).addClass('hasBeenSelected')
     $(this).one('mouseup', function() {
@@ -141,21 +126,39 @@ $('#Progresion #inputFields .form-control').blur(function() {
         this.value = responseChords[index].getChordAsString();
     }
 });
+*/
+$('#Progresion #inputFields .chord-bar').focus(function() {
+        $(this).addClass('hasBeenSelected')
+        $(this).one('mouseup', function() {
+            $(this).select();
+        });
+        var index = this.id.slice(2)
+        var input = this.value
+        if (activeChordIndex != index) {
+            activeChordIndex = index;
+        }
+       // responseChords[activeChordIndex].buildFromString(progresionRegEx.exec(input))
+        //Esto se hace necesario para cuando se utilizan los botones para ingresar los acordes
+        this.value = responseChords[activeChordIndex].getChordAsString();
+    });
 
 
 //Progresion buttons click
 $('#Progresion #gradeModifier .btn').click(function () {
     if (!$(this).hasClass('disabled')) {
         responseChords[activeChordIndex].gradeModifier = this.id
-        individualFields[activeChordIndex].value = responseChords[activeChordIndex].getChordAsString();
+        console.log(individualFields[activeChordIndex])
+        individualFields[activeChordIndex].innerHTML = responseChords[activeChordIndex].getChordAsString();
         $(individualFields[activeChordIndex]).focus();
     }
 })
 
 $('#Progresion #grade .btn').click(function () {
+    console.log(activeChordIndex)
     if (!$(this).hasClass('disabled')) {
+        console.log(individualFields[activeChordIndex])
         responseChords[activeChordIndex].grade = this.id;
-        individualFields[activeChordIndex].value = responseChords[activeChordIndex].getChordAsString();
+        individualFields[activeChordIndex].innerHTML = responseChords[activeChordIndex].getChordAsString();
         $(individualFields[activeChordIndex]).focus();        
     }
 })
@@ -163,33 +166,11 @@ $('#Progresion #grade .btn').click(function () {
 $('#Progresion #kind .btn').click(function () {
     if (!$(this).hasClass('disabled')) {
         responseChords[activeChordIndex].kind = this.id
-        individualFields[activeChordIndex].value = responseChords[activeChordIndex].getChordAsString();
+        individualFields[activeChordIndex].innerHTML = responseChords[activeChordIndex].getChordAsString();
         $(individualFields[activeChordIndex]).focus();
     }
 })
 
-$('#Progresion #seven .btn').click(function () {
-    if (!$(this).hasClass('disabled')) {
-        responseChords[activeChordIndex].seven = this.id
-        individualFields[activeChordIndex].value = responseChords[activeChordIndex].getChordAsString();
-        $(individualFields[activeChordIndex]).focus();
-    }
-})
-
-$('#Progresion #isSecondaryDominat .btn').click(function () {
-    if (!$(this).hasClass('disabled')) {
-        responseChords[activeChordIndex].isSecondaryDominat = '/'
-        individualFields[activeChordIndex].value = responseChords[activeChordIndex].getChordAsString();
-        $(individualFields[activeChordIndex]).focus();        
-    }
-})
-$('#Progresion #secondaryDominatModifier .btn').click(function () {
-    if (!$(this).hasClass('disabled')) {
-        responseChords[activeChordIndex].secondaryDominatModifier = this.id
-        individualFields[activeChordIndex].value = responseChords[activeChordIndex].getChordAsString();
-        $(individualFields[activeChordIndex]).focus();
-    }
-})
 $('#Progresion #secondaryDominat .btn').click(function () {
     if (!$(this).hasClass('disabled')) {
         responseChords[activeChordIndex].secondaryDominat = this.id
@@ -213,7 +194,7 @@ $('#progresionResponse').click(function () {
 
 function getResponses() {    
     //$("#play-pause").prop("disabled", true)
-    var buttons = $('#Progresion #inputFields .form-control').get()
+    //var buttons = $('#Progresion #inputFields .form-control').get()
     var responses = []
     responseChords.forEach(element => {
         var retrievedChord = {};
@@ -234,7 +215,7 @@ function getResponses() {
         }
         responses.push(retrievedChord)
     })
-    $('#Progresion #inputFields .form-control').removeClass('hasBeenSelected')
+    //$('#Progresion #inputFields .form-control').removeClass('hasBeenSelected')
     return responses;
 }
 
@@ -249,6 +230,7 @@ function failChordAnswer(grade, kind, index) {
 function correctChordAnswer(index) {
     $('#ex' + index).removeClass('btn-default').addClass('btn-success')
 }
+//RETOCAR
 $('#Progresion .form-control').popover({
     placement: 'bottom',
     trigger: 'manual'
