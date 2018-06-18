@@ -10,7 +10,7 @@ var testPattern = /(b|#)?(I|II|III|IV|V|VI|VII)(m|dim|\+)?[(/)(b|#)?(I|II|III|IV
 //Global
 function resetElements(parent) {
     if (parent == 'Progresion') {
-        $('#' + parent + ' .form-control').val('')
+        $('#' + parent + ' .chord-bar').html("&nbsp")
             .popover('hide')
             .removeClass('btn-success')
             .removeClass('btn-danger')

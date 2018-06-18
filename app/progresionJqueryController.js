@@ -1,14 +1,3 @@
-                /* regEx Return
-                    0 modif
-                    1 grade
-                    2 kind
-                    3 seven
-                    6 extention
-                    7 b5
-                    10 secondary modif
-                    11 secondary dominant
-                */
-
 function inputChord(){
     this.gradeModifier = undefined;
     this.grade = undefined;
@@ -20,29 +9,14 @@ function inputChord(){
         var chord = this
         var grade = [chord.gradeModifier, romanize(this.grade)].join('')
         var kind = [formatChordsToDisplay[chord.kind]].join('')
-        var secondaryDominat = [chord.isSecondaryDominat, chord.secondaryDominatModifier, romanize(chord.secondaryDominat)].join('')
-        var retrieve = grade + kind + secondaryDominat;
+        var secondaryDominat = (chord.secondaryDominat != undefined)? romanize(chord.secondaryDominat) + '/': '';
+        var retrieve = secondaryDominat + grade + kind;
         return retrieve;
     }
 
-    //Convierte los valores raw recibidos de una cadena ya lamacenados en las variables 
-    //y los procesa para adjudicarles su valor real interno
-    function processChord(chord) {
-        if (chord.kind == '°') {
-            chord.kind = 'dim'
-            chord.seven = 'b7'
-        }
-        else {
-            chord.kind = handInputTable[chord.kind]
-        }
-        if (chord.extention != undefined) chord.extention = chord.extention.replace('s', '#');
-        if (chord.b5 != undefined && chord.kind == 'm') chord.kind = 'dim';
-        updateButtons(chord);
-
-    }
-
-    function updateButtons(chord){
-        $('#inputButtons :input').removeClass('btn-primary')
+    this.updateButtons = function(){
+        var chord = this
+        $('#inputButtons :button').removeClass('btn-primary')
             .addClass('btn-default')
         for (var property in Object.keys(chord)) {
             key = Object.keys(chord)[property]
@@ -50,9 +24,6 @@ function inputChord(){
             if(!(Object.prototype.toString.call(value) == '[object Function]')){
                 //no deberia funcionar
                 if (value != undefined) {
-                    if (key == 'isSecondaryDominat') {
-                        value = 'isSecondary';
-                    }
                     $('#' + key + ' #' + value.replace('#', 's')).removeClass('btn-default')
                         .addClass('btn-primary')
                 }
@@ -62,8 +33,6 @@ function inputChord(){
 }
 
 //Progresion Input Fields
-var progresionRegEx = /^(b|#|\+)?(I|II|III|IV|V|VI|VII|[1-7])(M|m|°|d|dim|a|aug|aum|\+)?(b7|7|majj|majj7)?((|\/)(b9|9|#9|11|#11|b13|13))?(b5)?((\/)(b|#|\+)?(I|II|III|IV|V|VI|VII|[1-7]))?$/i
-var gradeParserRegEx = /^(b|#|\+)?([1-7])((\/)(b|#|\+)?([1-7]))?$/i
 var enters = 0;
 var responseChords = [];
 var activeChordIndex;
@@ -90,94 +59,54 @@ function initiateExercise(numberOfChords, container, exerciseMode) {
     $(individualFields[activeChordIndex]).focus();
 }
 
-//Progresion buttons and fields
-/*$('#Progresion #inputFields .form-control').on('input', function () {
-    var index = this.id.slice(2)
-    var input = this.value
-    //Si agregó algo nuevo (si no hay espacio al final): procesar y cargar en el respectivo acorde
-    if (input[input.length -1] == ' ') {  
-        input = input.substr(0,(input.length -1))
-        $(this).val(input);
-    }
-    //Si no agregó nada nuevo (si no hay espacio al final) no hacer nada
-    responseChords[activeChordIndex].buildFromString(progresionRegEx.exec(input))
-})*/
-/*
-$('#Progresion #inputFields .form-control').focus(function () {
+$('#Progresion #inputFields .chord-bar').focus(function () {
     $(this).addClass('hasBeenSelected')
-    $(this).one('mouseup', function() {
+    $(this).one('mouseup', function () {
         $(this).select();
     });
     var index = this.id.slice(2)
-    var input = this.value
-    if (activeChordIndex != index) {
-        activeChordIndex = index;
+    if (activeChordIndex != index) activeChordIndex = index;
+    responseChords[activeChordIndex].updateButtons(responseChords[activeChordIndex])
+    var valueToShow = responseChords[activeChordIndex].getChordAsString();
+    console.log(valueToShow)
+    if(valueToShow == '') {
+        valueToShow = "&nbsp"
     }
-    responseChords[activeChordIndex].buildFromString(progresionRegEx.exec(input))
-    //Esto se hace necesario para cuando se utilizan los botones para ingresar los acordes
-    this.value = responseChords[activeChordIndex].getChordAsString();
-})
-
-$('#Progresion #inputFields .form-control').blur(function() {
-    if ($(this).hasClass('hasBeenSelected')) {
-        var index = this.id.slice(2)
-        var input = this.value
-        responseChords[index].buildFromString(progresionRegEx.exec(input))
-        this.value = responseChords[index].getChordAsString();
-    }
+    console.log(valueToShow)
+    this.value = valueToShow
 });
-*/
-$('#Progresion #inputFields .chord-bar').focus(function() {
-        $(this).addClass('hasBeenSelected')
-        $(this).one('mouseup', function() {
-            $(this).select();
-        });
-        var index = this.id.slice(2)
-        var input = this.value
-        if (activeChordIndex != index) {
-            activeChordIndex = index;
-        }
-       // responseChords[activeChordIndex].buildFromString(progresionRegEx.exec(input))
-        //Esto se hace necesario para cuando se utilizan los botones para ingresar los acordes
-        this.value = responseChords[activeChordIndex].getChordAsString();
-    });
 
 
 //Progresion buttons click
-$('#Progresion #gradeModifier .btn').click(function () {
+$('#Progresion #inputButtons .btn').click(function () {
     if (!$(this).hasClass('disabled')) {
-        responseChords[activeChordIndex].gradeModifier = this.id
-        console.log(individualFields[activeChordIndex])
-        individualFields[activeChordIndex].innerHTML = responseChords[activeChordIndex].getChordAsString();
-        $(individualFields[activeChordIndex]).focus();
+        if (!$(this).hasClass('btn-primary')) {
+            loadValue($(this).parent().attr('id'), this)
+        }
+        else {
+            discardValue($(this).parent().attr('id'), this)
+        }
     }
 })
 
-$('#Progresion #grade .btn').click(function () {
-    console.log(activeChordIndex)
-    if (!$(this).hasClass('disabled')) {
-        console.log(individualFields[activeChordIndex])
-        responseChords[activeChordIndex].grade = this.id;
-        individualFields[activeChordIndex].innerHTML = responseChords[activeChordIndex].getChordAsString();
-        $(individualFields[activeChordIndex]).focus();        
-    }
-})
+function loadValue(field, button){
+    var parent = $(button).parent().attr('id');
+    $('#' + parent + ' .btn').removeClass('btn-primary').addClass('btn-default')
+    $(button).addClass('btn-primary')
+    responseChords[activeChordIndex][field] = button.id;
+    individualFields[activeChordIndex].innerHTML = responseChords[activeChordIndex].getChordAsString();
+    $(individualFields[activeChordIndex]).focus();
+}
+function discardValue(field, button){
+    $(button).removeClass('btn-primary').addClass('btn-default')
+    responseChords[activeChordIndex][field] = undefined;
+    //individualFields[activeChordIndex].innerHTML = responseChords[activeChordIndex].getChordAsString();
+    $(individualFields[activeChordIndex]).focus();
+}
 
-$('#Progresion #kind .btn').click(function () {
-    if (!$(this).hasClass('disabled')) {
-        responseChords[activeChordIndex].kind = this.id
-        individualFields[activeChordIndex].innerHTML = responseChords[activeChordIndex].getChordAsString();
-        $(individualFields[activeChordIndex]).focus();
-    }
-})
+function deselectButton(){
 
-$('#Progresion #secondaryDominat .btn').click(function () {
-    if (!$(this).hasClass('disabled')) {
-        responseChords[activeChordIndex].secondaryDominat = this.id
-        individualFields[activeChordIndex].value = responseChords[activeChordIndex].getChordAsString();
-        $(individualFields[activeChordIndex]).focus();
-    }
-})
+}
 //Falta el resto
 
 //Button response
@@ -193,29 +122,20 @@ $('#progresionResponse').click(function () {
 })
 
 function getResponses() {    
-    //$("#play-pause").prop("disabled", true)
-    //var buttons = $('#Progresion #inputFields .form-control').get()
     var responses = []
     responseChords.forEach(element => {
         var retrievedChord = {};
         retrievedChord.grade = [element.gradeModifier,
-            element.grade,
-            element.isSecondaryDominat,
-            element.secondaryDominatModifier,
-            element.secondaryDominat].join('').replace('s', '#')
+            romanize(element.grade),
+            romanize(element.secondaryDominat)].join('').replace('s', '#')
         retrievedChord.kind = element.kind;
-        retrievedChord.seven = element.seven;
-        retrievedChord.extention = element.extention;
-        console.log(retrievedChord)
         if(retrievedChord.grade != undefined && retrievedChord.grade != "") {
             if(retrievedChord.kind == undefined){
-                var gradeOf = gradeParserRegEx.exec(retrievedChord.grade)
-                retrievedChord.kind = progresionMode[mode][[gradeOf[1], gradeOf[2]].join('')];
+                retrievedChord.kind = progresionMode[mode][[element.gradeModifier, element.grade].join('')];
             }
         }
         responses.push(retrievedChord)
     })
-    //$('#Progresion #inputFields .form-control').removeClass('hasBeenSelected')
     return responses;
 }
 
