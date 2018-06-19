@@ -32,6 +32,8 @@ function HarmonicProgresionExercise( actualLevel = user.progresionLevel) {
             gradeHits = 0
             kindHits = 0
             parsedResponse = []
+            console.log(response)
+            console.log(progresion.progresion)
             for (var i = 0; i < progresion.progresion.length; i++) {
                 grades[i] = 0;
                 if (progresion.progresion[i].grade == response[i].grade) {

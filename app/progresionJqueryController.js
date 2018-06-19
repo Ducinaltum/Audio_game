@@ -125,13 +125,20 @@ function getResponses() {
     var responses = []
     responseChords.forEach(element => {
         var retrievedChord = {};
-        retrievedChord.grade = [element.gradeModifier,
-            romanize(element.grade),
-            romanize(element.secondaryDominat)].join('').replace('s', '#')
+        if(element.secondaryDominat != undefined) element.secondaryDominat +='/'
+        retrievedChord.grade = [element.secondaryDominat,
+            element.gradeModifier,
+            element.grade].join('').replace('s', '#')
         retrievedChord.kind = element.kind;
         if(retrievedChord.grade != undefined && retrievedChord.grade != "") {
             if(retrievedChord.kind == undefined){
-                retrievedChord.kind = progresionMode[mode][[element.gradeModifier, element.grade].join('')];
+                //Arreglar esto, el problema se ve en los 7/ donde espera que uno aclare que son dim
+                console.log(progresionMode)
+                if(retrievedChord.secondaryDominat != undefined){
+                    retrievedChord.kind = progresionMode[mode][[element.secondaryDominat]];
+                    console.log(progresionMode[mode][[element.secondaryDominat]])
+                }
+                else retrievedChord.kind = progresionMode[mode][[element.gradeModifier, element.grade].join('')];
             }
         }
         responses.push(retrievedChord)
@@ -151,7 +158,7 @@ function correctChordAnswer(index) {
     $('#ex' + index).removeClass('btn-default').addClass('btn-success')
 }
 //RETOCAR
-$('#Progresion .form-control').popover({
+$('#Progresion .chord-bar').popover({
     placement: 'bottom',
     trigger: 'manual'
 })

@@ -15,11 +15,13 @@ Hacer funcione el stopAllNotes()
 Si se apreta la barra cuando se está reproduciendo se superponen las reproducciones
 
 
-Los acordes m7b5 con extensión se leen mal en la casilla de input
-
 Eligiendo el ultimo nivel de acordes y ganándolo me llevó de nuevo al menú
 
 Pareciera que el ejercicio de acordes inicia dos veces
+
+Hace mal la comparación de respuesta en progresiones
+
+Falta la posibilidad de dejar vacío un espacio en progresion
 
 
 
