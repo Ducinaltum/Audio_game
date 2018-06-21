@@ -179,7 +179,6 @@ function goToExercise(){
 $('.continue').click(function(){
     var kind = this.id.replace("continue", "");
     var level = user[kind.toLowerCase() + "Level"]
-    console.log(level)
     var Exercise = setExerciseConstructor(kind);
     currentExercise = null
     currentExercise = new Exercise(level);

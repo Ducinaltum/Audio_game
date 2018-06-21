@@ -15,6 +15,7 @@ MIDI.loadPlugin({
 });
 
 function loadOnBuffer(stream){
+    console.log('hi')
     MIDI.stopAllNotes();
     sequence.length = 0;
     sequence.push(stream)
@@ -38,4 +39,5 @@ function playSequence(){
                 sequence[inst][i].noteOff);      
         }
     }   
+    MIDI.stopAllNotes();
 }

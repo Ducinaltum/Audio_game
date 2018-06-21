@@ -1,16 +1,17 @@
 function HarmonicProgresionExercise( actualLevel = user.progresionLevel) {
-    typeOfExercise = 'Progresion'
-    state = 'idle';
-    var mode;
-    level = clamp(actualLevel, info.progresionMaxLevel)
-    exercise = setProgresionLevel(level);
-    progresionManager = new LevelManager(level)
+    console.log("new ex")
+    var typeOfExercise = 'Progresion'
+    var state = 'idle';
+    var level = clamp(actualLevel, info.progresionMaxLevel)
+    var exercise = setProgresionLevel(level);
+    var progresion;
+    var progresionManager = new LevelManager(level)
     showScreen(typeOfExercise)
-    initiateExercise(exercise.numberOfChords, typeOfExercise, exercise.mode)
     createProgresion();
     this.getKindOfExercise = function(){return typeOfExercise}
     this.getLevel = function(){return level}     
     this.getState = function(){return state}
+
     this.createNextQuestion = function(){
         createProgresion();
     }
@@ -32,8 +33,6 @@ function HarmonicProgresionExercise( actualLevel = user.progresionLevel) {
             gradeHits = 0
             kindHits = 0
             parsedResponse = []
-            console.log(response)
-            console.log(progresion.progresion)
             for (var i = 0; i < progresion.progresion.length; i++) {
                 grades[i] = 0;
                 if (progresion.progresion[i].grade == response[i].grade) {

@@ -22,7 +22,6 @@ function inputChord(){
             key = Object.keys(chord)[property]
             value = chord[key];
             if(!(Object.prototype.toString.call(value) == '[object Function]')){
-                //no deberia funcionar
                 if (value != undefined) {
                     $('#' + key + ' #' + value.replace('#', 's')).removeClass('btn-default')
                         .addClass('btn-primary')
@@ -68,12 +67,10 @@ $('#Progresion #inputFields .chord-bar').focus(function () {
     if (activeChordIndex != index) activeChordIndex = index;
     responseChords[activeChordIndex].updateButtons(responseChords[activeChordIndex])
     var valueToShow = responseChords[activeChordIndex].getChordAsString();
-    console.log(valueToShow)
     if(valueToShow == '') {
-        valueToShow = "&nbsp"
+        valueToShow = '&nbsp'
     }
-    console.log(valueToShow)
-    this.value = valueToShow
+    individualFields[activeChordIndex].innerHTML = valueToShow
 });
 
 
@@ -94,20 +91,13 @@ function loadValue(field, button){
     $('#' + parent + ' .btn').removeClass('btn-primary').addClass('btn-default')
     $(button).addClass('btn-primary')
     responseChords[activeChordIndex][field] = button.id;
-    individualFields[activeChordIndex].innerHTML = responseChords[activeChordIndex].getChordAsString();
     $(individualFields[activeChordIndex]).focus();
 }
 function discardValue(field, button){
     $(button).removeClass('btn-primary').addClass('btn-default')
     responseChords[activeChordIndex][field] = undefined;
-    //individualFields[activeChordIndex].innerHTML = responseChords[activeChordIndex].getChordAsString();
     $(individualFields[activeChordIndex]).focus();
 }
-
-function deselectButton(){
-
-}
-//Falta el resto
 
 //Button response
 $('#progresionResponse').click(function () {
@@ -126,18 +116,11 @@ function getResponses() {
     responseChords.forEach(element => {
         var retrievedChord = {};
         if(element.secondaryDominat != undefined) element.secondaryDominat +='/'
-        retrievedChord.grade = [element.secondaryDominat,
-            element.gradeModifier,
-            element.grade].join('').replace('s', '#')
+        retrievedChord.grade = [element.secondaryDominat, element.gradeModifier, element.grade].join('').replace('s', '#')
         retrievedChord.kind = element.kind;
         if(retrievedChord.grade != undefined && retrievedChord.grade != "") {
             if(retrievedChord.kind == undefined){
-                //Arreglar esto, el problema se ve en los 7/ donde espera que uno aclare que son dim
-                console.log(progresionMode)
-                if(retrievedChord.secondaryDominat != undefined){
-                    retrievedChord.kind = progresionMode[mode][[element.secondaryDominat]];
-                    console.log(progresionMode[mode][[element.secondaryDominat]])
-                }
+                if(element.secondaryDominat != undefined) retrievedChord.kind = progresionMode[mode][[element.secondaryDominat.slice(0, element.secondaryDominat.length - 1)]];
                 else retrievedChord.kind = progresionMode[mode][[element.gradeModifier, element.grade].join('')];
             }
         }
@@ -150,8 +133,7 @@ function getResponses() {
 function failChordAnswer(grade, kind, index) {
     if (kind == 'major') kind = '';
     text = grade + ' ' + kind;
-    $('#ex' + index).attr('data-content', text)
-        .popover('show')
+    $('#ex' + index).attr('data-content', text).popover('show')
     $('#ex' + index).removeClass('btn-default').addClass('btn-danger')
 }
 function correctChordAnswer(index) {
