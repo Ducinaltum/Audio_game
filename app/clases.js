@@ -146,7 +146,7 @@ var chordTypes = {
 }
 
 const limits = {
-    "min": 30,
+    "min": 40,
     "max": 100
 }
 

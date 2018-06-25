@@ -10,7 +10,7 @@ QA
 --
 
 
-Hacer funcione el stopAllNotes() (Solved? Test)
+Hacer funcione el stopAllNotes() (Solved? Test) 25/06/2018
 
 
 Eligiendo el ultimo nivel de acordes y ganándolo me llevó de nuevo al menú
@@ -20,7 +20,7 @@ Pareciera que el ejercicio de acordes inicia dos veces
     En realidad pareciera que se llama dos veces a la reproducción
 
 
-
+Parece que hay un error y se cuentan de mas las respuestas equivocadas
 
 
 
