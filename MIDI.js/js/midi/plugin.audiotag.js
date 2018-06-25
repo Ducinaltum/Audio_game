@@ -130,7 +130,6 @@
 		};
 	
 		midi.stopAllNotes = function() {
-			console.log('enters 1')
 			for (var nid = 0, length = audioBuffers.length; nid < length; nid++) {
 				audioBuffers[nid].pause();
 			}

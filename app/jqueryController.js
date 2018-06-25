@@ -185,3 +185,7 @@ $('.continue').click(function(){
     goToExercise();
 
 })
+
+$('#play-pause').click(function(){
+    playSequence();
+})

@@ -1,6 +1,7 @@
 var bpm;
 var quarter = 60/bpm;
 var sequence = [];
+var loadedSequence = [];
 
 
 MIDI.loadPlugin({
@@ -15,18 +16,17 @@ MIDI.loadPlugin({
 });
 
 function loadOnBuffer(stream){
-    console.log('hi')
-    MIDI.stopAllNotes();
     sequence.length = 0;
     sequence.push(stream)
     playSequence();
 }
 
 function stop(){
-    MIDI.stopAllNotes();
+
 }
 
 function playSequence(){
+    MIDI.stopAllNotes();
     MIDI.setVolume(0, 127);
     for(var inst = 0; inst < sequence.length; inst++){
         for(var i = 0; i < sequence[inst].length; i++){
@@ -39,5 +39,6 @@ function playSequence(){
                 sequence[inst][i].noteOff);      
         }
     }   
-    MIDI.stopAllNotes();
 }
+
+

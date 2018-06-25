@@ -17,6 +17,9 @@
 		var effects = {};
 		var masterVolume = 127;
 		var audioBuffers = {};
+
+		var sourcesTracker = [];
+
 		///
 		midi.audioBuffers = audioBuffers;
 		midi.send = function(data, delay) { };
@@ -68,7 +71,6 @@
 // 				console.log(MIDI.GM.byId[instrument].id, instrument, channelId);
 				return;
 			}
-
 			/// convert relative delay to absolute delay
 			if (delay < ctx.currentTime) {
 				delay += ctx.currentTime;
@@ -115,14 +117,13 @@
 			}
 			///
 			sources[channelId + '' + noteId] = source;
+			sourcesTracker.push(sources[channelId + '' + noteId])
 			///
 			return source;
 		};
 
 		midi.noteOff = function(channelId, noteId, delay) {
 			delay = delay || 0;
-
-			/// check whether the note exists
 			var channel = root.channels[channelId];
 			var instrument = channel.instrument;
 			var bufferId = instrument + '' + noteId;
@@ -131,7 +132,6 @@
 				if (delay < ctx.currentTime) {
 					delay += ctx.currentTime;
 				}
-				///
 				var source = sources[channelId + '' + noteId];
 				if (source) {
 					if (source.gainNode) {
@@ -142,7 +142,6 @@
 						gain.linearRampToValueAtTime(gain.value, delay);
 						gain.linearRampToValueAtTime(-1.0, delay + 0.3);
 					}
-					///
 					if (useStreamingBuffer) {
 						if (delay) {
 							setTimeout(function() {
@@ -183,21 +182,18 @@
 		};
 
 		midi.stopAllNotes = function() {
-			for (var sid in sources) {
+			for (var sid in sourcesTracker) {
 				var delay = 0;
 				if (delay < ctx.currentTime) {
 					delay += ctx.currentTime;
 				}
-				var source = sources[sid];
-				source.gain.linearRampToValueAtTime(1, delay);
-				source.gain.linearRampToValueAtTime(0, delay + 0.3);
-				if (source.noteOff) { // old api
-					source.noteOff(delay + 0.3);
-				} else { // new api
-					source.stop(delay + 0.3);
-				}
-				delete sources[sid];
+				var source = sourcesTracker[sid];
+				source.stop(delay + 0.3);
+				source.gainNode.gain.linearRampToValueAtTime(1, delay);
+				source.gainNode.gain.linearRampToValueAtTime(0, delay + 0.3);
+
 			}
+			sourcesTracker = [];
 		};
 
 		midi.setEffects = function(list) {
