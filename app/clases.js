@@ -198,17 +198,18 @@ function LevelManager(actualLevel) {
         ratio = hit / rounds;
         correct = (hit / totalRounds) * 100
         incorrect = (miss / totalRounds) * 100
-
         updateProgressBar(correct, incorrect);
 
         if (rounds >= totalRounds) {
             hit = 0;
             miss = 0;
             rounds = 0;
+            console.log(ratio)
+            console.log(winRatio)
             if (ratio > winRatio) {
                 if (level == user[kind.toLowerCase()+'Level']) {
                     user[kind.toLowerCase()+'Level']++;
-                    localStorage[kind.toLowerCase()+'Level'] = user[kind.toLowerCase()+'Level']
+                    localStorage[kind.toLowerCase() +'Level'] = user[kind.toLowerCase() + 'Level']
                 }
                 progressRestore()
                 endLevelMenu('win')
@@ -217,7 +218,7 @@ function LevelManager(actualLevel) {
                 progressRestore()
                 endLevelMenu('loose')                
             }
-            return true
+            return true;
         }
         return false;        
     }
@@ -231,7 +232,7 @@ function LevelManager(actualLevel) {
 
     setTotalRounds = function (actualLevel) {
         if (actualLevel % 4 == 3) return 50;
-        return 20;
+        return 2;
     }
     totalRounds = setTotalRounds(actualLevel);
 }

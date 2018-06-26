@@ -60,11 +60,14 @@ function endLevelMenu(outcome) {
         $('#repeat').addClass("btn-default").removeClass('btn-primary')
         $('#endLevelPrimary').html(winText.primary)
         $('#endLevelSecondary').html(winText.secondary)
+        $('#next').prop("disabled", false);
     }
     if (outcome == "loose") {
         $('#repeat').addClass('btn-primary').removeClass('btn-default')
         $('#next').addClass("btn-default").removeClass('btn-primary')
         if (currentExercise.getLevel() >= user[currentExercise.getKindOfExercise().toLowerCase() +'Level']) {
+            console.log(currentExercise.getLevel())
+            console.log(user[currentExercise.getKindOfExercise().toLowerCase() +'Level'])
             $('#next').prop("disabled", true);
         }
         $('#endLevelPrimary').html(looseText.primary)
@@ -183,9 +186,23 @@ $('.continue').click(function(){
     currentExercise = null
     currentExercise = new Exercise(level);
     goToExercise();
-
 })
 
 $('#play-pause').click(function(){
-    playSequence();
+    if($('#playButton').hasClass('hidden')){
+        setStop();
+        stop();
+    }
+    else {
+        setPlaying();
+        playSequence();
+    }
 })
+function setPlaying(){
+    $('#playButton').addClass('hidden');
+    $('#stopButton').removeClass('hidden');
+}
+function setStop(){
+    $('#stopButton').addClass('hidden');
+    $('#playButton').removeClass('hidden');
+}

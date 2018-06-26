@@ -56,7 +56,7 @@ var intervalsLevels = {
         return [].concat(sonorities.PerfectConsonances);
     },
     //Intervalos perfectos 2 octavas
-    12: function () {
+    11: function () {
         var levelStructure = []
         levelStructure = levelStructure.concat(sonorities.PerfectConsonances)
         levelStructure = levelStructure.concat(levelStructure.map(function (x) {
@@ -65,12 +65,12 @@ var intervalsLevels = {
         return levelStructure
     },
     //3ras y 6tas
-    13: function () {
+    12: function () {
         return [].concat(sonorities.NearConsonances)
             .concat(sonorities.FarConsonances)
     },
     //3ras y 6tas 2 octavas
-    14: function () {
+    13: function () {
         var levelStructure = []
         levelStructure = levelStructure.concat(sonorities.NearConsonances)
             .concat(sonorities.FarConsonances)
@@ -80,7 +80,7 @@ var intervalsLevels = {
         return levelStructure;
     },
     //Perfectos 3ras y 6tas 2 octavas
-    15: function () {
+    14: function () {
         var levelStructure = []
         levelStructure = levelStructure.concat(sonorities.PerfectConsonances)
             .concat(sonorities.NearConsonances)
@@ -91,12 +91,12 @@ var intervalsLevels = {
         return levelStructure;
     },
     //2das y 7mas
-    16: function () {
+    15: function () {
         return [] = levelStructure.concat(sonorities.NearDisonances)
             .concat(sonorities.FarDisonances)
     },
     //2das y 7mas 2 octavas
-    17: function () {
+    16: function () {
         var levelStructure = []
         levelStructure = levelStructure.concat(sonorities.NearDisonances)
             .concat(sonorities.FarDisonances)
@@ -106,7 +106,7 @@ var intervalsLevels = {
         return levelStructure;
     },
     //Todo 2 octavas
-    18: function () {
+    17: function () {
         var levelStructure = []
         levelStructure = [];
         for (var i = 1; i < 25; i++) {

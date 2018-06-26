@@ -42,9 +42,6 @@ function IntervalsExercise(actualLevel = user.intervalsLevel) {
                         score++;
                     }
                 }
-                if (!hit) {
-                    intervalManager.addScore(0);
-                }
                 correctIntervalButtonAnswer(typeOfExercise, currentIntervals[i])
             }
             for (var fail in response) {
@@ -69,6 +66,7 @@ function IntervalsExercise(actualLevel = user.intervalsLevel) {
             name:''
         };
         procesedLevel.exerciseLevel = Math.floor(level / 4)        
+        console.log(procesedLevel);
         procesedLevel.intervals = intervalsLevels[procesedLevel.exerciseLevel]()
         procesedLevel.kind = level % 4
         procesedLevel.timing = setTiming(procesedLevel.kind);

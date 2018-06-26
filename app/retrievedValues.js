@@ -1,6 +1,6 @@
 var user = {
     intervalsLevel: 44,
-    progresionLevel: 11,
+    progresionLevel: 0,
     chordsLevel: 0,
     /*
     totalScore: 0,
@@ -176,6 +176,7 @@ var looseText = {
     secondary: 'Le recomiendo repetirlo, o volver al nivel anterior'
 }
 $('#document').ready(function(){
+    localStorage.setItem('progresionLevel', 0)
     if(localStorage.length == 0){
         localStorage.setItem('intervalsLevel', 0)
         localStorage.setItem('chordsLevel', 0)

@@ -112,4 +112,8 @@ body {
 
   .glyphicon.glyphicon-play {
     font-size: 75px;
-}
+  }
+  
+  .glyphicon.glyphicon-stop {
+      font-size: 75px;
+  }
