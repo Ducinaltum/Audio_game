@@ -1,5 +1,4 @@
 function HarmonicProgresionExercise(actualLevel = user.progresionLevel) {
-    console.log("new ex")
     var typeOfExercise = 'Progresion'
     var state = 'idle';
     var level = clamp(actualLevel, info.progresionMaxLevel)
@@ -34,15 +33,13 @@ function HarmonicProgresionExercise(actualLevel = user.progresionLevel) {
             kindHits = 0
             parsedResponse = []
             for (var i = 0; i < progresion.progresion.length; i++) {
+                answer = progresion.progresion[i]
+                usrResponse = response[i]
+                answer.grade = answer.grade.replace(/[M/m/d/A]/,'')
                 grades[i] = 0;
-                console.log(progresion.progresion[i].grade)
-                console.log(response[i].grade)
-                console.log(progresion.progresion[i].grade == response[i].grade)
-                if (progresion.progresion[i].grade == response[i].grade) {
+                if (answer.grade == usrResponse.grade) {
                     gradeHits++;
                     if (progresion.progresion[i].chord.kind == response[i].kind) {
-                        console.log(progresion.progresion[i].chord.kind)
-                        console.log(response[i].kind)
                         kindHits = 1;
                         grades[i] = 1;
                     }

@@ -120,7 +120,9 @@ function getResponses() {
         retrievedChord.kind = element.kind;
         if(retrievedChord.grade != undefined && retrievedChord.grade != "") {
             if(retrievedChord.kind == undefined){
-                if(element.secondaryDominat != undefined) retrievedChord.kind = progresionMode[mode][[element.secondaryDominat.slice(0, element.secondaryDominat.length - 1)]];
+                if(element.secondaryDominat != undefined) {
+                    retrievedChord.kind = progresionMode[mode][[element.secondaryDominat.slice(0, element.secondaryDominat.length - 1)]];
+                }
                 else retrievedChord.kind = progresionMode[mode][[element.gradeModifier, element.grade].join('')];
             }
         }

@@ -5,17 +5,14 @@ Alterar las progresiones en el modo menor para impedir que haga 2-6-2 o 6-2-6
 
 Alterar las disposiciones en los ejercicios de acordes
 
+Arreglar la generación de corales
+
 
 QA
 --
 
-Revisar la nomenclatura en progresion mm por que no me toma algunos acordes
-    Ex: b7 (lo lee como numero arabigo)
-    Ex: 3A (lo pide como '3A aug')
-
 Eligiendo el ultimo nivel de acordes y ganándolo me llevó de nuevo al menú
     Es realmente un error?
-
 
 Pareciera que el ejercicio de acordes inicia dos veces
     En realidad pareciera que se llama dos veces a la reproducción

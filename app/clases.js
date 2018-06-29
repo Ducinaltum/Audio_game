@@ -104,11 +104,17 @@ var progresionMode = {
     },
     minor : {
         '1': 'minor',
+        'b2': 'major',
         '2': 'dim',
+        'b3': 'major',
         '3': 'major',
         '4': 'minor',
+        '#4': 'dim',
         '5': 'major',
+        'b6': 'major',
         '6': 'major',
+        '#6': 'dim',
+        'b7': 'major',
         '7': 'dim'
     }
 }
@@ -204,8 +210,6 @@ function LevelManager(actualLevel) {
             hit = 0;
             miss = 0;
             rounds = 0;
-            console.log(ratio)
-            console.log(winRatio)
             if (ratio > winRatio) {
                 if (level == user[kind.toLowerCase()+'Level']) {
                     user[kind.toLowerCase()+'Level']++;
