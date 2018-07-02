@@ -70,7 +70,8 @@ function HarmonicProgresionExercise(actualLevel = user.progresionLevel) {
 
 function Progresion(ex) {
     //Deshardcodear
-    numberOfChords = 8;
+    console.log(ex)
+    //numberOfChords ;
     this.exercise = ex;
     this.progresion = setProgresion(this.exercise.chords, this.exercise.numberOfChords);
     voicing = buildChorale(this.progresion);

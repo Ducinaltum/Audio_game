@@ -51,6 +51,7 @@ var intervalsLevels = {
         }
         return levelStructure;
     },
+    /*
     //TRES NOTAS
     10: function () {
         return [].concat(sonorities.PerfectConsonances);
@@ -114,6 +115,7 @@ var intervalsLevels = {
         }
         return levelStructure;
     }
+    */
 }
 
 $('#intervalsSelection .list-group-item').click(function (e) {
