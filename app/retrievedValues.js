@@ -1,5 +1,5 @@
 var user = {
-    intervalsLevel: 44,
+    intervalsLevel: 0             ,
     progresionLevel: 0,
     chordsLevel: 0,
     /*
@@ -9,7 +9,7 @@ var user = {
     chordsScore: 0,
     */
 /*
-    intervalsStats:{
+    intervalsStats: {
         1:{
             right:0,
             wrong:0,
@@ -160,7 +160,7 @@ var user = {
 }
 
 var info = {
-    intervalsMaxLevel: 144,
+    intervalsMaxLevel: 36,
     chordsMaxLevel: 68,
     progresionMaxLevel: 33
 }

@@ -236,7 +236,7 @@ function LevelManager(actualLevel) {
 
     setTotalRounds = function (actualLevel) {
         if (actualLevel % 4 == 3) return 50;
-        return 2;
+        return 20;
     }
     totalRounds = setTotalRounds(actualLevel);
 }

@@ -3,9 +3,10 @@ Game design
 
 Alterar las progresiones en el modo menor para impedir que haga 2-6-2 o 6-2-6
 
+Arreglar la generación de corales
+
 Alterar las disposiciones en los ejercicios de acordes
 
-Arreglar la generación de corales
 
 
 QA
@@ -24,11 +25,6 @@ Pareciera que el ejercicio de acordes inicia dos veces
 
 Cuando pasé el nivel de intervalos se clavo en varios (me deshabilita el botón siguiente)
     No lo pude replicar
-
-En la textura de 4 negras contra una redonda en el bajo, el bajo dura tres tiempos:
-    Error de código o error de sampler?
-
-
 
 
 

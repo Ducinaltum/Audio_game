@@ -69,8 +69,6 @@ function HarmonicProgresionExercise(actualLevel = user.progresionLevel) {
 
 
 function Progresion(ex) {
-    //Deshardcodear
-    console.log(ex)
     //numberOfChords ;
     this.exercise = ex;
     this.progresion = setProgresion(this.exercise.chords, this.exercise.numberOfChords);

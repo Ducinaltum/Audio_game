@@ -140,11 +140,13 @@
                             </div>
                             <br>
                             <div class="panel panel-default">
+                            <!--
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <h3 class="text-center">Intervalos individuales: 2 notas</h3>
                                     </h4>
                                 </div>
+                            -->
                                 <div id="individualIntervals" class="panel">
                                     <div class="list-group">
                                         <a id='int0' href="#" class="list-group-item">Intervalos perfectos </a>
@@ -157,24 +159,6 @@
                                         <a id='int7' href="#" class="list-group-item">Disonancias lejanas: 4A/5d, 7m, 7M</a>
                                         <a id='int8' href="#" class="list-group-item">Todos los intervalos dentro de la octava</a>
                                         <a id='int9' href="#" class="list-group-item">Todos los intervalos dentro de dos octavas</a>
-                                    </div>
-                                </div>
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <h3 class="text-center">Intervalos múltiples: 3 notas</h3>
-                                    </h4>
-                                </div>
-                                <div id="doubleIntervals" class="panel">
-                                    <div class="list-group">
-                                        <a id='int10' href="#" class="list-group-item">Intervalos perfectos</a>
-                                        <a id='int11' href="#" class="list-group-item">Intervalos perfectos en dos octavas</a>
-                                        <a id='int12' href="#" class="list-group-item">Consonancias</a>
-                                        <a id='int13' href="#" class="list-group-item">Consonancias en dos octavas</a>
-                                        <a id='int14' href="#" class="list-group-item">Intervalos perfectos y consonancias</a>
-                                        <a id='int15' href="#" class="list-group-item">Intervalos perfectos y consonancias en dos octavas</a>
-                                        <a id='int16' href="#" class="list-group-item">Disonancias</a>
-                                        <a id='int17' href="#" class="list-group-item">Disonancias en dos octavas</a>
-                                        <a id='int18' href="#" class="list-group-item">Todos los intervalos dentro de dos octavas</a>
                                     </div>
                                 </div>
                             </div>
@@ -202,7 +186,15 @@
                 <div id="chordsSelection" class="panel-collapse collapse">
                     <div class="panel-body">
                         <div class="panel-group">
-                            <div></div>
+                            <div id="chordMode" class="btn-group btn-group-justified" role="group" aria-label="...">
+                                <div class="btn-group" role="group">
+                                    <button type="radio" name="singleOptions" class="btn btn-primary selector" id="0" checked>Posición cerrada</button>
+                                </div>
+                                <div class="btn-group" role="group">
+                                    <button type="radio" name="singleOptions" class="btn btn-default selector" id="1">Posición abierta</button>
+                                </div>
+                            </div>
+                            <br>
                             <div id="chordMode" class="btn-group btn-group-justified" role="group" aria-label="...">
                                 <div class="btn-group" role="group">
                                     <button type="radio" name="singleOptions" class="btn btn-primary selector" id="0" checked>Ascendente</button>
@@ -286,18 +278,6 @@
                 <div id="progresionSelection" class="panel-collapse collapse">
                     <div class="panel-body">
                         <div class="panel-group">
-                            <div id="intervalMode" class="btn-group btn-group-justified" role="group" aria-label="...">
-                                <div class="btn-group" role="group">
-                                    <button type="radio" name="singleOptions" class="btn btn-primary selector" id="0" checked>Plaque</button>
-                                </div>
-                                <div class="btn-group" role="group">
-                                    <button type="radio" name="singleOptions" class="btn btn-default selector" id="1">Arpeggio</button>
-                                </div>
-                                <div class="btn-group" role="group">
-                                    <button type="radio" name="singleOptions" class="btn btn-default selector" id="2">Formula meloritmica</button>
-                                </div>
-                            </div>
-                            <br>
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
