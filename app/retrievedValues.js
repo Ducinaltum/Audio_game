@@ -180,7 +180,7 @@ $('#document').ready(function(){
     if(localStorage.length == 0){
         localStorage.setItem('intervalsLevel', 0)
         localStorage.setItem('chordsLevel', 0)
-        localStorage.setItem('progresionLevel', 0)
+        localStorage.setItem('progresionLevel', 3)
     }
     user.intervalsLevel = localStorage.intervalsLevel;
     user.chordsLevel = localStorage.chordsLevel;

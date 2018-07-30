@@ -74,7 +74,7 @@ function Progresion(ex) {
     //numberOfChords ;
     this.exercise = ex;
     this.progresion = setProgresion(this.exercise.chords, this.exercise.numberOfChords);
-    voicing = buildChorale(this.progresion);
+    voicing = buildChorale(this.progresion, this.exercise);
     this.notes = buildStream(voicing);
 
     //Deshardcodear
@@ -90,8 +90,7 @@ function Progresion(ex) {
         return progresion;
     }
 
-    function buildChorale(progresion) {
-
+    function buildChorale(progresion, exercise) {
         findOccurences = function (note) {
             octave = 0
             retrieve = []
@@ -204,16 +203,20 @@ function Progresion(ex) {
         choirScope.medianNote = Math.floor((choirScope.scope / 2) + choirScope.lowestMid);
         var voiceTranposition = Math.floor((ranges[Math.floor(Math.random()*ranges.length)] - choirScope.medianNote)/12)*12;
         var bassTranposition = Math.floor(choirScope.lowestDistBassTenor/12);
+        var tonality = exercise.tonality()
         if(bassTranposition == 0) bassTranposition -= 12;
         for (var m = 0; m < bass.length; m++) {
             bass[m] += 12 * bassTranposition;
         }
+        if(choirScope.highest + voiceTranposition + tonality > limits.max) tonality -= 12;
+        if(choirScope.lowest + voiceTranposition + tonality < limits.min) tonality += 12;
         for (var i = 0; i < tenor.length; i++){
-            bass[i] += voiceTranposition
-            tenor[i]+= voiceTranposition;
-            alto[i]+= voiceTranposition;
-            soprano[i]+= voiceTranposition;
+            bass[i] += voiceTranposition + tonality;
+            tenor[i]+= voiceTranposition + tonality;
+            alto[i]+= voiceTranposition + tonality;
+            soprano[i]+= voiceTranposition + tonality;
         }
+
         choir[0] = bass;
         choir[1] = tenor;
         choir[2] = alto;

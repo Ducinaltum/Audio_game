@@ -374,5 +374,5 @@ $('#progresionSelection .list-group-item').click(function (e) {
 })
 
 function randomNote(){
-    return Math.floor(Math.random()*12)
+    return Math.floor(Math.random()*12) - 6
 }

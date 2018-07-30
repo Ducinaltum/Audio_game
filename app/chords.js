@@ -67,6 +67,7 @@ function ChordsExercise( actualLevel = user.chordsLevel) {
     function setChordLevel(level){
         var procesedLevel = {
             exerciseLevel:null,
+            isOpen: false,
             base:[],
             kind:null,
             direction:null,
@@ -183,7 +184,7 @@ function ChordBuilder(ex, dir){
     }
 
     function buildStream(fundamental){
-        //Si dirección es 0, es armonico, si es 1 es ascendene si es -1 es descendente
+        //Si dirección es 0, es armonico, si es 1 es ascendente si es -1 es descendente
         var stream = [];
         notes = []        
         for(n in chord){
@@ -207,6 +208,11 @@ function ChordBuilder(ex, dir){
             chord[i] = pointer[pointerIndex][0]
             pointer = pointer[pointerIndex][1]
             if(pointer === undefined) break;
+        }
+        if(exercise.isOpen){
+            //Aislar el primer indice el BAJO
+            //Mezclar los indices restantes
+            return chord;
         }
         return chord;
     }
