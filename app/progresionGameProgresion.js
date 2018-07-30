@@ -186,110 +186,176 @@ function buildMajorPrincipals() {
 }
 
 var progresionLevels = {
-    //Acordes principales mayores
+    //Acordes principales mayores 4cc
     0: function () {
         var exercise = {};
         exercise.numberOfChords = 4
         exercise.mode = ['major']
+        exercise.tonality = function(){return 0}
         exercise.chords = new majorPrincipals();
         return exercise;
     },
+    //Acordes principales menores 4cc
     1: function () {
-        var exercise = {};
-        exercise.numberOfChords = 8
-        exercise.mode = ['major']
-        exercise.chords = new majorPrincipals();
-        return exercise;
-    },
-    //Acordes principales menores
-    2: function () {
         var exercise = {};
         exercise.numberOfChords = 4
         exercise.mode = ['minor']
+        exercise.tonality = function(){return 0}
         exercise.chords = new minorPrincipals();
         return exercise;
     },
+    //Acordes principales mayores 8cc
+    2: function () {
+        var exercise = {};
+        exercise.numberOfChords = 8
+        exercise.mode = ['major']
+        exercise.tonality = function(){return 0}
+        exercise.chords = new majorPrincipals();
+        return exercise;
+    },
+    //Acordes principales mayores 8cc DISTINTAS TONALIDADES
     3: function () {
         var exercise = {};
         exercise.numberOfChords = 8
+        exercise.mode = ['major']
+        exercise.tonality = randomNote;
+        exercise.chords = new majorPrincipals();
+        return exercise;
+    },
+    //Acordes principales menores 8cc
+    4: function () {
+        var exercise = {};
+        exercise.numberOfChords = 8
         exercise.mode = ['minor']
+        exercise.tonality = function(){return 0}
         exercise.chords = new minorPrincipals();
         return exercise;
     },
-    //Acorde secundarios mayores
-    4: function () {
-        var exercise = {};
-        exercise.numberOfChords = 4
-        exercise.mode = ['major']
-        exercise.chords = new majorSecondaries();
-        return exercise;
-    },
+    //Acordes principales menores 8cc DISTINTAS TONALIDADES
     5: function () {
         var exercise = {};
         exercise.numberOfChords = 8
-        exercise.mode = ['major']
-        exercise.chords = new majorSecondaries();
+        exercise.mode = ['minor']
+        exercise.tonality = randomNote
+        exercise.chords = new minorPrincipals();
         return exercise;
     },
-    //Acorde principales menores
+    //Acorde secundarios mayores 4cc
     6: function () {
         var exercise = {};
         exercise.numberOfChords = 4
-        exercise.mode = ['minor']
-        exercise.chords = new minorSecondaries();
+        exercise.mode = ['major']
+        exercise.tonality = function(){return 0}
+        exercise.chords = new majorSecondaries();
         return exercise;
     },
+    //Acorde secundarios menores 4cc
     7: function () {
-        var exercise = {};
-        exercise.numberOfChords = 8
-        exercise.mode = ['minor']
-        exercise.chords = new minorSecondaries();
-        return exercise;
-    },
-    //Acordes menores de todas las escalas
-    8: function () {
         var exercise = {};
         exercise.numberOfChords = 4
         exercise.mode = ['minor']
-        exercise.chords = new expandedMinor();
+        exercise.tonality = function () { return 0 }
+        exercise.chords = new minorSecondaries();
         return exercise;
     },
-    9: function () {
-        var exercise = {};
-        exercise.numberOfChords = 8
-        exercise.mode = ['minor']
-        exercise.chords = new expandedMinor();
-        return exercise;
-    },
-    //Dominantes secundarias sobre acordes principales en modo mayor
-    10: function(){
+    //Acorde secundarios mayores 8cc
+    8: function () {
         var exercise = {};
         exercise.numberOfChords = 8
         exercise.mode = ['major']
+        exercise.tonality = function(){return 0}
+        exercise.chords = new majorSecondaries();
+        return exercise;
+    },
+    //Acorde secundarios mayores 8cc DISTINTAS TONALIDADES
+    9: function () {
+        var exercise = {};
+        exercise.numberOfChords = 8
+        exercise.mode = ['major']
+        exercise.tonality = randomNote;
+        exercise.chords = new majorSecondaries();
+        return exercise;
+    },
+    //Acorde secundarios menores 8cc
+    10: function () {
+        var exercise = {};
+        exercise.numberOfChords = 8
+        exercise.mode = ['minor']
+        exercise.tonality = function(){return 0}
+        exercise.chords = new minorSecondaries();
+        return exercise;
+    },
+    //Acorde secundarios menores 8cc DISTINTAS TONALIDADES
+    11: function () {
+        var exercise = {};
+        exercise.numberOfChords = 8
+        exercise.mode = ['minor']
+        exercise.tonality = randomNote;
+        exercise.chords = new minorSecondaries();
+        return exercise;
+    },
+    //Acordes menores de todas las escalas  4cc
+    12: function () {
+        var exercise = {};
+        exercise.numberOfChords = 4
+        exercise.mode = ['minor']
+        exercise.tonality = function(){return 0}
+        exercise.chords = new expandedMinor();
+        return exercise;
+    },
+    //Acordes menores de todas las escalas  8cc
+    13: function () {
+        var exercise = {};
+        exercise.numberOfChords = 8
+        exercise.mode = ['minor']
+        exercise.tonality = function(){return 0}
+        exercise.chords = new expandedMinor();
+        return exercise;
+    },
+    //Acordes menores de todas las escalas  8cc DISTINTAS TONALIDADES
+    14: function () {
+        var exercise = {};
+        exercise.numberOfChords = 8
+        exercise.mode = ['minor']
+        exercise.tonality = function(){return 0}
+        exercise.chords = new expandedMinor();
+        return exercise;
+    },
+
+
+    //Dominantes secundarias sobre acordes principales en modo mayor
+    15: function(){
+        var exercise = {};
+        exercise.numberOfChords = 8
+        exercise.mode = ['major']
+        exercise.tonality = randomNote;
         exercise.chords = new onMajorPrincipalsSecondaryDominats();
         return exercise;
     },
     //Dominantes secundarias sobre acordes principales en modo menor
-    11: function(){
+    16: function(){
         var exercise = {};
         exercise.numberOfChords = 8
         exercise.mode = ['minor']
+        exercise.tonality = randomNote;
         exercise.chords = new onMinorPrincipalsSecondaryDominats();
         return exercise;
     },
     //Dominantes secundarias sobre acordes secundarios modo mayor
-    12: function(){
+    17: function(){
         var exercise = {};
         exercise.numberOfChords = 8
         exercise.mode = ['major']
+        exercise.tonality = randomNote;
         exercise.chords = new onMajorSecondariesSecondaryDominats();
         return exercise;
     },
     //Dominantes secundarias sobre acordes secundarios modo mayor
-    13: function(){
+    18: function(){
         var exercise = {};
         exercise.numberOfChords = 8
         exercise.mode = ['minor']
+        exercise.tonality = randomNote;
         exercise.chords = new onMinorSecondariesSecondaryDominats();
         return exercise;
     },
@@ -307,3 +373,6 @@ $('#progresionSelection .list-group-item').click(function (e) {
     goToExercise();
 })
 
+function randomNote(){
+    return Math.floor(Math.random()*12)
+}

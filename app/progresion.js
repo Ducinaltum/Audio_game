@@ -1,3 +1,5 @@
+const ranges = [12*5, 12*6, 12*7]
+
 function HarmonicProgresionExercise(actualLevel = user.progresionLevel) {
     var typeOfExercise = 'Progresion'
     var state = 'idle';
@@ -113,66 +115,104 @@ function Progresion(ex) {
         tenor = []
         alto = []
         soprano = []
-
+        var choirScope = {}
+        //Se le suman 12 (puede ser cualquier número) para que el acorde tenga margen para descender
+        var randomStartPos = Math.floor(Math.random() * 3) + 12;
         for (var i = 0; i < progresion.length; i++) {
-            //Se traza el bajo
-            var choirScope = {}
+            //Se traza el bajo            
             chord = findOccurences(progresion[i])
-            bass[i] = progresion[i].distanceToTonic
+            bass[i] = progresion[i].distanceToTonic;
             choirScope.lowest = bass[i];
             choirScope.highest = bass[i];
             if (bass[i] - bass[i - 1] > 7) {
                 bass[i] -= 12;
-            }
-            else if (bass[i] - bass[i - 1] < -7) {
+            } else if (bass[i] - bass[i - 1] < -7) {
                 bass[i] += 12;
             }
+
             if(bass[i] < choirScope.lowest) choirScope.lowest = bass[i];
+
+            //Se generan las otras voces
             if (i == 0) {
-                tenor[i] = chord[15]
-                alto[i] = chord[16]
-                soprano[i] = chord[17]
+                //Se asigna una disposición aleatoria para el primer acorde
+                tenor[i] = chord[randomStartPos]
+                alto[i] = chord[randomStartPos + 1]
+                soprano[i] = chord[randomStartPos + 2]
+                choirScope.lowestMid = tenor[i]
                 choirScope.highest = soprano[i]
-            }
-            else {
+                choirScope.lowestDistBassTenor = tenor[i] - bass[i]
+            } else {
+                //Si el acorde que sigue es igual que el anterior se cambia la posición
                 if (progresion[i].grade == progresion[i - 1].grade) {
                     for (var m = 0; m < chord.length; m++) {
                         if (chord[m] == tenor[i - 1]) {
                             direction = (Math.floor(Math.random() * 2) - 0.5) * 2;
-                            tenor[i] = chord[m + 1]
-                            alto[i] = chord[m + 2]
-                            soprano[i] = chord[m + 3]
+                            m += direction;
+                            tenor[i] = chord[m]
+                            alto[i] = chord[m + 1]
+                            soprano[i] = chord[m + 2]
                             break;
                         }
                     }
                 }
-                for (var m = 0; m < chord.length; m++) {
-                    if (chord[m] == tenor[i - 1]) {
-                        tenor[i] = chord[m]
-                        alto[i] = chord[m + 1]
-                        soprano[i] = chord[m + 2]
+                else{
+                    //Si el acorde que sigue es diferente que el anterior los acordes se enlazan
+                    for (var m = 0; m < chord.length; m++) {
+                        if (chord[m] == tenor[i - 1]) {
+                            tenor[i] = chord[m]
+                            alto[i] = chord[m + 1]
+                            soprano[i] = chord[m + 2]
+                        }
+                        if (chord[m] == alto[i - 1]) {
+                            tenor[i] = chord[m - 1]
+                            alto[i] = chord[m]
+                            soprano[i] = chord[m + 1]
+                        }
+                        if (chord[m] == soprano[i - 1]) {
+                            tenor[i] = chord[m - 2]
+                            alto[i] = chord[m - 1]
+                            soprano[i] = chord[m]
+                        }
                     }
-                    if (chord[m] == alto[i - 1]) {
-                        tenor[i] = chord[m - 1]
-                        alto[i] = chord[m]
-                        soprano[i] = chord[m + 1]
-                    }
-                    if (chord[m] == soprano[i - 1]) {
-                        tenor[i] = chord[m - 2]
-                        alto[i] = chord[m - 1]
-                        soprano[i] = chord[m]
+                    //Si entra acá es por que los acordes no tienen notas en común
+                    if (tenor[i] == undefined) {
+                        var bassDirection = Math.sign(bass[i] - bass[i - 1]);
+                        for (var m = 0; m < chord.length; m++) {
+                            if (chord[m] > tenor[i - 1]) {
+                                var t;
+                                if (bassDirection == 1) {
+                                    t = m - 1;
+                                } else {
+                                    t = m;
+                                }
+                                tenor[i] = chord[t]
+                                alto[i] = chord[t + 1]
+                                soprano[i] = chord[t + 2]
+                                break;
+                            }
+                        }
                     }
                 }
-                if (tenor[i] == undefined) {
-                    tenor[i] = chord[15]
-                    alto[i] = chord[16]
-                    soprano[i] = chord[17]
-                }
-                if(soprano[i] < choirScope.highest) choirScope.highest = soprano[i];
+                if(soprano[i] > choirScope.highest) choirScope.highest = soprano[i];
+                if(tenor[i] < choirScope.lowestMid) choirScope.lowestMid = tenor[i];
+                distBassToTenor = tenor[i] - bass[i];
+                if(distBassToTenor < choirScope.lowestDistBassTenor) choirScope.lowestDistBassTenor = distBassToTenor;
             }
         }
+        //Set proper register
+        choirScope.scope = choirScope.highest - choirScope.lowestMid;
+        choirScope.medianNote = Math.floor((choirScope.scope / 2) + choirScope.lowestMid);
+        var voiceTranposition = Math.floor((ranges[Math.floor(Math.random()*ranges.length)] - choirScope.medianNote)/12)*12;
+        var bassTranposition = Math.floor(choirScope.lowestDistBassTenor/12);
+        if(bassTranposition == 0) bassTranposition -= 12;
         for (var m = 0; m < bass.length; m++) {
-            bass[m] += 36
+            bass[m] += 12 * bassTranposition;
+        }
+        for (var i = 0; i < tenor.length; i++){
+            bass[i] += voiceTranposition
+            tenor[i]+= voiceTranposition;
+            alto[i]+= voiceTranposition;
+            soprano[i]+= voiceTranposition;
         }
         choir[0] = bass;
         choir[1] = tenor;

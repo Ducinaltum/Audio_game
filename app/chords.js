@@ -1,4 +1,4 @@
-const safeZone = 20;
+//const safeZone = 20;
 
 function ChordsExercise( actualLevel = user.chordsLevel) {
     typeOfExercise = 'Chords'
