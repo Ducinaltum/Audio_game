@@ -67,7 +67,7 @@ function ChordsExercise( actualLevel = user.chordsLevel) {
     function setChordLevel(level){
         var procesedLevel = {
             exerciseLevel:null,
-            isOpen: false,
+            isOpen: true,
             base:[],
             kind:null,
             direction:null,
@@ -190,6 +190,29 @@ function ChordBuilder(ex, dir){
         for(n in chord){
             notes = notes.concat(chordsKeys[chord[n]])
         }
+        if(exercise.isOpen){
+            //Aislar el primer indice el BAJO
+            console.log(notes)
+            console.log(fundamental)
+            var fundamental = notes.shift();
+            //Mezclar los indices restantes
+            notes.sort(function(a, b){return 0.5 - Math.random()});
+            var higherNote = 0;
+            for(var i=0; i<notes.length; i++){
+                if(notes[i] < higherNote){
+                    console.log({higherNote})
+                    multiplier = Math.floor((higherNote - notes[i])/12) + 1
+                    console.log({multiplier})
+                    notes[i] += multiplier * 12;
+                    higherNote = notes[i];
+                }
+                higherNote = notes[i];
+            }
+            console.log(notes)
+            notes.unshift(fundamental)
+            console.log(notes)
+           // return chord;
+        }
         if(direction == -1) notes.reverse()
         time = 0;
         for(i in notes) {
@@ -208,11 +231,6 @@ function ChordBuilder(ex, dir){
             chord[i] = pointer[pointerIndex][0]
             pointer = pointer[pointerIndex][1]
             if(pointer === undefined) break;
-        }
-        if(exercise.isOpen){
-            //Aislar el primer indice el BAJO
-            //Mezclar los indices restantes
-            return chord;
         }
         return chord;
     }
