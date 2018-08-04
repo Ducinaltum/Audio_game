@@ -56,24 +56,36 @@ var chordsLevels = {
         return [baseChords[0], baseChords[1],baseChords[2], baseChords[3]];
     },
     3: function () {
-        return [baseChords[0]];
+        return [baseChords[0], baseChords[1],baseChords[2], baseChords[3]];
     },
     4: function () {
-        return [baseChords[1]];
+        return [baseChords[0]];
     },
     5: function () {
-        return [baseChords[0],baseChords[1]]
+        return [baseChords[1]];
     },
     6: function () {
-        return [baseChords[2]]
+        return [baseChords[0],baseChords[1]]
     },
     7: function () {
-        return [baseChords[3]]
+        return [baseChords[0],baseChords[1]]
     },
     8: function () {
-        return [baseChords[2],baseChords[3]];
+        return [baseChords[2]]
     },
     9: function () {
+        return [baseChords[3]]
+    },
+    10: function () {
+        return [baseChords[2],baseChords[3]];
+    },
+    11: function () {
+        return [baseChords[2],baseChords[3]];
+    },
+    12: function () {
+        return [baseChords[0],baseChords[1], baseChords[2],baseChords[3]];        
+    },
+    13: function () {
         return [baseChords[0],baseChords[1], baseChords[2],baseChords[3]];        
     }
 }

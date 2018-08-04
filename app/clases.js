@@ -1,4 +1,3 @@
-
 //Clase de notas para enviar a reproducir, muy similar al MIDI
 function Note(pitch, startTime = 0, nLength = 1, chann = 0, velocity = 127) {
     this.channel = chann;

@@ -1,6 +1,5 @@
 //const safeZone = 20;
-
-function ChordsExercise( actualLevel = user.chordsLevel) {
+function ChordsExercise(actualLevel = user.chordsLevel) {
     typeOfExercise = 'Chords'
     state = 'idle';
     level = clamp(actualLevel, info.chordsMaxLevel)
@@ -74,6 +73,7 @@ function ChordsExercise( actualLevel = user.chordsLevel) {
             depth:null,
             name:''
         };
+        console.log(level)
         procesedLevel.exerciseLevel = Math.floor(level / 4)  
         procesedLevel.kind = level % 4
         procesedLevel.direction = setDirection(procesedLevel.kind);
@@ -91,6 +91,7 @@ function ChordsExercise( actualLevel = user.chordsLevel) {
         else if( procesedLevel.exerciseLevel >= 17){
             procesedLevel.depth = 3;
         }
+        console.log(procesedLevel)
         procesedLevel.base = chordsLevels[procesedLevel.exerciseLevel]();
         return procesedLevel;
     }
@@ -192,26 +193,24 @@ function ChordBuilder(ex, dir){
         }
         if(exercise.isOpen){
             //Aislar el primer indice el BAJO
-            console.log(notes)
-            console.log(fundamental)
-            var fundamental = notes.shift();
+            var chordFundamental = notes.shift();
             //Mezclar los indices restantes
             notes.sort(function(a, b){return 0.5 - Math.random()});
             var higherNote = 0;
             for(var i=0; i<notes.length; i++){
                 if(notes[i] < higherNote){
-                    console.log({higherNote})
                     multiplier = Math.floor((higherNote - notes[i])/12) + 1
-                    console.log({multiplier})
                     notes[i] += multiplier * 12;
                     higherNote = notes[i];
                 }
                 higherNote = notes[i];
             }
-            console.log(notes)
-            notes.unshift(fundamental)
-            console.log(notes)
-           // return chord;
+            if(higherNote + fundamental> limits.max){
+                notes = notes.map(function(value){
+                    return value.octavate(value, -1)
+                })
+            }
+            notes.unshift(chordFundamental)
         }
         if(direction == -1) notes.reverse()
         time = 0;
