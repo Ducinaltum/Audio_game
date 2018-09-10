@@ -1,10 +1,14 @@
 Game design
 -----------
-
+Agregar acordes 2, 4, 6 y estructuras superiores
 
 
 QA
 --
+
+Deshabilitar los botones luego de la respuesta
+
+¿Se podría poner el feedback sobre el bótn de play para ahorrar espacio vertical?
 
 Alterar las progresiones en el modo menor para impedir que haga 2-6-2 o 6-2-6
 
@@ -21,3 +25,8 @@ Cuando pasé el nivel de intervalos se clavo en varios (me deshabilita el botón
     No lo pude replicar
 
 
+Ideas
+-----
+Para simplificar la estructura de la generación de acordes y progresión se puede 
+tomar un modelo regresivo donde se especifiquen las posibilidades finales y se 
+construye reversamente desde ahí

@@ -53,11 +53,11 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <a href="#">
-                            <span class="glyphicon glyphicon-user"></span> Sign Up</a>
+                            <span class="glyphicon glyphicon-user"></span>Sign Up</a>
                     </li>
                     <li>
                         <a href="#">
-                            <span class="glyphicon glyphicon-log-in"></span> Login</a>
+                            <span class="glyphicon glyphicon-log-in"></span>Login</a>
                     </li>
                 </ul>
             </div>
@@ -86,7 +86,7 @@
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <div class "col-xs-4 text-center flex align-left">
+                    <div class="col-xs-4 text-center flex align-left">
                         <button id="previous" type="button" class="btn btn-default btn-lg" data-dismiss="modal">
                             <i class="glyphicon glyphicon-backward"></i>
                         </button>
@@ -138,27 +138,111 @@
                                 </div>
                             </div>
                             <br>
-                            <div class="panel panel-default">
                             <!--
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <h3 class="text-center">Intervalos individuales: 2 notas</h3>
-                                    </h4>
-                                </div>
-                            -->
-                                <div id="individualIntervals" class="panel">
-                                    <div class="list-group">
-                                        <a id='int0' href="#" class="list-group-item">Intervalos perfectos </a>
-                                        <a id='int1' href="#" class="list-group-item">Consonancias cercanas: 3m, 3M</a>
-                                        <a id='int2' href="#" class="list-group-item">Intervalos perfectos y consonancias cercanas</a>
-                                        <a id='int3' href="#" class="list-group-item">Disonancias cercanas: 2m, 2M</a>
-                                        <a id='int4' href="#" class="list-group-item">Intervalos perfectos, consonancias cercanas, disonancias cercanas</a>
-                                        <a id='int5' href="#" class="list-group-item">Consonancias lejanas: 6m, 6M</a>
-                                        <a id='int6' href="#" class="list-group-item">Intervalos perfectos, consonancias cercanas y lejanas, disonancias cercanas</a>
-                                        <a id='int7' href="#" class="list-group-item">Disonancias lejanas: 4A/5d, 7m, 7M</a>
-                                        <a id='int8' href="#" class="list-group-item">Todos los intervalos dentro de la octava</a>
-                                        <a id='int9' href="#" class="list-group-item">Todos los intervalos dentro de dos octavas</a>
+                            <div id="individualIntervalsSelector" class="panel">
+                                <br>
+                                <div id="" class="btn-group btn-group-justified" role="group" aria-label="...">
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default non-highlight" id="sel1">2m</button>
                                     </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default non-highlight" id="sel2">2M</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default non-highlight" id="sel3">3m</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default non-highlight" id="sel4">3M</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default non-highlight" id="sel5">4J</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default non-highlight" id="sel6">4A/5d</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default non-highlight" id="sel7">5J</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default non-highlight" id="sel8">6m</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default non-highlight" id="sel9">6M</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default non-highlight" id="sel10">7m</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default non-highlight" id="sel11">7M</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default non-highlight" id="sel12">8J</button>
+                                    </div>
+                                </div>
+                                <br>
+                                <div id="" class="btn-group btn-group-justified" role="group" aria-label="...">
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default non-highlight" id="sel13">9m</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default non-highlight" id="sel14">9M</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default non-highlight" id="sel15">10m</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default non-highlight" id="sel16">10M</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default non-highlight" id="sel17">11J</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default non-highlight" id="sel18">11A/12d</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default non-highlight" id="sel19">12J</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default non-highlight" id="sel20">13m</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default non-highlight" id="sel21">13M</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default non-highlight" id="sel22">14m</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default non-highlight" id="sel23">14M</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default non-highlight" id="sel24">15J</button>
+                                    </div>
+                                </div>
+                            </div>
+                            -->
+                        </div>
+                    </div>
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h1 class="panel-title text-center">
+                                    <a data-toggle="collapse" href="#levelIntervals"><b>Seleccionar por niveles</b></a>
+                                </h1>
+                            </div>
+                            <div id="levelIntervals" class="panel-collapse collapse">
+                                <div class="panel-body list-group text-center">
+                                    <a id='int0' href="#" class="list-group-item">Intervalos perfectos </a>
+                                    <a id='int1' href="#" class="list-group-item">Consonancias cercanas: 3m, 3M</a>
+                                    <a id='int2' href="#" class="list-group-item">Intervalos perfectos y consonancias cercanas</a>
+                                    <a id='int3' href="#" class="list-group-item">Disonancias cercanas: 2m, 2M</a>
+                                    <a id='int4' href="#" class="list-group-item">Intervalos perfectos, consonancias cercanas,
+                                        disonancias cercanas</a>
+                                    <a id='int5' href="#" class="list-group-item">Consonancias lejanas: 6m, 6M</a>
+                                    <a id='int6' href="#" class="list-group-item">Intervalos perfectos, consonancias cercanas
+                                        y lejanas, disonancias cercanas</a>
+                                    <a id='int7' href="#" class="list-group-item">Disonancias lejanas: 4A/5d, 7m, 7M</a>
+                                    <a id='int8' href="#" class="list-group-item">Todos los intervalos dentro de la octava</a>
+                                    <a id='int9' href="#" class="list-group-item">Todos los intervalos dentro de dos octavas</a>
                                 </div>
                             </div>
                         </div>
@@ -187,10 +271,14 @@
                         <div class="panel-group">
                             <div id="chordMode" class="btn-group btn-group-justified" role="group" aria-label="...">
                                 <div class="btn-group" role="group">
-                                    <button type="radio" name="singleOptions" class="btn btn-primary selector" id="0" checked>Posición cerrada</button>
+                                    <button type="radio" name="singleOptions" class="btn btn-primary selector" id="0" checked>Posición
+                                        cerrada
+                                    </button>
                                 </div>
                                 <div class="btn-group" role="group">
-                                    <button type="radio" name="singleOptions" class="btn btn-default selector" id="1">Posición abierta</button>
+                                    <button type="radio" name="singleOptions" class="btn btn-default selector" id="1">Posición
+                                        abierta
+                                    </button>
                                 </div>
                             </div>
                             <br>
@@ -209,13 +297,62 @@
                                 </div>
                             </div>
                             <br>
-                            <div class="panel panel-default">
+                            <!--
+                            <div id="individualChordsSelector" class="panel">
+                                <div id="ChordsSelector" class="container">
+                                    <div id='ChordsInputButtons' class="text-center">
+                                        <div id='chordsBaseSelector'>
+                                            <div class="btn-group btn-group-lg" role="group">
+                                                <button id='major' type="button" class="btn btn-default base"> Mayor </button>
+                                                <button id='minor' type="button" class="btn btn-default base"> menor </button>
+                                                <button id='dim' type="button" class="btn btn-default base">disminuido</button>
+                                                <button id='aug' type="button" class="btn btn-default base">aumentado</button>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div id='chordsSeventhsSelector'>
+                                            <div class="btn-group btn-group-lg" role="group">
+                                                <button id='b7' type="button" class="btn btn-default seven" name="optradio">b7</button>
+                                                <button id='7' type="button" class="btn btn-default seven" name="optradio">7</button>
+                                                <button id='majj7' type="button" class="btn btn-default seven" name="optradio">majj7</button>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div id='chordsExtentionsSelector'>
+                                            <div class="btn-group btn-group-lg extention" role="group">
+                                                <button id='b9' type="button" class="btn btn-default extention">b9</button>
+                                                <button id='9' type="button" class="btn btn-default extention">9</button>
+                                                <button id='s9' type="button" class="btn btn-default extention">#9</button>
+                                            </div>
+                                            <div class="btn-group btn-group-lg extention" role="group">
+                                                <button id='11' type="button" class="btn btn-default depth-extention">11</button>
+                                                <button id='s11' type="button" class="btn btn-default depth-extention">#11</button>
+                                            </div>
+                                            <div class="btn-group btn-group-lg extention" role="group">
+                                                <button id='b13' type="button" class="btn btn-default depth-extention">b13</button>
+                                                <button id='13' type="button" class="btn btn-default depth-extention">13</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            -->
+                        </div>
+                    </div>
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h1 class="panel-title text-center">
+                                    <a data-toggle="collapse" href="#levelChords"><b>Seleccionar por niveles</b></a>
+                                </h1>
+                            </div>
+                            <div id="levelChords" class="panel-collapse collapse">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <h3 class="text-center">Acordes tríada</h3>
                                     </h4>
                                 </div>
-                                <div id="individualIntervals" class="panel">
+                                <div class="panel">
                                     <div class="list-group">
                                         <a id='cho0' href="#" class="list-group-item">Acordes mayor y menor </a>
                                         <a id='cho1' href="#" class="list-group-item">Acordes disminuido y aumentado</a>
@@ -227,14 +364,16 @@
                                         <h3 class="text-center">Acordes cuatríada</h3>
                                     </h4>
                                 </div>
-                                <div id="individualIntervals" class="panel">
+                                <div class="panel">
                                     <div class="list-group">
                                         <a id='cho3' href="#" class="list-group-item">Acordes mayores con séptima </a>
                                         <a id='cho4' href="#" class="list-group-item">Acordes menores con séptima</a>
                                         <a id='cho5' href="#" class="list-group-item">Acordes mayores y menores con séptima</a>
                                         <a id='cho6' href="#" class="list-group-item">Acordes disminuidos con séptima</a>
                                         <a id='cho7' href="#" class="list-group-item">Acordes aumentados con séptima</a>
-                                        <a id='cho8' href="#" class="list-group-item">Acordes aumentados y diminuidos con séptima</a>
+                                        <a id='cho8' href="#" class="list-group-item">Acordes aumentados y diminuidos con
+                                            séptima
+                                        </a>
                                         <a id='cho9' href="#" class="list-group-item">Acordes cuatríadas en su totalidad</a>
                                     </div>
                                 </div>
@@ -243,14 +382,20 @@
                                         <h3 class="text-center">Acordes extendidos</h3>
                                     </h4>
                                 </div>
-                                <div id="individualIntervals" class="panel">
+                                <div class="panel">
                                     <div class="list-group">
-                                        <a id='cho10' href="#" class="list-group-item">Acordes mayores con novenas, oncenas y trecenas </a>
-                                        <a id='cho11' href="#" class="list-group-item">Acordes menores con novenas, oncenas y trecenas</a>
-                                        <a id='cho12' href="#" class="list-group-item">Acordes mayores y menores con novenas, oncenas y trecenas</a>
-                                        <a id='cho13' href="#" class="list-group-item">Acordes disminuidos con novenas, oncenas y trecenas</a>
-                                        <a id='cho14' href="#" class="list-group-item">Acordes aumentados con novenas, oncenas y trecenas</a>
-                                        <a id='cho15' href="#" class="list-group-item">Acordes aumentados y diminuidos novenas, oncenas y trecenas</a>
+                                        <a id='cho10' href="#" class="list-group-item">Acordes mayores con novenas, oncenas
+                                            y trecenas </a>
+                                        <a id='cho11' href="#" class="list-group-item">Acordes menores con novenas, oncenas
+                                            y trecenas</a>
+                                        <a id='cho12' href="#" class="list-group-item">Acordes mayores y menores con novenas,
+                                            oncenas y trecenas</a>
+                                        <a id='cho13' href="#" class="list-group-item">Acordes disminuidos con novenas, oncenas
+                                            y trecenas</a>
+                                        <a id='cho14' href="#" class="list-group-item">Acordes aumentados con novenas, oncenas
+                                            y trecenas</a>
+                                        <a id='cho15' href="#" class="list-group-item">Acordes aumentados y diminuidos novenas,
+                                            oncenas y trecenas</a>
                                         <a id='cho16' href="#" class="list-group-item">Acordes extendidos en su totalidad</a>
                                     </div>
                                 </div>
@@ -277,45 +422,128 @@
                 <div id="progresionSelection" class="panel-collapse collapse">
                     <div class="panel-body">
                         <div class="panel-group">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <h3 class="text-center">Progresiones diatónicas</h3>
-                                    </h4>
+                            <!--
+                            <div id="progresionMode" class="btn-group btn-group-justified" role="group" aria-label="...">
+                                <div class="btn-group" role="group">
+                                    <button type="radio" name="singleOptions" class="btn btn-primary selector" id="0" checked>Mayor</button>
                                 </div>
-                                <div id="diatonicProgresions" class="panel">
-                                    <div class="list-group">
-                                        <a id='pro0' href="#" class="list-group-item">Modo mayor: Acordes principales - 4cc</a>
-                                        <a id='pro1' href="#" class="list-group-item">Modo menor: Acordes principales - 4cc</a>
-                                        <a id='pro2' href="#" class="list-group-item">Modo mayor: Acordes principales - 8cc</a>
-                                        <a id='pro3' href="#" class="list-group-item">Modo mayor: Acordes principales en distintas tonalidades - 8cc</a>
-                                        <a id='pro4' href="#" class="list-group-item">Modo menor: Acordes principales - 8cc</a>
-                                        <a id='pro5' href="#" class="list-group-item">Modo menor: Acordes principales en distintas tonalidades - 8cc</a>
-                                        <a id='pro6' href="#" class="list-group-item">Modo mayor: Acordes secundarios - 4cc</a>
-                                        <a id='pro7' href="#" class="list-group-item">Modo menor: Acordes secundarios - 4cc</a>
-                                        <a id='pro8' href="#" class="list-group-item">Modo mayor: Acordes secundarios - 8cc</a>
-                                        <a id='pro9' href="#" class="list-group-item">Modo mayor: Acordes secundarios en distintas tonalidades - 8cc</a>
-                                        <a id='pro10' href="#" class="list-group-item">Modo menor: Acordes secundarios - 8cc</a>
-                                        <a id='pro11' href="#" class="list-group-item">Modo menor: Acordes secundarios en distintas tonalidades - 8cc</a>
-                                        <a id='pro12' href="#" class="list-group-item">Modo menor: Acordes deducidos de las tres escalas - 4cc </a>
-                                        <a id='pro13' href="#" class="list-group-item">Modo menor: Acordes deducidos de las tres escalas - 8cc </a>
-                                        <a id='pro14' href="#" class="list-group-item">Modo menor: Acordes deducidos de las tres escalas en distintas tonalidades- 8cc </a>
+                                <div class="btn-group" role="group">
+                                    <button type="radio" name="singleOptions" class="btn btn-default selector" id="1">Menor</button>
+                                </div>
+                            </div>
+                            <br>
+                            <div id="individualChordsSelector" class="panel">
+                                <div id="ChordsSelector" class="container">
+                                    <div id='ChordsInputButtons' class="text-center">
+                                        <div id='inputButtons'>
+                                            <div id="gradeSelectorExerciseSelector">
+                                                <div id="gradeModifierExerciseSelector" class="btn-group btn-group-lg" role="group">
+                                                    <button id='b' type="button" class="btn btn-default ">b</button>
+                                                    <button id='s' type="button" class="btn btn-default ">#</button>
+                                                </div>
+                                                <div id="gradeExerciseSelector" class="btn-group btn-group-lg" role="group">
+                                                    <button id='1' type="button" class="btn btn-default">I</button>
+                                                    <button id='2' type="button" class="btn btn-default">II</button>
+                                                    <button id='3' type="button" class="btn btn-default">III</button>
+                                                    <button id='4' type="button" class="btn btn-default">IV</button>
+                                                    <button id='5' type="button" class="btn btn-default">V</button>
+                                                    <button id='6' type="button" class="btn btn-default">VI</button>
+                                                    <button id='7' type="button" class="btn btn-default">VII</button>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div>
+                                                <div id="kindExerciseSelector" class="btn-group btn-group-lg" role="group">
+                                                    <button id="major" type="button" class="btn btn-default">M</button>
+                                                    <button id="minor" class="btn btn-default">m</button>
+                                                    <button id="dim" class="btn btn-default">dim</button>
+                                                    <button id="aug" class="btn btn-default">+</button>
+                                                </div>
+                                            </diV>
+                                            <br>
+                                            <div id="secondaryDominantSelectorExerciseSelector">
+                                                <div id="secondaryDominat" class="btn-group btn-group-lg" role="group">
+                                                    <button id='5' type="button" class="btn btn-default">V /...</button>
+                                                    <button id='7' type="button" class="btn btn-default">VII /...</button>
+                                                </div>
+                                            </div>
+                                            <br>
+                                        </div>
                                     </div>
                                 </div>
+                                -->
+                            </div>
+                        </div>
+                        <div class="panel-group">
+                            <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <h3 class="text-center">Dominantes secundarias</h3>
-                                    </h4>
+                                    <h1 class="panel-title text-center">
+                                        <a data-toggle="collapse" href="#levelProgresion"><b>Seleccionar por niveles
+                                            </b></a>
+                                    </h1>
                                 </div>
-                                <div id="secondaryDominantsProgresion" class="panel">
-                                    <div class="list-group">
-                                        <a id='pro15' href="#" class="list-group-item">Modo mayor: Dominantes secundarias sobre acordes principales - 8cc</a>
-                                        <a id='pro16' href="#" class="list-group-item">Modo menor: Dominantes secundarias sobre acordes principales - 8cc</a>
-                                        <a id='pro17' href="#" class="list-group-item">Modo mayor: Dominantes secundarias sobre acordes secundarios - 8cc </a>
-                                        <a id='pro18' href="#" class="list-group-item">Modo menor: Dominantes secundarias sobre acordes secundarios - 8cc </a>
+                                <div id="levelProgresion" class="panel-collapse collapse">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <h3 class="text-center">Progresiones diatónicas</h3>
+                                        </h4>
+                                    </div>
+                                    <div id="diatonicProgresions" class="panel">
+                                        <div class="list-group">
+                                            <a id='pro0' href="#" class="list-group-item">Modo mayor: Acordes principales
+                                                - 4cc</a>
+                                            <a id='pro1' href="#" class="list-group-item">Modo menor: Acordes principales
+                                                - 4cc</a>
+                                            <a id='pro2' href="#" class="list-group-item">Modo mayor: Acordes principales
+                                                - 8cc</a>
+                                            <a id='pro3' href="#" class="list-group-item">Modo mayor: Acordes principales
+                                                en distintas tonalidades - 8cc</a>
+                                            <a id='pro4' href="#" class="list-group-item">Modo menor: Acordes principales
+                                                - 8cc</a>
+                                            <a id='pro5' href="#" class="list-group-item">Modo menor: Acordes principales
+                                                en distintas tonalidades - 8cc</a>
+                                            <a id='pro6' href="#" class="list-group-item">Modo mayor: Acordes secundarios
+                                                - 4cc</a>
+                                            <a id='pro7' href="#" class="list-group-item">Modo menor: Acordes secundarios
+                                                - 4cc</a>
+                                            <a id='pro8' href="#" class="list-group-item">Modo mayor: Acordes secundarios
+                                                - 8cc</a>
+                                            <a id='pro9' href="#" class="list-group-item">Modo mayor: Acordes secundarios
+                                                en distintas tonalidades - 8cc</a>
+                                            <a id='pro10' href="#" class="list-group-item">Modo menor: Acordes secundarios
+                                                - 8cc
+                                            </a>
+                                            <a id='pro11' href="#" class="list-group-item">Modo menor: Acordes secundarios
+                                                en distintas tonalidades - 8cc</a>
+                                            <a id='pro12' href="#" class="list-group-item">Modo menor: Acordes deducidos
+                                                de las tres escalas - 4cc </a>
+                                            <a id='pro13' href="#" class="list-group-item">Modo menor: Acordes deducidos
+                                                de las tres escalas - 8cc </a>
+                                            <a id='pro14' href="#" class="list-group-item">Modo menor: Acordes deducidos
+                                                de las tres escalas en distintas tonalidades- 8cc
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <h3 class="text-center">Dominantes secundarias</h3>
+                                        </h4>
+                                    </div>
+                                    <div id="secondaryDominantsProgresion" class="panel">
+                                        <div class="list-group">
+                                            <a id='pro15' href="#" class="list-group-item">Modo mayor: Dominantes secundarias
+                                                sobre acordes principales - 8cc</a>
+                                            <a id='pro16' href="#" class="list-group-item">Modo menor: Dominantes secundarias
+                                                sobre acordes principales - 8cc</a>
+                                            <a id='pro17' href="#" class="list-group-item">Modo mayor: Dominantes secundarias
+                                                sobre acordes secundarios - 8cc </a>
+                                            <a id='pro18' href="#" class="list-group-item">Modo menor: Dominantes secundarias
+                                                sobre acordes secundarios - 8cc </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -473,7 +701,6 @@
                     <button id='chordsResponse' type="button" class="btn btn-default btn-lg">Respuesta</button>
                 </div>
             </div>
-            <!--</div>-->
             <div id="Progresion" class="container-fluid text-center" style="display:none">
                 <div id='inputFields'>
                     <div id="firstSection" class="btn-group btn-group-justified" role="group" aria-label="...">
@@ -550,8 +777,7 @@
         <nav class="navbar navbar-inverse navbar-fixed-bottom visible-lg" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">AudioGame
-                        <small> por </small> Alejandro Beacon</a>
+                    <a class="navbar-brand" href="#">AudioGame <small> por </small> Alejandro Beacon</a>
                 </div>
 
             </div>

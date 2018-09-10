@@ -142,7 +142,7 @@ $('#chordsResponse').click(function () {
         answer.extention = $('#chordsExtentions .btn-primary').attr('id')
         if (answer.extention != undefined) answer.extention = answer.extention.replace('s', '#');
         //$("#play-pause").prop("disabled", true)
-        if (answer.kind == undefined) answer.kind = 'major'
+        //if (answer.kind == undefined) answer.kind = 'major'
         currentExercise.checkResponse([answer.kind, answer.seven, answer.extention]);
         $(this).text('Siguiente');
         $(this).focus();

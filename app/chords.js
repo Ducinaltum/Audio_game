@@ -52,7 +52,6 @@ function ChordsExercise(actualLevel = user.chordsLevel) {
                 updateFeedback("¡Correcto!", 'success', strResponse)
             }
             else {
-                //failChordsButtonAnswer(typeOfExercise, failedAnswers)
                 if (score > 0) {
                     updateFeedback("¡Medianamente correcto!", 'warning', strResponse)
                 }
@@ -73,7 +72,6 @@ function ChordsExercise(actualLevel = user.chordsLevel) {
             depth:null,
             name:''
         };
-        console.log(level)
         procesedLevel.exerciseLevel = Math.floor(level / 4)  
         procesedLevel.kind = level % 4
         procesedLevel.direction = setDirection(procesedLevel.kind);
@@ -205,12 +203,14 @@ function ChordBuilder(ex, dir){
                 }
                 higherNote = notes[i];
             }
-            if(higherNote + fundamental> limits.max){
+            notes.unshift(chordFundamental)
+            if(higherNote + fundamental > limits.max){
                 notes = notes.map(function(value){
-                    return value.octavate(value, -1)
+                    console.log(value)
+                    return value = octavate(value, -1)
                 })
             }
-            notes.unshift(chordFundamental)
+
         }
         if(direction == -1) notes.reverse()
         time = 0;
