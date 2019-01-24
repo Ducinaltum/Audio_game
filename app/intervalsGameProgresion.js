@@ -7,54 +7,219 @@ const sonorities = {
 }
 
 var intervalsLevels = {
-    0: function () {
-        return [].concat(sonorities.PerfectConsonances);
+    //Custom level
+    0: function (ints, dir, time, iter) {
+        var level = {
+            //fundamental : 48,
+            intervals: ints,
+            direction: dir,
+            timing: time,
+        }
+        return level
     },
+
+    //Intervalos de 3Mayor quinta y octava en DO
     1: function () {
-        return [].concat(sonorities.NearConsonances);
+        var level = {
+            fundamental: 48,
+            intervals: [4, 7, 12],
+            direction: 1,
+            timing: 1,
+            iterations: 20
+        }
+        return level
     },
     2: function () {
-        return [].concat(sonorities.PerfectConsonances)
-            .concat(sonorities.NearConsonances)
+        var level = {
+            fundamental: 48,
+            intervals: [4, 7, 12],
+            direction: -1,
+            timing: 1,
+            iterations: 20
+        }
+        return level
     },
     3: function () {
-        return [].concat(sonorities.NearDisonances);
+        var level = {
+            fundamental: 48,
+            intervals: [4, 7, 12],
+            direction: 1,
+            timing: 0,
+            iterations: 20
+        }
+        return level
+
     },
     4: function () {
-        return [].concat(sonorities.PerfectConsonances)
-            .concat(sonorities.NearConsonances)
-            .concat(sonorities.NearDisonances);
+        var level = {
+            fundamental: 48,
+            intervals: [4, 7, 12],
+            get direction() { return Math.floor(Math.random() * 3) - 1 },
+            get timing() { return Math.floor(Math.random() * 2) },
+            iterations: 30
+        }
+        return level
     },
+    //Intervalos de 3ra mayor quinta y octava en Do en distintas octavas Aleatorio
     5: function () {
-        return [].concat(sonorities.FarConsonances);
+        var level = {
+            get fundamental() { return 48 + (12 * Math.floor(Math.random() * 3)) },
+            intervals: [4, 7, 12],
+            get direction() { return Math.floor(Math.random() * 3) - 1 },
+            get timing() { return Math.floor(Math.random() * 2) },
+            iterations: 30
+        }
+        return level
     },
+    //Intervalos de 3ra mayor quinta y octava en distintas octavas fundamental aleatoria
     6: function () {
-        return [].concat(sonorities.PerfectConsonances)
-            .concat(sonorities.NearConsonances)
-            .concat(sonorities.NearDisonances)
-            .concat(sonorities.FarConsonances);
+        var level = {
+            intervals: [4, 7, 12],
+            get direction() { return Math.floor(Math.random() * 3) - 1 },
+            get timing() { return Math.floor(Math.random() * 2) },
+            iterations: 30
+        }
+        return level
     },
+    //Intervalos de 2 mayor, 4 Justa, 6 mayor y 7 mayor
     7: function () {
-        return [].concat(sonorities.FarDisonances);
+        var level = {
+            fundamental: 48,
+            intervals: [2, 5, 9, 11],
+            direction: 1,
+            timing: 1,
+            iterations: 20
+        }
+        return level
     },
     8: function () {
-        var levelStructure = []
-        for (var i = 1; i < 13; i++) {
-            levelStructure.push(i)
+        var level = {
+            fundamental: 48,
+            intervals: [2, 5, 9, 11],
+            direction: -1,
+            timing: 1,
+            iterations: 20
         }
-        return levelStructure;
+        return level
     },
     9: function () {
-        var levelStructure = []
-        for (var i = 1; i < 25; i++) {
-            levelStructure.push(i)
+        var level = {
+            fundamental: 48,
+            intervals: [2, 5, 9, 11],
+            direction: 1,
+            timing: 0,
+            iterations: 20
         }
-        return levelStructure;
+        return level
+
     },
+    10: function () {
+        var level = {
+            fundamental: 48,
+            intervals: [2, 5, 9, 11],
+            get direction() { return Math.floor(Math.random() * 3) - 1 },
+            get timing() { return Math.floor(Math.random() * 2) },
+            iterations: 30
+        }
+        return level
+    },
+    //Intervalos de 2 mayor, 4 Justa, 6 mayor y 7 mayor en distintas octavas Aleatorio
+    11: function () {
+        var level = {
+            get fundamental() { return 48 + (12 * Math.floor(Math.random() * 3)) },
+            intervals: [2, 5, 9, 11],
+            get direction() { return Math.floor(Math.random() * 3) - 1 },
+            get timing() { return Math.floor(Math.random() * 2) },
+        }
+        return level
+    },
+    //Intervalos de 2 mayor, 4 Justa, 6 mayor y 7 mayor en distintas octavas Aleatorio
+    12: function () {
+        var level = {
+            intervals: [2, 5, 9, 11],
+            get direction() { return Math.floor(Math.random() * 3) - 1 },
+            get timing() { return Math.floor(Math.random() * 2) },
+        }
+        return level;
+    },
+    //Intervalos de escala mayor en distintas octavas en Do Aleatorio
+    13: function () {
+        var level = {
+            get fundamental() { return 48 + (12 * Math.floor(Math.random() * 3)) },
+            intervals: [2, 4, 5, 7, 9, 11, 12],
+            get direction() { return Math.floor(Math.random() * 3) - 1 },
+            get timing() { return Math.floor(Math.random() * 2) },
+        }
+        return level
+    },
+    //Intervalos de escala mayor en distintas octavas fundamental aleatorio
+    14: function () {
+        var level = {
+            intervals: [2, 4, 5, 7, 9, 11, 12],
+            get direction() { return Math.floor(Math.random() * 3) - 1 },
+            get timing() { return Math.floor(Math.random() * 2) },
+        }
+        return level;
+    },
+    //Intervalos de 6menor, 4 Justa y Octava Justa con Do como nota final
+    15: function () {
+        var level = {
+            fundamental: 48,
+            intervals: [5, 8, 12],
+            direction: 1,
+            timing: 1,
+            isInverted: true,
+            iterations: 20
+        }
+        return level
+    },
+    16: function () {
+        var level = {
+            fundamental: 48,
+            intervals: [4, 7, 12],
+            direction: -1,
+            timing: 1,
+            isInverted: true,
+            iterations: 20
+        }
+        return level
+    },
+    17: function () {
+        var level = {
+            fundamental: 48,
+            intervals: [4, 7, 12],
+            direction: 1,
+            timing: 0,
+            isInverted: true,
+            iterations: 20
+        }
+        return level
+
+    },
+    18: function () {
+        var level = {
+            fundamental: 48,
+            intervals: [4, 7, 12],
+            get direction() { return Math.floor(Math.random() * 3) - 1 },
+            get timing() { return Math.floor(Math.random() * 2) },
+            isInverted: true,
+            iterations: 30
+        }
+        return level
+    },
+
+    /*
+    : function () {
+        var level = {}
+        level.intervals = []
+        for (var i = 1; i < 13; i++) {
+            level.intervals.push(i)
+        }
+        return level;
+    }*/
 }
 
 $('#intervalsSelection .list-group-item').click(function (e) {
-    var selectedExercise = this.id;
     var initLevel = 0;
     var levelSelected = Number(this.id.slice(3))
     if (currentExercise != null) {

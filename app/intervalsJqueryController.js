@@ -15,21 +15,13 @@ $('#intervalsResponses .btn').click(function (e) {
     if (!$(this).hasClass('btn-primary')) {
         $(this).removeClass('btn-default')
             .addClass('btn-primary')
-        selectedButtons.push(this.id)
-        if (selectedButtons.length >= currentExercise.getNumberOfIntervals()) {
-            //$("#play-pause").prop("disabled", true)
-            $("#intervalsResponse").prop("disabled", false)
-            $("#intervalsResponse").focus();
-            currentExercise.checkResponse(selectedButtons)
-            selectedButtons = []
-        }
+        $("#intervalsResponse").prop("disabled", false)
+        $("#intervalsResponse").focus();
+        currentExercise.checkResponse(this.id)
     }
     else{
         $(this).removeClass('btn-primary')
             .addClass('btn-default')
-        selectedButtons = selectedButtons.filter(function(element){
-            element != this.id
-        })
     }
 })
 

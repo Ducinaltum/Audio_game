@@ -130,7 +130,7 @@ $(document).keypress(function (e) {
             if (currentExercise != null) {
                 var responseButton = $('#' + currentExercise.getKindOfExercise().toLowerCase() + 'Response')
                 if(!responseButton.is(":focus")){
-                    responseButton.focus().click();
+                    //responseButton.focus().click();
                 }
             }
         }

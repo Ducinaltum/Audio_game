@@ -12,6 +12,9 @@ MIDI.loadPlugin({
         //console.log(state, progress);
     },
     onsuccess: function() {
+        MIDI.setVolume(0, 127);
+        //MIDI.noteOn(0, 60, 127,0)
+        //MIDI.noteOff(0, 60, 10)  
         //Mostrar UI
     }
 });

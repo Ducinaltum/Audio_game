@@ -1,27 +1,27 @@
 //const safeZone = 20;
-function ChordsExercise(actualLevel = user.chordsLevel) {
+function ChordsExercise(actualLevel) {
     typeOfExercise = 'Chords'
     state = 'idle';
-    level = clamp(actualLevel, info.chordsMaxLevel)
+    level = actualLevel
     exercise = setChordLevel(level);
-    chordManager = new LevelManager(level);
+    chordManager = new LevelManager(level.level);
     showScreen(typeOfExercise)
     deactivateChordsButtons(typeOfExercise, exercise)
 
     createChord();
 
-    this.getKindOfExercise = function(){return typeOfExercise}
-    this.getLevel = function(){return level}
-    this.getState = function(){return state}
-    this.createNextQuestion = function(){
+    this.getKindOfExercise = function () { return typeOfExercise }
+    this.getLevel = function () { return level.level }
+    this.getState = function () { return state }
+    this.createNextQuestion = function () {
         createChord();
     }
 
-    function createChord(){
+    function createChord() {
         resetElements(typeOfExercise)
         //La línea de abajo es innecesaria, solo sirve para pintar de azul la base del acorde si solo se está trabajando con una
         deactivateChordsButtons(typeOfExercise, exercise)
-        if(!chordManager.hasFinishedLevel(level, typeOfExercise)){
+        if (!chordManager.hasFinishedLevel(level, typeOfExercise)) {
             state = 'playing';
             chord = new ChordBuilder(exercise, exercise.direction())
             loadOnBuffer(chord.notes)
@@ -48,7 +48,7 @@ function ChordsExercise(actualLevel = user.chordsLevel) {
             score = score / posibilities;
             chordManager.addScore(score);
             chordsButtonAnswer(typeOfExercise, correctAnswer, failedAnswers)
-            if (score == 1){
+            if (score == 1) {
                 updateFeedback("¡Correcto!", 'success', strResponse)
             }
             else {
@@ -61,67 +61,47 @@ function ChordsExercise(actualLevel = user.chordsLevel) {
             }
         }
     }
-   
-    function setChordLevel(level){
-        var procesedLevel = {
-            exerciseLevel:null,
-            isOpen: true,
-            base:[],
-            kind:null,
-            direction:null,
-            depth:null,
-            name:''
-        };
-        procesedLevel.exerciseLevel = Math.floor(level / 4)  
-        procesedLevel.kind = level % 4
-        procesedLevel.direction = setDirection(procesedLevel.kind);
-        procesedLevel.name = $('#cho' + procesedLevel.exerciseLevel).text();
-        if( procesedLevel.exerciseLevel < 3) {
-            procesedLevel.depth = 1
-        }
-        else if( procesedLevel.exerciseLevel >= 3 &&  procesedLevel.exerciseLevel < 10){
-            procesedLevel.depth = 2
-        }
-        else if( procesedLevel.exerciseLevel >= 10 &&  procesedLevel.exerciseLevel < 17){
-            procesedLevel.depth = 3
-            procesedLevel.exerciseLevel -= 7
-        }
-        else if( procesedLevel.exerciseLevel >= 17){
-            procesedLevel.depth = 3;
-        }
-        console.log(procesedLevel)
-        procesedLevel.base = chordsLevels[procesedLevel.exerciseLevel]();
-        return procesedLevel;
-    }
 
-    function setDirection(kind){
-        switch(kind){
+    function setChordLevel(level) {
+        var actualLevel = chordsLevels[level.level];
+        actualLevel.name = level.name;
+        switch (level.kind) {
             case 0:
-                return function(){
+                actualLevel.iterations = 20;
+                actualLevel.name += " - Ascendente"
+                actualLevel.direction = function () {
                     return 1;
                 };
                 break;
             case 1:
-            return function(){
-                return -1;
+                actualLevel.iterations = 20;
+                actualLevel.name += " - Descendente"
+                actualLevel.direction = function () {
+                    return -1;
                 };
                 break;
             case 2:
-                return function(){
+                actualLevel.iterations = 20;
+                actualLevel.name += " - Armónico"
+                actualLevel.direction = function () {
                     return 0;
                 };
                 break;
             case 3:
-                return function(){
+                actualLevel.iterations = 20;    
+                actualLevel.name += " - Aleatorio"
+                actualLevel.direction = function () {
                     return Math.floor(Math.random() * 3) - 1
                 };
+                break;
         }
+        return actualLevel;
     }
 
-    function buildFeedbackAnswer(correctChord){
+    function buildFeedbackAnswer(correctChord) {
         var answer = [];
-        if(correctChord[1] != undefined){
-            switch(correctChord[0]){
+        if (correctChord[1] != undefined) {
+            switch (correctChord[0]) {
                 case 'minor':
                     answer[0] = 'm'
                     break;
@@ -131,20 +111,20 @@ function ChordsExercise(actualLevel = user.chordsLevel) {
                 default:
                     answer[0] = ''
                     break;
-            }          
-            if(correctChord[0] == 'dim'){ 
-                if(correctChord[1] == 'b7') answer[0] = '°'
-                else{
+            }
+            if (correctChord[0] == 'dim') {
+                if (correctChord[1] == 'b7') answer[0] = '°'
+                else {
                     answer[0] = 'm'
                     answer[1] = correctChord[1]
                     answer[3] = 'b5'
                 }
             }
             else answer[1] = correctChord[1];
-            if(correctChord[2] != undefined) answer[2] = '/' + correctChord[2]
+            if (correctChord[2] != undefined) answer[2] = '/' + correctChord[2]
         }
         else {
-            switch(correctChord[0]){
+            switch (correctChord[0]) {
                 case 'major':
                     answer[0] = 'Mayor'
                     break;
@@ -157,13 +137,13 @@ function ChordsExercise(actualLevel = user.chordsLevel) {
                 case 'aug':
                     answer[0] = 'aumentado'
                     break;
-            }   
+            }
         }
-        return answer.join('')        
+        return answer.join('')
     }
 }
 
-function ChordBuilder(ex, dir){
+function ChordBuilder(ex, dir) {
     exercise = ex;
     direction = dir;
     chord = buildChord();
@@ -175,61 +155,60 @@ function ChordBuilder(ex, dir){
     function setFundamental(chord) {
         //Este algoritmo se sale de los límite CORREGIR
         var chordScope = 0;
-        if(chord.length <= 1) chordsKeys[chord[chord.length -1][2]]
+        if (chord.length <= 1) chordsKeys[chord[chord.length - 1][2]]
         else chordScope = chordScope = chordsKeys[chord[chord.length - 1]];
         scope = limits.max - limits.min - chordScope;
         note = Math.floor(Math.random() * scope) + limits.min;
         return note;
     }
 
-    function buildStream(fundamental){
+    function buildStream(fundamental) {
         //Si dirección es 0, es armonico, si es 1 es ascendente si es -1 es descendente
         var stream = [];
-        notes = []        
-        for(n in chord){
+        notes = []
+        for (n in chord) {
             notes = notes.concat(chordsKeys[chord[n]])
         }
-        if(exercise.isOpen){
+        if (exercise.isOpen) {
             //Aislar el primer indice el BAJO
             var chordFundamental = notes.shift();
             //Mezclar los indices restantes
-            notes.sort(function(a, b){return 0.5 - Math.random()});
+            notes.sort(function (a, b) { return 0.5 - Math.random() });
             var higherNote = 0;
-            for(var i=0; i<notes.length; i++){
-                if(notes[i] < higherNote){
-                    multiplier = Math.floor((higherNote - notes[i])/12) + 1
+            for (var i = 0; i < notes.length; i++) {
+                if (notes[i] < higherNote) {
+                    multiplier = Math.floor((higherNote - notes[i]) / 12) + 1
                     notes[i] += multiplier * 12;
                     higherNote = notes[i];
                 }
                 higherNote = notes[i];
             }
             notes.unshift(chordFundamental)
-            if(higherNote + fundamental > limits.max){
-                notes = notes.map(function(value){
-                    console.log(value)
+            if (higherNote + fundamental > limits.max) {
+                notes = notes.map(function (value) {
                     return value = octavate(value, -1)
                 })
             }
 
         }
-        if(direction == -1) notes.reverse()
+        if (direction == -1) notes.reverse()
         time = 0;
-        for(i in notes) {
+        for (i in notes) {
             note = notes[i];
             stream[i] = new Note(note + fundamental, time);
             time += Math.abs(direction);
         }
-        return stream;        
+        return stream;
     }
 
-    function buildChord(){
+    function buildChord() {
         chord = []
         pointer = exercise.base;
-        for(var i = 0; i < exercise.depth; i++){
+        for (var i = 0; i < exercise.depth; i++) {
             pointerIndex = Math.floor(Math.random() * pointer.length)
             chord[i] = pointer[pointerIndex][0]
             pointer = pointer[pointerIndex][1]
-            if(pointer === undefined) break;
+            if (pointer === undefined) break;
         }
         return chord;
     }

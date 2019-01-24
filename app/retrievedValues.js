@@ -185,4 +185,3 @@ $('#document').ready(function(){
     user.chordsLevel = localStorage.chordsLevel;
     user.progresionLevel = localStorage.progresionLevel;
 })
-console.log(user.chordsLevel)

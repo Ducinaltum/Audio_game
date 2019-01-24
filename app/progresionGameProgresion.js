@@ -323,7 +323,8 @@ var progresionLevels = {
     },
 
 
-    //Dominantes secundarias sobre acordes principales en modo mayor
+    //Dominantes secundarias sobre acordes principales en modo mayor 
+    //DIFERENTES TONALIDADES
     15: function(){
         var exercise = {};
         exercise.numberOfChords = 8
@@ -333,6 +334,7 @@ var progresionLevels = {
         return exercise;
     },
     //Dominantes secundarias sobre acordes principales en modo menor
+    //DIFERENTES TONALIDADES
     16: function(){
         var exercise = {};
         exercise.numberOfChords = 8
@@ -341,7 +343,8 @@ var progresionLevels = {
         exercise.chords = new onMinorPrincipalsSecondaryDominats();
         return exercise;
     },
-    //Dominantes secundarias sobre acordes secundarios modo mayor
+    //Dominantes secundarias sobre acordes principales y secundarios modo mayor
+    //DIFERENTES TONALIDADES
     17: function(){
         var exercise = {};
         exercise.numberOfChords = 8
@@ -350,7 +353,8 @@ var progresionLevels = {
         exercise.chords = new onMajorSecondariesSecondaryDominats();
         return exercise;
     },
-    //Dominantes secundarias sobre acordes secundarios modo mayor
+    //Dominantes secundarias sobre acordes principales y secundarios modo mayor
+    //DIFERENTES TONALIDADES
     18: function(){
         var exercise = {};
         exercise.numberOfChords = 8
@@ -359,10 +363,26 @@ var progresionLevels = {
         exercise.chords = new onMinorSecondariesSecondaryDominats();
         return exercise;
     },
+
+    //Mixtura modal: Tónica y dominantes en modo lidio, cuatro compases.
+    //Mixtura modal: Tónica y dominantes en modo eólico, cuatro compases.
+    //Mixtura modal: Tónica y dominantes en modo mixolidio, cuatro compases.
+    //Mixtura modal: Tónica y dominantes en modo frigio, cuatro compases.
+    //Mixtura modal: Tónica y dominantes en modo locrio, cuatro compases.
+    //Mixtura modal: Tónica y dominantes en modo lidio, ocho compases.
+    //Mixtura modal: Tónica y dominantes en modo mixolidio, ocho compases.
+    //Mixtura modal: Tónica y dominantes en modo eólico, ocho compases.
+    //Mixtura modal: Tónica y dominantes en modo dórico, ocho compases.
+    //Mixtura modal: Tónica y dominantes en modo frigio, ocho compases.
+    //Mixtura modal: Tónica y dominantes en modo locrio, ocho compases.
+    //Mixtura modal: Tónica y dominantes en modo lidio y mixolidio combinados, ocho compases.
+    //Mixtura modal: Tónica y dominantes en modo eólico, dórico, frigio y locrio combinados, ocho compases.
+    //Mixtura modal: Tónica y dominantes de todos los modos combinados, ocho compases.
+    //Mixtura modal: Tónica y dominantes en modo dórico, cuatro compases.
+
 }
 
 $('#progresionSelection .list-group-item').click(function (e) {
-    var selectedExercise = this.id;
     var levelSelected = Number(this.id.slice(3))
     if (currentExercise != null) {
         if (currentExercise.getKindOfExercise() != 'Progresion') {

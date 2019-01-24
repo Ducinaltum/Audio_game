@@ -37,7 +37,8 @@ function HarmonicProgresionExercise(actualLevel = user.progresionLevel) {
             for (var i = 0; i < progresion.progresion.length; i++) {
                 answer = progresion.progresion[i]
                 usrResponse = response[i]
-                answer.grade = answer.grade.replace(/[M/m/d/A]/,'')
+                answer.grade = answer.grade.replace(/[M|m|d|A]/,'')
+                usrResponse.grade.replace(/[\/]/,'')
                 grades[i] = 0;
                 if (answer.grade == usrResponse.grade) {
                     gradeHits++;
@@ -49,7 +50,14 @@ function HarmonicProgresionExercise(actualLevel = user.progresionLevel) {
             };
             for(var i = 0; i < grades.length; i++){
                 if(grades[i] != 1){
-                    failChordAnswer(romanize(progresion.progresion[i].grade), progresion.progresion[i].chord.kind, i)
+                    grade;
+                    gradeToRomanize = progresion.progresion[i].grade.split("");
+                    gradeToRomanize[0] = romanize(gradeToRomanize[0])
+                    if(gradeToRomanize[1] != undefined) {
+                        gradeToRomanize[1] = "/" + romanize(gradeToRomanize[1]);
+                        grade = gradeToRomanize[0] + gradeToRomanize[1]
+                    }else grade = gradeToRomanize[0];
+                    failChordAnswer(grade, progresion.progresion[i].chord.kind, i)
                 }
                 else{
                     correctChordAnswer(i)

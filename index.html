@@ -28,6 +28,7 @@
     <!-- utils -->
     <script src="../MIDI.js/js/util/dom_request_xhr.js" type="text/javascript"></script>
     <script src="../MIDI.js/js/util/dom_request_script.js" type="text/javascript"></script>
+    <script src="Chart.min.js" type="text/javascript"></script>
 
     <script src="app\intervals.js" type="text/javascript"></script>
     <script src="app\chords.js" type="text/javascript"></script>
@@ -101,6 +102,8 @@
             </div>
         </div>
     </div>
+
+    <!--<canvas id="animatedBackground" width="600" height="400"></canvas>-->
 
     <div id="exerciseSelector">
         <div class="panel-group" id="accordion">
@@ -231,21 +234,22 @@
                             </div>
                             <div id="levelIntervals" class="panel-collapse collapse">
                                 <div class="panel-body list-group text-center">
-                                    <a id='int0' href="#" class="list-group-item">Intervalos perfectos </a>
-                                    <a id='int1' href="#" class="list-group-item">Consonancias cercanas: 3m, 3M</a>
-                                    <a id='int2' href="#" class="list-group-item">Intervalos perfectos y consonancias cercanas</a>
-                                    <a id='int3' href="#" class="list-group-item">Disonancias cercanas: 2m, 2M</a>
-                                    <a id='int4' href="#" class="list-group-item">Intervalos perfectos, consonancias cercanas,
-                                        disonancias cercanas</a>
-                                    <a id='int5' href="#" class="list-group-item">Consonancias lejanas: 6m, 6M</a>
-                                    <a id='int6' href="#" class="list-group-item">Intervalos perfectos, consonancias cercanas
-                                        y lejanas, disonancias cercanas</a>
-                                    <a id='int7' href="#" class="list-group-item">Disonancias lejanas: 4A/5d, 7m, 7M</a>
-                                    <a id='int8' href="#" class="list-group-item">Todos los intervalos dentro de la octava</a>
-                                    <a id='int9' href="#" class="list-group-item">Todos los intervalos dentro de dos octavas</a>
+                                    <a id='int1' href="#" class="list-group-item">Tercer Mayor (3M), Quinta Justa (5J) y Ocatava Justa (8J)</a>
+                                    <a id='int2' href="#" class="list-group-item">Consonancias cercanas: 3m, 3M</a>
+                                    <a id='int3' href="#" class="list-group-item">Intervalos perfectos y consonancias cercanas</a>
+                                    <a id='int4' href="#" class="list-group-item">Disonancias cercanas: 2m, 2M</a>
+                                    <a id='int5' href="#" class="list-group-item">Intervalos perfectos, consonancias cercanas, disonancias cercanas</a>
+                                    <a id='int6' href="#" class="list-group-item">Consonancias lejanas: 6m, 6M</a>
+                                    <a id='int7' href="#" class="list-group-item">Intervalos perfectos, consonancias cercanas y lejanas, disonancias cercanas</a>
+                                    <a id='int8' href="#" class="list-group-item">Disonancias lejanas: 4A/5d, 7m, 7M</a>
+                                    <a id='int9' href="#" class="list-group-item">Todos los intervalos dentro de la octava</a>
+                                    <a id='int10' href="#" class="list-group-item">Todos los intervalos dentro de dos octavas</a>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div>
+                        <canvas id="intervalsChart" width="200" height="200"></canvas>
                     </div>
                 </div>
             </div>
@@ -269,7 +273,8 @@
                 <div id="chordsSelection" class="panel-collapse collapse">
                     <div class="panel-body">
                         <div class="panel-group">
-                            <div id="chordMode" class="btn-group btn-group-justified" role="group" aria-label="...">
+                            <!--
+                            <div id="chordPositionMode" class="btn-group btn-group-justified" role="group" aria-label="...">
                                 <div class="btn-group" role="group">
                                     <button type="radio" name="singleOptions" class="btn btn-primary selector" id="0" checked>Posición
                                         cerrada
@@ -281,7 +286,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <br>
+                            <br>-->
                             <div id="chordMode" class="btn-group btn-group-justified" role="group" aria-label="...">
                                 <div class="btn-group" role="group">
                                     <button type="radio" name="singleOptions" class="btn btn-primary selector" id="0" checked>Ascendente</button>
@@ -357,6 +362,7 @@
                                         <a id='cho0' href="#" class="list-group-item">Acordes mayor y menor </a>
                                         <a id='cho1' href="#" class="list-group-item">Acordes disminuido y aumentado</a>
                                         <a id='cho2' href="#" class="list-group-item">Todos los acordes tríada</a>
+                                        <a id='cho3' href="#" class="list-group-item">Todos los acordes tríada en posición abierta</a>
                                     </div>
                                 </div>
                                 <div class="panel-heading">
@@ -366,15 +372,16 @@
                                 </div>
                                 <div class="panel">
                                     <div class="list-group">
-                                        <a id='cho3' href="#" class="list-group-item">Acordes mayores con séptima </a>
-                                        <a id='cho4' href="#" class="list-group-item">Acordes menores con séptima</a>
-                                        <a id='cho5' href="#" class="list-group-item">Acordes mayores y menores con séptima</a>
-                                        <a id='cho6' href="#" class="list-group-item">Acordes disminuidos con séptima</a>
-                                        <a id='cho7' href="#" class="list-group-item">Acordes aumentados con séptima</a>
-                                        <a id='cho8' href="#" class="list-group-item">Acordes aumentados y diminuidos con
-                                            séptima
-                                        </a>
-                                        <a id='cho9' href="#" class="list-group-item">Acordes cuatríadas en su totalidad</a>
+                                        <a id='cho4' href="#" class="list-group-item">Acordes mayores con séptima </a>
+                                        <a id='cho5' href="#" class="list-group-item">Acordes menores con séptima</a>
+                                        <a id='cho6' href="#" class="list-group-item">Acordes mayores y menores con séptima</a>
+                                        <a id='cho7' href="#" class="list-group-item">Acordes mayores y menores con séptima en posición abierta</a>
+                                        <a id='cho8' href="#" class="list-group-item">Acordes disminuidos con séptima</a>
+                                        <a id='cho9' href="#" class="list-group-item">Acordes aumentados con séptima</a>
+                                        <a id='cho10' href="#" class="list-group-item">Acordes aumentados y diminuidos con séptima</a>
+                                        <a id='cho11' href="#" class="list-group-item">Acordes aumentados y diminuidos con séptima en posición abierta</a>
+                                        <a id='cho12' href="#" class="list-group-item">Acordes cuatríadas en su totalidad</a>
+                                        <a id='cho13' href="#" class="list-group-item">Acordes cuatríadas en su totalidad en posición abierta</a>
                                     </div>
                                 </div>
                                 <div class="panel-heading">
@@ -797,6 +804,8 @@
     <script src="app\intervalsGameProgresion.js" type="text/javascript"></script>
     <script src="app\chordsGameProgresion.js" type="text/javascript"></script>
     <script src="app\progresionGameProgresion.js" type="text/javascript"></script>
+    <!--<script src="app\cnvsAnimations.js" type="text/javascript"></script>-->
+    <script src="app\chartsManager.js" type="text/javascript"></script>
 </body>
 
 </html>
