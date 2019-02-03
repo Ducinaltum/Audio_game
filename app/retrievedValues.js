@@ -1,7 +1,7 @@
 var user = {
-    intervalsLevel: 0,
-    progresionLevel: 0,
-    chordsLevel: 0,
+    intervalsLevel: 1,
+    progresionLevel: 1,
+    chordsLevel: 1,
     /*
     totalScore: 0,
     intervalScore: 0,
@@ -177,8 +177,8 @@ var looseText = {
 }
 $('#document').ready(function(){
     if(localStorage.length == 0){
-        localStorage.setItem('intervalsLevel', 0)
-        localStorage.setItem('chordsLevel', 0)
+        localStorage.setItem('intervalsLevel', 3)
+        localStorage.setItem('chordsLevel', 3)
         localStorage.setItem('progresionLevel', 3)
     }
     user.intervalsLevel = localStorage.intervalsLevel;
