@@ -4,7 +4,7 @@ function HarmonicProgresionExercise(actualLevel = user.progresionLevel) {
     var typeOfExercise = 'Progresion'
     var state = 'idle';
     var level = clamp(actualLevel, info.progresionMaxLevel)
-    var exercise = setProgresionLevel(level);
+    var exercise = progresionLevels[level]();
     var progresion;
     var progresionManager = new LevelManager(level)
     showScreen(typeOfExercise)
@@ -69,23 +69,15 @@ function HarmonicProgresionExercise(actualLevel = user.progresionLevel) {
             progresionManager.addScore(averageHits)
         }
     }
-
-    function setProgresionLevel(lvl) {
-        var retrieveExercise = progresionLevels[lvl]();
-        buildDirections(retrieveExercise.chords)
-        return retrieveExercise;
-    }
 }
 
 
 function Progresion(ex) {
-    //numberOfChords ;
     this.exercise = ex;
     this.progresion = setProgresion(this.exercise.chords, this.exercise.numberOfChords);
     voicing = buildChorale(this.progresion, this.exercise);
     this.notes = buildStream(voicing);
 
-    //Deshardcodear
     function setProgresion(chords, number) {
         numberOfChords = number;
         progresion = []
@@ -399,6 +391,3 @@ function Progresion(ex) {
         return stream
     }
 }
-
-
-

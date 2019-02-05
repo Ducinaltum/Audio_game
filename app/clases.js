@@ -240,6 +240,15 @@ function LevelManager(actualLevel) {
     totalRounds = setTotalRounds(actualLevel);
 }
 
+function saveManager(){
+    obj = {}
+    this.computeValue = function(property, value){
+        obj[property][value] = obj[property][value] + 1||0;
+    }
+    this.sendToSave = function(){
+
+    }
+}
 var chordsKeys = {
     'major':[0, 4, 7],
     'minor':[0,3,7],
@@ -277,4 +286,14 @@ var chordsKeys = {
 
     'b13':20,
     '13':21
+}
+
+var info = {
+    intervalsMaxLevel: 36,
+    chordsMaxLevel: 68,
+    progresionMaxLevel: 33
+}
+
+function randomNote(){
+    return Math.floor(Math.random()*12) - 6
 }
