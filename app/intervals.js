@@ -2,12 +2,9 @@ function IntervalsExercise(actualLevel = user.intervalsLevel) {
     typeOfExercise = 'Intervals'
     state = 'idle';
     level = clamp(actualLevel, info.intervalsMaxLevel);
-    console.log(level)
     exercise = intervalsLevels[level]()
-    intervalManager = new LevelManager(level);
+    intervalManager = new LevelManager(exercise.iterations);
     showScreen(typeOfExercise)
-    console.log(intervalsLevels[0]())
-    console.log(exercise)
     deactivateIntervalsButtons(typeOfExercise, exercise.intervals)
     interval = createInterval();
 

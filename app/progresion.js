@@ -5,8 +5,9 @@ function HarmonicProgresionExercise(actualLevel = user.progresionLevel) {
     var state = 'idle';
     var level = clamp(actualLevel, info.progresionMaxLevel)
     var exercise = progresionLevels[level]();
+    exercise.iterations = 20;
     var progresion;
-    var progresionManager = new LevelManager(level)
+    var progresionManager = new LevelManager(exercise.iterations)
     showScreen(typeOfExercise)
     createProgresion();
     this.getKindOfExercise = function(){return typeOfExercise}
@@ -30,43 +31,40 @@ function HarmonicProgresionExercise(actualLevel = user.progresionLevel) {
     this.checkResponse = function(response){
         if (state == 'playing') {
             state = 'answer'
-            grades = [];
-            gradeHits = 0
-            kindHits = 0
-            parsedResponse = []
             for (var i = 0; i < progresion.progresion.length; i++) {
-                answer = progresion.progresion[i]
+                answer.grade =  progresion.progresion[i].grade.replace(/[M|m|d|A]/,'')
+                answer.kind = progresion.progresion[i].chord.kind
                 usrResponse = response[i]
-                answer.grade = answer.grade.replace(/[M|m|d|A]/,'')
                 usrResponse.grade.replace(/[\/]/,'')
-                grades[i] = 0;
+                var hit = 0;
                 if (answer.grade == usrResponse.grade) {
-                    gradeHits++;
-                    if (progresion.progresion[i].chord.kind == response[i].kind) {
-                        kindHits = 1;
-                        grades[i] = 1;
-                    }
+                    if (answer.kind == usrResponse.kind) {
+                        hit+=1;
+                        correctChordAnswer(i)
+                    }else hit+=0.5;
                 }
-            };
-            for(var i = 0; i < grades.length; i++){
-                if(grades[i] != 1){
-                    grade;
-                    gradeToRomanize = progresion.progresion[i].grade.split("");
-                    gradeToRomanize[0] = romanize(gradeToRomanize[0])
-                    if(gradeToRomanize[1] != undefined) {
-                        gradeToRomanize[1] = "/" + romanize(gradeToRomanize[1]);
-                        grade = gradeToRomanize[0] + gradeToRomanize[1]
-                    }else grade = gradeToRomanize[0];
+                if(hit != 1){
+                    grade = answer.grade.split("");
+                    grade = grade.map(function(char){
+                        if(!isNaN(char)) {
+                            return romanize(char)
+                        } return char;
+                    }).join("")
                     failChordAnswer(grade, progresion.progresion[i].chord.kind, i)
                 }
-                else{
-                    correctChordAnswer(i)
-                }
-            }
+                progresionManager.trackScore([exercise.mode[0], 
+                    answer.grade + formatChordsToDisplay[answer.kind]], 
+                    hit)
+            };
+            console.log(answer)
+            console.log(usrResponse)
 
-            averageHits = gradeHits / progresion.progresion.length;
-            averageKindHits = kindHits / progresion.progresion.length;
-            progresionManager.addScore(averageHits)
+           // averageHits = gradeHits / progresion.progresion.length;
+            //averageKindHits = kindHits / progresion.progresion.length;
+            //progresionManager.addScore(averageHits)
+            //progresionManager.addScore(1)
+            progresionManager.addRound()
+            
         }
     }
 }

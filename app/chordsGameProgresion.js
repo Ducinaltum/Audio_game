@@ -52,61 +52,6 @@ const baseChords = [
     ['sus'],
 ]
 
-/*
-var chordsLevels = {
-    0: function () {
-        return [baseChords[0], baseChords[1]];
-    },
-    1: function () {
-        return [baseChords[2], baseChords[3]];
-    },
-    2: function () {
-        return [baseChords[0], baseChords[1],baseChords[2], baseChords[3]];
-    },
-    3: function () {
-        return [baseChords[0]];
-    },
-    4: function () {
-        return [baseChords[1]];
-    },
-    5: function () {
-        return [baseChords[0],baseChords[1]]
-    },
-    6: function () {
-        return [baseChords[2]]
-    },
-    7: function () {
-        return [baseChords[3]]
-    },
-    8: function () {
-        return [baseChords[2],baseChords[3]];
-    },
-    9: function () {
-        return [baseChords[0],baseChords[1], baseChords[2],baseChords[3]];        
-    },
-    10: function () {
-        return [baseChords[0]];
-    },
-    11: function () {
-        return [baseChords[1]];
-    },
-    12: function () {
-        return [baseChords[0],baseChords[1]]
-    },
-    13: function () {
-        return [baseChords[2]]
-    },
-    14: function () {
-        return [baseChords[3]]
-    },
-    15: function () {
-        return [baseChords[2],baseChords[3]];
-    },
-    16: function () {
-        return [baseChords[0],baseChords[1], baseChords[2],baseChords[3]];        
-    },
-}*/
-
 var chordsLevels = {
     get 0() {
         var level = {

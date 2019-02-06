@@ -92,8 +92,6 @@ var progresionLevels = {
         exercise.mode = ['major']
         exercise.tonality = function(){return 0}
         exercise.chords = filterChords(new majorChords(), [1,4,5])
-        //buildDirections(exercise.chords)
-        console.log(exercise.chords)
         return exercise;
     },
     //Acordes principales menores 4cc

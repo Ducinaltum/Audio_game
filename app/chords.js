@@ -4,7 +4,7 @@ function ChordsExercise(actualLevel) {
     state = 'idle';
     level = actualLevel
     exercise = setChordLevel(level);
-    chordManager = new LevelManager(level.level);
+    chordManager = new LevelManager(exercise.iterations);
     showScreen(typeOfExercise)
     deactivateChordsButtons(typeOfExercise, exercise)
 

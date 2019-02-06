@@ -192,13 +192,14 @@ function octavate(note, oct){
     return note + (12 * oct)
 }
 
-function LevelManager(actualLevel) {
+function LevelManager(iterations) {
+    saver = new saveManager();
     rounds = 0
-    totalRounds = 0
+    totalRounds = iterations;
     winRatio = 0.8
     hit = 0;
     miss = 0;
-    score = 0
+    score = 0;
     this.hasFinishedLevel = function (level, kind) {
         ratio = hit / rounds;
         correct = (hit / totalRounds) * 100
@@ -233,22 +234,38 @@ function LevelManager(actualLevel) {
         rounds++;
     }
 
-    setTotalRounds = function (actualLevel) {
-        if (actualLevel % 4 == 3) return 50;
-        return 20;
+    this.trackScore = function(correctAnswer, performance){
+        console.log("hi")
+        value = Math.floor(performance)
+        saver.computeValue(correctAnswer,value)
     }
-    totalRounds = setTotalRounds(actualLevel);
+
+    this.addRound = function(){
+        rounds++;
+    }
 }
 
 function saveManager(){
     obj = {}
     this.computeValue = function(property, value){
-        obj[property][value] = obj[property][value] + 1||0;
+        //Usar una funcion delegada
+        var aux = obj;
+        console.log(property)
+        console.log(obj)
+        for (var i = 0; i < property.length; i++) {
+            
+        }
+        console.log(obj)
+        console.log(aux)
+        //var path = property.reduce((prev, curr) => prev.hasOwnProperty(curr) && prev[curr] || prev, obj)
+        //obj[property][value] = obj[property][value] + 1||0;
     }
+
     this.sendToSave = function(){
 
     }
 }
+
 var chordsKeys = {
     'major':[0, 4, 7],
     'minor':[0,3,7],
