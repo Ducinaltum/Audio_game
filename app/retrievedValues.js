@@ -8,7 +8,7 @@ var user = {
     progresionScore: 0,
     chordsScore: 0,
     */
-
+/*
     intervalsStats: {
         1: {
             right: 0,
@@ -152,8 +152,8 @@ var user = {
     progresionStats: {
         major: {
             '1': {
-                right:0,
-                wrong:0,
+                //right:0,
+                //wrong:0,
             },
             '2': {
                 right:0,

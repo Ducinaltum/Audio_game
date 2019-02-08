@@ -1,10 +1,11 @@
 //const safeZone = 20;
-function ChordsExercise(actualLevel) {
-    typeOfExercise = 'Chords'
-    state = 'idle';
-    level = actualLevel
-    exercise = setChordLevel(level);
-    chordManager = new LevelManager(exercise.iterations);
+function ChordsExercise(actualLevel) {    
+    var typeOfExercise = 'Chords'
+    var state = 'idle';
+    var level = actualLevel
+    var exercise = setChordLevel(level);
+    var chordManager = new LevelManager(exercise.iterations);
+    var saver = new saveManager(typeOfExercise);
     showScreen(typeOfExercise)
     deactivateChordsButtons(typeOfExercise, exercise)
 
@@ -46,7 +47,7 @@ function ChordsExercise(actualLevel) {
                 posibilities++;
             }
             score = score / posibilities;
-            chordManager.addScore(score);
+            //chordManager.addScore(score);
             chordsButtonAnswer(typeOfExercise, correctAnswer, failedAnswers)
             if (score == 1) {
                 updateFeedback("¡Correcto!", 'success', strResponse)

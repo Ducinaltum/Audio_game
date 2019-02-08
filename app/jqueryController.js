@@ -19,7 +19,6 @@ function resetElements(parent) {
         $('#ex0').focus()
     }
     else {
-        //$("#" + parent + " :input:enabled").removeClass("btn-success")
         $("#" + parent + " :input").removeClass("btn-success")
             .removeClass("btn-danger")
             .removeClass("btn-info")
@@ -66,8 +65,6 @@ function endLevelMenu(outcome) {
         $('#repeat').addClass('btn-primary').removeClass('btn-default')
         $('#next').addClass("btn-default").removeClass('btn-primary')
         if (currentExercise.getLevel() >= user[currentExercise.getKindOfExercise().toLowerCase() +'Level']) {
-            console.log(currentExercise.getLevel())
-            console.log(user[currentExercise.getKindOfExercise().toLowerCase() +'Level'])
             $('#next').prop("disabled", true);
         }
         $('#endLevelPrimary').html(looseText.primary)
@@ -166,7 +163,6 @@ $('#home').click(function(){
 $(document).on('hide.bs.modal','#endOfExercise', function () {
     $('.collapse').collapse()
     //goToHome();
-//Do stuff here
 });
 
 function goToHome(){

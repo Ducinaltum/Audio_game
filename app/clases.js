@@ -193,23 +193,23 @@ function octavate(note, oct){
 }
 
 function LevelManager(iterations) {
-    saver = new saveManager();
     rounds = 0
     totalRounds = iterations;
     winRatio = 0.8
-    hit = 0;
-    miss = 0;
+    globalHit = 0;
+    globalMiss = 0;
+    localHit = 0;
+    localMiss = 0;
     score = 0;
+
     this.hasFinishedLevel = function (level, kind) {
-        ratio = hit / rounds;
-        correct = (hit / totalRounds) * 100
-        incorrect = (miss / totalRounds) * 100
+        ratio = globalHit / rounds;
+        correct = (globalHit / totalRounds) * 100
+        incorrect = (globalMiss / totalRounds) * 100
         updateProgressBar(correct, incorrect);
 
         if (rounds >= totalRounds) {
-            hit = 0;
-            miss = 0;
-            rounds = 0;
+            globalHit, globalMiss, rounds = 0;
             if (ratio > winRatio) {
                 if (level == user[kind.toLowerCase()+'Level']) {
                     user[kind.toLowerCase()+'Level']++;
@@ -227,44 +227,57 @@ function LevelManager(iterations) {
         return false;        
     }
 
-    //Actualizar para que funcione con fracciones
-    this.addScore = function (value) {
-        hit += value
-        miss += Math.abs(value  - 1)
-        rounds++;
-    }
-
     this.trackScore = function(correctAnswer, performance){
-        console.log("hi")
-        value = Math.floor(performance)
-        saver.computeValue(correctAnswer,value)
+        localHit += value
+        localMiss += Math.abs(value  - 1)
+       // value = Math.floor(performance)
+        console.log(saver)
+        //saver.computeValue(correctAnswer, value)
+        
     }
 
     this.addRound = function(){
+        globalHit += localHit / (localHit + localMiss)
+        globalMiss += 1 - globalHit
+        localHit, localMiss = 0;
         rounds++;
     }
 }
 
-function saveManager(){
-    obj = {}
-    this.computeValue = function(property, value){
-        //Usar una funcion delegada
-        var aux = obj;
-        console.log(property)
-        console.log(obj)
-        for (var i = 0; i < property.length; i++) {
-            
-        }
-        console.log(obj)
-        console.log(aux)
-        //var path = property.reduce((prev, curr) => prev.hasOwnProperty(curr) && prev[curr] || prev, obj)
-        //obj[property][value] = obj[property][value] + 1||0;
+function saveManager(typeOfExercice){
+    var obj = {};
+    function saveInIntervals(interval, value){
+        user.intervalsStats[interval].total = ++user.intervalsStats[interval].total || 0;
+        user.intervalsStats[interval].counter = ++intervalsStats[interval].counter|| 0;
     }
-
+    function saveInChords(chord, value){
+        user.chordStats[chord].total = ++user.chordStats[chord].total|| 0;
+        user.chordStats[chord].counter = ++user.chordStats[chord].counter|| 0;
+    }
+    function saveInProgresion(path, values){
+        user.progresionStats[path[0]][path[1]].total = ++user.progresionStats[path[0]][path[1]].total || 0;
+        user.progresionStats[path[0]][path[1]].counter = ++user.progresionStats[path[0]][path[1]].counter|| 0;
+    }    
+    delegateComputationOfValue = function(){
+        switch(typeOfExercice){
+            case('Intervals'):
+                return saveInIntervals;
+                break;
+            case('Chords'):
+                return saveInChords;
+                break;
+            case('Progresion'):
+                return saveInProgresion;
+                break;
+        }
+    }
+    this.computeValue = delegateComputationOfValue();
     this.sendToSave = function(){
 
     }
 }
+
+
 
 var chordsKeys = {
     'major':[0, 4, 7],

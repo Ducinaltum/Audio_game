@@ -8,6 +8,7 @@ function HarmonicProgresionExercise(actualLevel = user.progresionLevel) {
     exercise.iterations = 20;
     var progresion;
     var progresionManager = new LevelManager(exercise.iterations)
+    var saver = new saveManager(typeOfExercise);
     showScreen(typeOfExercise)
     createProgresion();
     this.getKindOfExercise = function(){return typeOfExercise}
@@ -56,15 +57,7 @@ function HarmonicProgresionExercise(actualLevel = user.progresionLevel) {
                     answer.grade + formatChordsToDisplay[answer.kind]], 
                     hit)
             };
-            console.log(answer)
-            console.log(usrResponse)
-
-           // averageHits = gradeHits / progresion.progresion.length;
-            //averageKindHits = kindHits / progresion.progresion.length;
-            //progresionManager.addScore(averageHits)
-            //progresionManager.addScore(1)
-            progresionManager.addRound()
-            
+            progresionManager.addRound()            
         }
     }
 }

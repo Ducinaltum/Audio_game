@@ -1,12 +1,13 @@
 function IntervalsExercise(actualLevel = user.intervalsLevel) {
-    typeOfExercise = 'Intervals'
-    state = 'idle';
-    level = clamp(actualLevel, info.intervalsMaxLevel);
-    exercise = intervalsLevels[level]()
-    intervalManager = new LevelManager(exercise.iterations);
+    var typeOfExercise = 'Intervals'
+    var state = 'idle';
+    var level = clamp(actualLevel, info.intervalsMaxLevel);
+    var exercise = intervalsLevels[level]()
+    var intervalManager = new LevelManager(typeOfExercise, exercise.iterations);
+    var saver = new saveManager(typeOfExercise);
     showScreen(typeOfExercise)
     deactivateIntervalsButtons(typeOfExercise, exercise.intervals)
-    interval = createInterval();
+    var interval = createInterval();
 
     //Publicas
     this.getKindOfExercise = function () { return typeOfExercise }
