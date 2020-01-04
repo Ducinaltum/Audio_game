@@ -31,7 +31,9 @@ function HarmonicProgresionExercise(actualLevel = user.progresionLevel) {
 
     this.checkResponse = function(response){
         if (state == 'playing') {
+            saveObject = {}
             state = 'answer'
+            var score = 0;
             for (var i = 0; i < progresion.progresion.length; i++) {
                 answer.grade =  progresion.progresion[i].grade.replace(/[M|m|d|A]/,'')
                 answer.kind = progresion.progresion[i].chord.kind
@@ -53,11 +55,16 @@ function HarmonicProgresionExercise(actualLevel = user.progresionLevel) {
                     }).join("")
                     failChordAnswer(grade, progresion.progresion[i].chord.kind, i)
                 }
-                progresionManager.trackScore([exercise.mode[0], 
-                    answer.grade + formatChordsToDisplay[answer.kind]], 
-                    hit)
+                score += hit;
+                valueToAdd = answer.grade + answer.kind
+                saveObject[valueToAdd] = saveObject[valueToAdd] || {}
+                saveObject[valueToAdd].correct = saveObject[valueToAdd].correct + hit || hit;
+                saveObject[valueToAdd].times = saveObject[valueToAdd].times + 1 || 1;
             };
-            progresionManager.addRound()            
+            score /= exercise.numberOfChords;
+            mode = {}
+            saver.storeValues(mode[exercise.mode[0]] = saveObject);
+            progresionManager.trackScore(score)                  
         }
     }
 }
@@ -75,6 +82,7 @@ function Progresion(ex) {
         progresion.push(chords[0])
         for (var i = 1; i < this.numberOfChords; i++) {
             currentChord = progresion[i - 1]
+            console.log(currentChord)
             nextChord = currentChord.direction[Math.floor(Math.random() * currentChord.direction.length)]
             progresion.push(nextChord);
         }

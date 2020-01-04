@@ -13,20 +13,11 @@ function Chord(k, d, s, e){
     this.depth = d;
     this.seven = s;
     this.extensions = e;
-    /*
-    if(seven == undefined) {
-        if(extensions == undefined){
-
-        }
-    }
-    */
 }
 
 function Grade(g, c, d = '', dir = [], mode = 'major', inv = 5) {
     this.grade = g;
     this.chord = c;
-    //this.tonalFunction = t;
-    //this.hierarchy = h;
     this.distanceToTonic = d;
     this.direction = dir;
     this.inversion = inv;
@@ -64,27 +55,64 @@ function Grade(g, c, d = '', dir = [], mode = 'major', inv = 5) {
         return posibleSeven;
     }
 }
-/*
-var gradeEquivalences = {
-    'V/IV': 'V/IV',
-    'I': 'V/IV',
-    'IMIX': 'V/IV',
 
-    'VII/IV': 'VII/IV',
-    'III': 'VII/IV',
-    '': 'VII/IV',
+function LevelManager(iterations = 20) {
+    rounds = 0
+    totalRounds = iterations;
+    winRatio = 0.8
+    correct = 0;
+    incorrect = 0
+
+    this.hasFinishedLevel = function (level, kind) {
+        updateProgressBar(correct / totalRounds * 100, 
+                        incorrect / totalRounds * 100);
+        if (rounds >= totalRounds) {
+            if (correct/rounds > winRatio) {
+                if (level == user[kind +'Level']) {
+                    user[kind +'Level']++;
+                    //localStorage[kind.toLowerCase() +'Level'] = user[kind.toLowerCase() + 'Level']
+                }
+                endLevelMenu('win')
+            }
+            else {
+                endLevelMenu('loose')                
+            }
+            progressRestore()
+            //correct, incorrect, rounds = 0;
+            return true;
+        }
+        return false;        
+    }
+
+    this.trackScore = function(value){
+        correct += value;        
+        incorrect += Math.abs(value - 1)    
+        rounds++;
+    }
 }
-*/
 
+function saveManager(ex){
+    typeofExercice = ex
+    this.storeValues = function(obj){
+        save = {}
+        save[typeofExercice] = obj
+        date = setDate()
+        if(!(date in user.date)){
+            user.date[date] = save;
+        }else{
+            user.date[date] = mergeObjectsAdd(user.date[date], save)
+        }
+    }
+
+    setDate = function(){
+        var d = new Date();
+        d = d.getFullYear() + "/" + d.getMonth() + "/" + d.getDate()
+        return d;
+    }
+}
 //Scales
 var majorScale = [0, 2, 4, 5, 7, 9, 11]
 var minorScale = [0, 2, 3, 5, 7, 8, 10]
-
-//Cadences
-var compoundFirst = [4, 5, 1]
-var compoundSecond = [4, 1, 5, 1]
-var authentic = [5, 1]
-var broken = [5, 6]
 
 var progresionMode = {
     major : {
@@ -155,130 +183,6 @@ const limits = {
     "max": 100
 }
 
-function clamp(value, max, min = 0) {
-    return Math.min(Math.max(value, min), max);
-}
-
-function romanize (num) {
-    if (!+num)
-        return num;
-    var digits = String(+num).split(""),
-        key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
-               "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
-               "","I","II","III","IV","V","VI","VII","VIII","IX"],
-        roman = "",
-        i = 3;
-    while (i--)
-        roman = (key[+digits.pop() + (i * 10)] || "") + roman;
-    return Array(+digits.join("") + 1).join("M") + roman;
-}
-
-function deromanize (str) {
-    if(str != undefined){
-	    var	str = str.toUpperCase(),
-		validator = /^M*(?:D?C{0,3}|C[MD])(?:L?X{0,3}|X[CL])(?:V?I{0,3}|I[XV])$/,
-		token = /[MDLV]|C[MD]?|X[CL]?|I[XV]?/g,
-		key = {M:1000,CM:900,D:500,CD:400,C:100,XC:90,L:50,XL:40,X:10,IX:9,V:5,IV:4,I:1},
-		num = 0, m;
-	    if (!(str && validator.test(str)))
-		    return str;
-	    while (m = token.exec(str))
-    		num += key[m[0]];
-        return num.toString();
-    }
-}
-
-function octavate(note, oct){
-    return note + (12 * oct)
-}
-
-function LevelManager(iterations) {
-    rounds = 0
-    totalRounds = iterations;
-    winRatio = 0.8
-    globalHit = 0;
-    globalMiss = 0;
-    localHit = 0;
-    localMiss = 0;
-    score = 0;
-
-    this.hasFinishedLevel = function (level, kind) {
-        ratio = globalHit / rounds;
-        correct = (globalHit / totalRounds) * 100
-        incorrect = (globalMiss / totalRounds) * 100
-        updateProgressBar(correct, incorrect);
-
-        if (rounds >= totalRounds) {
-            globalHit, globalMiss, rounds = 0;
-            if (ratio > winRatio) {
-                if (level == user[kind.toLowerCase()+'Level']) {
-                    user[kind.toLowerCase()+'Level']++;
-                    localStorage[kind.toLowerCase() +'Level'] = user[kind.toLowerCase() + 'Level']
-                }
-                progressRestore()
-                endLevelMenu('win')
-            }
-            else {
-                progressRestore()
-                endLevelMenu('loose')                
-            }
-            return true;
-        }
-        return false;        
-    }
-
-    this.trackScore = function(correctAnswer, performance){
-        localHit += value
-        localMiss += Math.abs(value  - 1)
-       // value = Math.floor(performance)
-        console.log(saver)
-        //saver.computeValue(correctAnswer, value)
-        
-    }
-
-    this.addRound = function(){
-        globalHit += localHit / (localHit + localMiss)
-        globalMiss += 1 - globalHit
-        localHit, localMiss = 0;
-        rounds++;
-    }
-}
-
-function saveManager(typeOfExercice){
-    var obj = {};
-    function saveInIntervals(interval, value){
-        user.intervalsStats[interval].total = ++user.intervalsStats[interval].total || 0;
-        user.intervalsStats[interval].counter = ++intervalsStats[interval].counter|| 0;
-    }
-    function saveInChords(chord, value){
-        user.chordStats[chord].total = ++user.chordStats[chord].total|| 0;
-        user.chordStats[chord].counter = ++user.chordStats[chord].counter|| 0;
-    }
-    function saveInProgresion(path, values){
-        user.progresionStats[path[0]][path[1]].total = ++user.progresionStats[path[0]][path[1]].total || 0;
-        user.progresionStats[path[0]][path[1]].counter = ++user.progresionStats[path[0]][path[1]].counter|| 0;
-    }    
-    delegateComputationOfValue = function(){
-        switch(typeOfExercice){
-            case('Intervals'):
-                return saveInIntervals;
-                break;
-            case('Chords'):
-                return saveInChords;
-                break;
-            case('Progresion'):
-                return saveInProgresion;
-                break;
-        }
-    }
-    this.computeValue = delegateComputationOfValue();
-    this.sendToSave = function(){
-
-    }
-}
-
-
-
 var chordsKeys = {
     'major':[0, 4, 7],
     'minor':[0,3,7],
@@ -317,6 +221,44 @@ var chordsKeys = {
     'b13':20,
     '13':21
 }
+
+function clamp(value, max, min = 0) {
+    return Math.min(Math.max(value, min), max);
+}
+
+function romanize (num) {
+    if (!+num)
+        return num;
+    var digits = String(+num).split(""),
+        key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
+               "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
+               "","I","II","III","IV","V","VI","VII","VIII","IX"],
+        roman = "",
+        i = 3;
+    while (i--)
+        roman = (key[+digits.pop() + (i * 10)] || "") + roman;
+    return Array(+digits.join("") + 1).join("M") + roman;
+}
+
+function deromanize (str) {
+    if(str != undefined){
+	    var	str = str.toUpperCase(),
+		validator = /^M*(?:D?C{0,3}|C[MD])(?:L?X{0,3}|X[CL])(?:V?I{0,3}|I[XV])$/,
+		token = /[MDLV]|C[MD]?|X[CL]?|I[XV]?/g,
+		key = {M:1000,CM:900,D:500,CD:400,C:100,XC:90,L:50,XL:40,X:10,IX:9,V:5,IV:4,I:1},
+		num = 0, m;
+	    if (!(str && validator.test(str)))
+		    return str;
+	    while (m = token.exec(str))
+    		num += key[m[0]];
+        return num.toString();
+    }
+}
+
+function octavate(note, oct){
+    return note + (12 * oct)
+}
+
 
 var info = {
     intervalsMaxLevel: 36,

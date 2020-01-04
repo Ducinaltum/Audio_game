@@ -3,6 +3,7 @@ function inputChord(){
     this.grade = undefined;
     this.kind = undefined;
     this.secondaryDominat = undefined;
+    this.mode = undefined
 
     //Convierte los valores del obajeto en una cadena para que la visualice el usuario
     this.getChordAsString = function(){
@@ -93,6 +94,7 @@ function loadValue(field, button){
     responseChords[activeChordIndex][field] = button.id;
     $(individualFields[activeChordIndex]).focus();
 }
+
 function discardValue(field, button){
     $(button).removeClass('btn-primary').addClass('btn-default')
     responseChords[activeChordIndex][field] = undefined;

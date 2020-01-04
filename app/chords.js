@@ -1,5 +1,5 @@
 //const safeZone = 20;
-function ChordsExercise(actualLevel) {    
+function ChordsExercise(actualLevel) {
     var typeOfExercise = 'Chords'
     var state = 'idle';
     var level = actualLevel
@@ -24,15 +24,15 @@ function ChordsExercise(actualLevel) {
         deactivateChordsButtons(typeOfExercise, exercise)
         if (!chordManager.hasFinishedLevel(level, typeOfExercise)) {
             state = 'playing';
-            chord = new ChordBuilder(exercise, exercise.direction())
+            chord = new ChordBuilder(exercise)
             loadOnBuffer(chord.notes)
-        }
+        } else saver.flushUser()
     }
 
     this.checkResponse = function (response) {
         if (state == 'playing') {
             state = 'answer'
-            var score = 0;
+            var hit = 0;
             var failedAnswers = [];
             var correctAnswer = chord.buildedChord
             var strResponse = buildFeedbackAnswer(correctAnswer)
@@ -43,57 +43,58 @@ function ChordsExercise(actualLevel) {
                 if (correctAnswer[i] != response[i]) {
                     failedAnswers[i] = response[i]
                 }
-                else score++;
+                else hit++;
                 posibilities++;
             }
-            score = score / posibilities;
-            //chordManager.addScore(score);
+            hit = hit / posibilities;
             chordsButtonAnswer(typeOfExercise, correctAnswer, failedAnswers)
-            if (score == 1) {
+            if (hit == 1) {
                 updateFeedback("¡Correcto!", 'success', strResponse)
             }
             else {
-                if (score > 0) {
+                if (hit > 0) {
                     updateFeedback("¡Medianamente correcto!", 'warning', strResponse)
                 }
                 else {
                     updateFeedback("¡Incorrecto!", 'danger', strResponse)
                 }
             }
+            saveObject = {}
+            saveObject[correctAnswer.join("/")] = {
+                correct: hit,
+                times: 1
+            }
+            saver.storeValues(saveObject);
+            chordManager.trackScore(hit)
         }
     }
 
     function setChordLevel(level) {
+        if(typeof level == "number"){
+            lvl = level;
+            level = {
+                level: Math.floor(lvl/4),
+                kind: lvl%4
+            }
+        }else level.level /= 4
         var actualLevel = chordsLevels[level.level];
-        actualLevel.name = level.name;
+        actualLevel.iterations = 20;
         switch (level.kind) {
             case 0:
-                actualLevel.iterations = 20;
                 actualLevel.name += " - Ascendente"
-                actualLevel.direction = function () {
-                    return 1;
-                };
+                actualLevel.direction = function () { return 1; };
                 break;
             case 1:
-                actualLevel.iterations = 20;
                 actualLevel.name += " - Descendente"
-                actualLevel.direction = function () {
-                    return -1;
-                };
+                actualLevel.direction = function () { return -1;};
                 break;
             case 2:
-                actualLevel.iterations = 20;
                 actualLevel.name += " - Armónico"
-                actualLevel.direction = function () {
-                    return 0;
-                };
+                actualLevel.direction = function () { return 0;};
                 break;
             case 3:
-                actualLevel.iterations = 20;    
                 actualLevel.name += " - Aleatorio"
-                actualLevel.direction = function () {
-                    return Math.floor(Math.random() * 3) - 1
-                };
+                actualLevel.direction = function () { return Math.floor(Math.random() * 3) - 1 };
                 break;
         }
         return actualLevel;
@@ -144,9 +145,9 @@ function ChordsExercise(actualLevel) {
     }
 }
 
-function ChordBuilder(ex, dir) {
+function ChordBuilder(ex) {
     exercise = ex;
-    direction = dir;
+    direction = exercise.direction();
     chord = buildChord();
     fundamental = setFundamental(chord);
     this.kind = chord[0];

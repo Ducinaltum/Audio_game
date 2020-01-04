@@ -11,7 +11,6 @@ var recievedExercise
 var depth
 
 function deactivateChordsButtons(parent, e) {
-    console.log(e)
     recievedExercise = e.base;
     depth = e.depth;
     answer.kind = undefined;

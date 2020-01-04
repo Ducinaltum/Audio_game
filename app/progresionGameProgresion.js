@@ -1,7 +1,7 @@
 function majorChords(){
     arr = [];
-    arr.push(new Grade('1', new Chord('major'), 0, [1,4,5, 2,6,7,'5/4','5/5', '7/4', '7/5','5/6', '7/6', '5/2', '7/2']));
-    arr.push(new Grade('4', new Chord('major'), 5, [1,4,5, 2,6,7,'5/5','7/5','5/6', '7/6', '5/2', '7/2']));
+    arr.push(new Grade('1', new Chord('major'), 0, [1,4,5,2,6,7,'5/4','5/5', '7/4', '7/5','5/6', '7/6', '5/2', '7/2', "2 Lidio", "7 Lidio", "7 Mixolidio", "5 Mixolidio"]));
+    arr.push(new Grade('4', new Chord('major'), 5, [1,4,5,2,6,7,'5/5','7/5','5/6', '7/6', '5/2', '7/2']));
     arr.push(new Grade('5', new Chord('major'), 7, [1,5,6,7, '5/6', '7/6']));
     arr.push(new Grade('2', new Chord('minor'), 2, [1,5,6,7,'5/4','5/5', '7/4', '7/5','5/6', '7/6']))
     arr.push(new Grade('6', new Chord('minor'), 9, [4,5,2,7,'5/4','5/5', '7/4', '7/5','5/2', '7/2']))
@@ -16,6 +16,19 @@ function majorChords(){
     arr.push(new Grade('5/2', new Chord('major'), 9, [2,'7/2']))
     arr.push(new Grade('7/6', new Chord('dim'), 8, [6]))
     arr.push(new Grade('7/2', new Chord('dim'), 1, [2]))
+
+    arr.push(new Grade('2 Lidio', new Chord('major'), 2, [1, "7 Lidio"]))
+    arr.push(new Grade('7 Lidio', new Chord('minor'), 11, [1]))
+    arr.push(new Grade('7 Mixolidio', new Chord('major'), 10, [1, "7 Mixolidio"]))
+    arr.push(new Grade('5 Mixolidio', new Chord('minor'), 7, [1]))
+    arr.push(new Grade('4 Dorico', new Chord('major'), 5, [1, "2 Dorico"]))
+    arr.push(new Grade('2 Dorico', new Chord('minor'), 2, [1]))
+    arr.push(new Grade('2 Frigio', new Chord('major'), 1, [1, "7 Frigio"]))
+    arr.push(new Grade('7 Frigio', new Chord('minor'), 10, [1]))
+    arr.push(new Grade('7 Eolico', new Chord('major'), 10, [1, "5 Eolico"]))
+    arr.push(new Grade('5 Eolico', new Chord('minor'), 7, [1]))
+    arr.push(new Grade('5 Locrio', new Chord('major'), 6, [1, "3 Locrio"]))
+    arr.push(new Grade('3 Locrio', new Chord('minor'), 3, [1]))
     return arr;
 }
 
@@ -50,36 +63,43 @@ function minorChords(){
     //arr.push(new Grade('7/3', new Chord('dim', '7'), 4, [[3]]))
     arr.push(new Grade('7/6', new Chord('dim'), 7, [6],'minor'))
     arr.push(new Grade('7/b7', new Chord('dim'), 9, ['b7'],'minor'))
+
+    arr.push(new Grade('2 Lidio', new Chord('major'), 2, [1, "7 Lidio"]))
+    arr.push(new Grade('7 Lidio', new Chord('minor'), 11, [1]))
+    arr.push(new Grade('7 Mixolidio', new Chord('major'), 10, [1, "7 Mixolidio"]))
+    arr.push(new Grade('5 Mixolidio', new Chord('minor'), 7, [1]))
+    arr.push(new Grade('4 Dorico', new Chord('major'), 5, [1, "2 Dorico"]))
+    arr.push(new Grade('2 Dorico', new Chord('minor'), 2, [1]))
+    arr.push(new Grade('2 Frigio', new Chord('major'), 1, [1, "7 Frigio"]))
+    arr.push(new Grade('7 Frigio', new Chord('minor'), 10, [1]))
+    arr.push(new Grade('7 Eolico', new Chord('major'), 10, [1, "5 Eolico"]))
+    arr.push(new Grade('5 Eolico', new Chord('minor'), 7, [1]))
+    arr.push(new Grade('5 Locrio', new Chord('major'), 6, [1, "3 Locrio"]))
+    arr.push(new Grade('3 Locrio', new Chord('minor'), 3, [1]))
     return arr;
 }
 
 function filterChords(tonality, availableChords){
-    availableChords = availableChords.map(function(e){
-        var grade;
+    var buildedMode = []
+    availableChords.forEach(function(e){
         tonality.forEach(function(chord){
-            if(chord.grade == e) grade = chord;
+            if(chord.grade == e) buildedMode.push(chord)
         })
-        return grade
     })
-    return buildDirections(availableChords)
+    return buildDirections(buildedMode)
 }
 
 function buildDirections(chords){
     chords.forEach(element => {
-        direction = []
         buildDirection = [];
-        element.direction.forEach(directionArr => {
-            buildDirection = buildDirection.concat(directionArr);
-        });
-        element.direction = buildDirection;
         for(var i = 0; i < element.direction.length; i++){
             for(var j = 0; j < chords.length; j++){
                 if(element.direction[i] == chords[j].grade) {
-                    direction[i] = chords[j];
+                    buildDirection.push(chords[j]);
                 }
             }
         }
-        element.direction = direction
+        element.direction = buildDirection
     });
     return chords
 }
@@ -264,7 +284,23 @@ var progresionLevels = {
     },
 
     //Mixtura modal: Tónica y dominantes en modo lidio, cuatro compases.
+    19: function(){
+        var exercise = {};
+        exercise.numberOfChords = 4
+        exercise.mode = ['major']
+        exercise.tonality = randomNote;
+        exercise.chords = filterChords(new majorChords(), [1,"2 Lidio", "7 Lidio"])
+        return exercise;
+    },
     //Mixtura modal: Tónica y dominantes en modo mixolidio, cuatro compases.
+    20: function(){
+        var exercise = {};
+        exercise.numberOfChords = 4
+        exercise.mode = ['major']
+        exercise.tonality = randomNote;
+        exercise.chords = filterChords(new majorChords(), [1,"7 Mixolidio", "5 Mixolidio"])
+        return exercise;
+    },
     //Mixtura modal: Tónica y dominantes en modo eólico, cuatro compases.
     //Mixtura modal: Tónica y dominantes en modo dórico, cuatro compases.
     //Mixtura modal: Tónica y dominantes en modo frigio, cuatro compases.

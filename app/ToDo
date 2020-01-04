@@ -2,6 +2,15 @@ Game design
 -----------
 Agregar acordes 2, 4, 6 y estructuras superiores
 
+Finalizar Progresion de niveles en Intervalos
+
+Finalizar Progresion de niveles en Acordes
+
+Finalizar Progresion de niveles en Progresión
+
+Realizar el sistema de estadísticas
+
+Poner el porcentaje de correctas en el feedback
 
 QA
 --
@@ -24,9 +33,17 @@ Pareciera que el ejercicio de acordes inicia dos veces
 Cuando pasé el nivel de intervalos se clavo en varios (me deshabilita el botón siguiente)
     No lo pude replicar
 
+Cuando se pide que repita un nivel custom al hapretar el botón te devuelve al tu nivel real.
+    Ej: Pones el nivel 20, te va mal, te pide que repitas, y te lleva al 5
+
 
 Ideas
 -----
 Para simplificar la estructura de la generación de acordes y progresión se puede 
 tomar un modelo regresivo donde se especifiquen las posibilidades finales y se 
 construye reversamente desde ahí
+
+
+
+
+Si la página ocupa solo la mital de la pantalla en el monitor chiquito los botones del modal fin del ejercicio se ubican bien

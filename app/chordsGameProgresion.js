@@ -55,6 +55,7 @@ const baseChords = [
 var chordsLevels = {
     get 0() {
         var level = {
+            name: "",
             base: [baseChords[0], baseChords[1]],
             depth: 1,
             isOpen: false,
@@ -63,6 +64,7 @@ var chordsLevels = {
     },
     get 1() {
         var level = {
+            name: "",
             base: [baseChords[2], baseChords[3]],
             depth: 1,
             isOpen: false
@@ -71,6 +73,7 @@ var chordsLevels = {
     },
     get 2() {
         var level = {
+            name: "",
             base: [baseChords[0], baseChords[1], baseChords[2], baseChords[3]],
             depth: 1,
             isOpen: false
@@ -79,6 +82,7 @@ var chordsLevels = {
     },
     get 3() {
         var level = {
+            name: "",
             base: [baseChords[0], baseChords[1], baseChords[2], baseChords[3]],
             depth: 1,
             isOpen: true
@@ -89,6 +93,7 @@ var chordsLevels = {
     //Séptimas
     get 4() {
         var level = {
+            name: "",
             base: [baseChords[0]],
             depth: 2,
             isOpen: false
@@ -97,6 +102,7 @@ var chordsLevels = {
     },
     get 5() {
         var level = {
+            name: "",
             base: [baseChords[1]],
             depth: 2,
             isOpen: false
@@ -105,6 +111,7 @@ var chordsLevels = {
     },
     get 6() {
         var level = {
+            name: "",
             base: [baseChords[0], baseChords[1]],
             depth: 2,
             isOpen: false
@@ -113,6 +120,7 @@ var chordsLevels = {
     },
     get 7() {
         var level = {
+            name: "",
             base: [baseChords[0], baseChords[1]],
             depth: 2,
             isOpen: true
@@ -121,6 +129,7 @@ var chordsLevels = {
     },
     get 8() {
         var level = {
+            name: "",
             base: [baseChords[2]],
             depth: 2,
             isOpen: false
@@ -129,6 +138,7 @@ var chordsLevels = {
     },
     get 9() {
         var level = {
+            name: "",
             base: [baseChords[3]],
             depth: 2,
             isOpen: false
@@ -137,6 +147,7 @@ var chordsLevels = {
     },
     get 10() {
         var level = {
+            name: "",
             base: [baseChords[2], baseChords[3]],
             depth: 2,
             isOpen: false
@@ -145,6 +156,7 @@ var chordsLevels = {
     },
     get 11() {
         var level = {
+            name: "",
             base: [baseChords[2], baseChords[3]],
             depth: 2,
             isOpen: true
@@ -153,6 +165,7 @@ var chordsLevels = {
     },
     get 12() {
         var level = {
+            name: "",
             base: [baseChords[0], baseChords[1], baseChords[2], baseChords[3]],
             depth: 2,
             isOpen: false
@@ -161,6 +174,7 @@ var chordsLevels = {
     },
     get 13() {
         var level = {
+            name: "",
             base: [baseChords[0], baseChords[1], baseChords[2], baseChords[3]],
             depth: 2,
             isOpen: true
@@ -171,6 +185,7 @@ var chordsLevels = {
     //Novenas
     get 14() {
         var level = {
+            name: "",
             base: [baseChords[0]],
             depth: 3,
             isOpen: false
@@ -179,6 +194,7 @@ var chordsLevels = {
     },
     get 15() {
         var level = {
+            name: "",
             base: [baseChords[1]],
             depth: 3,
             isOpen: false
@@ -187,6 +203,7 @@ var chordsLevels = {
     },
     get 16() {
         var level = {
+            name: "",
             base: [baseChords[0], baseChords[1]],
             depth: 3,
             isOpen: false
@@ -195,6 +212,7 @@ var chordsLevels = {
     },
     get 17() {
         var level = {
+            name: "",
             base: [baseChords[0], baseChords[1]],
             depth: 3,
             isOpen: true
@@ -203,6 +221,7 @@ var chordsLevels = {
     },
     get 18() {
         var level = {
+            name: "",
             base: [baseChords[2]],
             depth: 3,
             isOpen: false
@@ -211,6 +230,7 @@ var chordsLevels = {
     },
     get 19() {
         var level = {
+            name: "",
             base: [baseChords[3]],
             depth: 3,
             isOpen: false
@@ -219,6 +239,7 @@ var chordsLevels = {
     },
     get 20() {
         var level = {
+            name: "",
             base: [baseChords[2], baseChords[3]],
             depth: 3,
             isOpen: false
@@ -227,6 +248,7 @@ var chordsLevels = {
     },
     get 21() {
         var level = {
+            name: "",
             base: [baseChords[2], baseChords[3]],
             depth: 3,
             isOpen: true
@@ -235,6 +257,7 @@ var chordsLevels = {
     },
     get 22() {
         var level = {
+            name: "",
             base: [baseChords[0], baseChords[1], baseChords[2], baseChords[3]],
             depth: 3,
             isOpen: false
@@ -243,6 +266,7 @@ var chordsLevels = {
     },
     get 23() {
         var level = {
+            name: "",
             base: [baseChords[0], baseChords[1], baseChords[2], baseChords[3]],
             depth: 3,
             isOpen: true
@@ -255,7 +279,6 @@ var chordsLevels = {
 $('#chordsSelection .list-group-item').click(function (e) {
     var levelSelected = {}
     levelSelected.level = Number(this.id.slice(3)) * 4
-    levelSelected.name = $(this).text();
     levelSelected.kind = Number($('#chordMode .btn-primary').attr('id'))
     if (currentExercise != null) {
         if (currentExercise.getKindOfExercise() != 'Chords') {
