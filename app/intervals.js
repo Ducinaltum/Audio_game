@@ -23,12 +23,12 @@ function IntervalsExercise(actualLevel = user.intervalsLevel) {
             currentInterval = interval.interval;
             hit = 0;
             if (response == currentInterval) {
-                updateFeedback("¡Correcto!", 'success')
+                updateFeedback("¡Correcto!", 'success', intervalsInHalfStep[interval.interval])
                 hit++;
             }
             else {
                 failIntervalButtonAnswer(typeOfExercise, response)
-                updateFeedback("¡Incorrecto!", 'danger')
+                updateFeedback("¡Incorrecto!", 'danger', intervalsInHalfStep[interval.interval])
             }
             correctIntervalButtonAnswer(typeOfExercise, currentInterval)
             saveObject = {};
@@ -45,12 +45,6 @@ function IntervalsExercise(actualLevel = user.intervalsLevel) {
         resetElements(typeOfExercise)
         if (!intervalManager.hasFinishedLevel(level, typeOfExercise)) {
             state = 'playing';
-            //Esto se realiza para duplicar el array y no mandar el original por que se modifica
-            /*
-            var sendExercise = exercise.intervals.slice(0)
-            int = new Interval(sendExercise, exercise.timing, exercise.direction, exercise.fundamental, exercise.isRelationInverted)
-            */
-            //var sendExercise = exercise.notes.slice(0)
             int = new Interval(exercise)
             loadOnBuffer(int.notes);
             return int;
@@ -58,69 +52,18 @@ function IntervalsExercise(actualLevel = user.intervalsLevel) {
     }
 }
 
-//function Interval(ex, timing, dir, fund, isRelationInverted) {
-/*
-intervalExercise = ex;
-time = timing;
-direction = dir;
-this.interval = setInterval()
-fundamental = fund;
-this.notes = buildStream(this.interval, isRelationInverted);
-
-function setInterval() {
-    var index = Math.floor(Math.random() * intervalExercise.length)
-    int = intervalExercise[index];
-    return int;
-}
- 
-function setFundamental(interval) {
-    //Este algoritmo se sale de los límite por que no tiene en cuenta los valores negativos CORREGIR
-    //Falta también tenés en cuenta el valor isRelationInverted
-    scope = limits.max - limits.min - interval;
-    note = Math.floor(Math.random() * scope) + limits.min;
-    return note;
-}
-
-function buildStream(interval, isRelationInverted) {
-    var intervalNote;
-    if(fundamental == undefined) fundamental = setFundamental(this.interval)
-    else {
-        intervalNote += fundamental
-    }
-    if(isRelationInverted != null){
-        intervalNote = fundamental - interval
-        direction *= -1
-    }
-    else{
-        intervalNote = interval + fundamental
-    }
-    
-    if(direction == -1){
-        var aux = fundamental;
-        fundamental = intervalNote;
-        intervalNote = aux;
-    }
-    var stream = [];
-    stream[0] = new Note(fundamental,
-                0,
-                1);
-    stream[1] = new Note(intervalNote,
-                0 + time,
-                1);
-    return stream;
-}
-*/
 function Interval(exercise) {
     note = setNote()
-    fundamental = exercise.fundamental != undefined ? exercise.fundamental : 0;
-    pitch = exercise.pitch != undefined ? exercise.pitch : setPitch(note);
+    fundamental = exercise.fundamental != undefined ? exercise.fundamental : 0;    
     direction = exercise.direction;
-    if(fundamental > note || direction == -1){
+    if(fundamental == note) fundamental -=12;
+    if(fundamental > note ^ direction == -1){
         var aux = fundamental;
         fundamental = note;
         note = aux;
     }
-    this.interval = setInterval(fundamental, note)
+    this.interval = Math.abs(fundamental - note)
+    pitch = exercise.pitch != undefined ? exercise.pitch : setPitch(this.interval);
     this.notes = buildStream();
 
     function setNote() {
@@ -129,18 +72,15 @@ function Interval(exercise) {
         return note;
     }
 
-    function setPitch(note) {
+    function setPitch(interval) {
         scope = limits.max - limits.min - interval;
-        note = Math.floor(Math.random() * scope) + limits.min;
-        return note;
-    }
-
-    function setInterval(fundamental, note) {
-        if (fundamental > note) return fundamental - note;
-        else return note
+        pitchNote = Math.floor(Math.random() * scope) + limits.min;
+        return pitchNote;
     }
 
     function buildStream() {
+        console.log(fundamental)
+        console.log(note)
         fundamental += pitch
         note += pitch
         var stream = [];

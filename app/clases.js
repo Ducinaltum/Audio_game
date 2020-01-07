@@ -261,11 +261,38 @@ function octavate(note, oct){
 
 
 var info = {
-    intervalsMaxLevel: 36,
-    chordsMaxLevel: 68,
-    progresionMaxLevel: 33
+    intervalsMaxLevel: 100,
+    chordsMaxLevel: 100,
+    progresionMaxLevel: 100
 }
 
 function randomNote(){
     return Math.floor(Math.random()*12) - 6
+}
+
+var intervalsInHalfStep = {
+    1: "2m",
+    2: "2M",
+    3: "3m",
+    4: "3M",
+    5: "4J",
+    6: "4A/5d",
+    7: "5J",
+    8: "6m",
+    9: "6M",
+    10: "7m",
+    11: "7M",
+    12: "8J",
+    13: "9m",
+    14: "9M",
+    15: "10m",
+    16: "10M",
+    17: "11J",
+    18: "11A/12d",
+    19: "12J",
+    20: "13m",
+    21: "13M",
+    22: "14m",
+    23: "14M",
+    24: "15J",
 }

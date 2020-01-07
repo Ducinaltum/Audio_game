@@ -21,33 +21,45 @@ var intervalsLevels = {
     //Intervalos de 3Mayor quinta y octava en DO
     1: function () {
         var level = {
+            fundamental: 0,
+            pitch: 48,
             notes: [4, 7, 12],
             direction: 1,
             timing: 1,
-            pitch: 48,
             iterations: 20,
         }
         return level
     },
     2: function () {
-        console.log(level)
-        var level = intervalsLevels[1]();
-        level.direction = -1
-        console.log(level)
+        var level = {
+            fundamental: 0,
+            pitch: 48,
+            notes: [4, 7, 12],
+            direction: -1,
+            timing: 1,
+            iterations: 20,
+        }
         return level
     },
     3: function () {
-        var level = intervalsLevels[1]();
-        level.timing = 0
+        var level = {
+            fundamental: 0,
+            pitch: 48,
+            notes: [4, 7, 12],
+            direction: 1,
+            timing: 0,
+            iterations: 20,
+        }
         return level
 
     },
     4: function () {
         var level = {
+            fundamental: 0,
+            pitch: 48,
             notes: [4, 7, 12],
             get direction() { return Math.floor(Math.random() * 3) - 1 },
             get timing() { return Math.floor(Math.random() * 2) },
-            pitch: 48,
             iterations: 30
         }
         return level
@@ -55,10 +67,11 @@ var intervalsLevels = {
     //Intervalos de 3ra mayor quinta y octava en Do en distintas octavas Aleatorio
     5: function () {
         var level = {
+            fundamental: 0,
+            get pitch() { return 48 + (12 * Math.floor(Math.random() * 3)) },
             notes: [4, 7, 12],
             get direction() { return Math.floor(Math.random() * 3) - 1 },
             get timing() { return Math.floor(Math.random() * 2) },
-            get pitch() { return 48 + (12 * Math.floor(Math.random() * 3)) },
             iterations: 30
         }
         return level
@@ -66,6 +79,8 @@ var intervalsLevels = {
     //Intervalos de 3ra mayor quinta y octava en distintas octavas fundamental aleatoria
     6: function () {
         var level = {
+            fundamental: 0,
+            pitch: undefined,
             notes: [4, 7, 12],
             get direction() { return Math.floor(Math.random() * 3) - 1 },
             get timing() { return Math.floor(Math.random() * 2) },
@@ -80,11 +95,11 @@ var intervalsLevels = {
     7: function () {
         var level = {
             fundamental: 12,
+            pitch: 48,
             intervals: [5, 8, 12],
             notes: [0, 4, 7],
             direction: 1,
             timing: 1,
-            pitch: 48,
             iterations: 10,
         }
         return level
@@ -92,58 +107,62 @@ var intervalsLevels = {
     8: function () {
         var level = {
             fundamental: 12,
+            pitch: 48,
             intervals: [5, 8, 12],
             notes: [0, 4, 7],
             direction: -1,
             timing: 1,
-            pitch: 48,
             iterations: 10,
         }
         return level
     },
     9: function () {
         var level = {
-            fundamental: 50,
+            fundamental: 12,
+            pitch: 48,
             intervals: [5, 8, 12],
+            notes: [0, 4, 7],
             direction: 1,
             timing: 0,
             iterations: 10,
-            isRelationInverted: true,
         }
         return level
-
     },
     10: function () {
         var level = {
-            fundamental: 50,
+            fundamental: 12,
+            pitch: 48,
             intervals: [5, 8, 12],
+            notes: [0, 4, 7],
             get direction() { return Math.floor(Math.random() * 3) - 1 },
             get timing() { return Math.floor(Math.random() * 2) },
             iterations: 20,
-            isRelationInverted: true,
         }
         return level
     },
     //Intervalos de inversión de 3ra mayor quinta y octava en Do en distintas octavas Aleatorio
     11: function () {
         var level = {
-            get fundamental() { return 50 + (12 * Math.floor(Math.random() * 3)) },
+            fundamental: 12,
+            get pitch() { return 48 + (12 * Math.floor(Math.random() * 3)) },
             intervals: [5, 8, 12],
+            notes: [0, 4, 7],
             get direction() { return Math.floor(Math.random() * 3) - 1 },
             get timing() { return Math.floor(Math.random() * 2) },
-            iterations: 30,
-            isRelationInverted: true,
+            iterations: 30
         }
         return level
     },
     //Intervalos de inversión de 3ra mayor quinta y octava en distintas octavas fundamental aleatoria
     12: function () {
         var level = {
+            fundamental: 12,
+            pitch: undefined,
             intervals: [5, 8, 12],
+            notes: [0, 4, 7],
             get direction() { return Math.floor(Math.random() * 3) - 1 },
             get timing() { return Math.floor(Math.random() * 2) },
             iterations: 30,
-            isRelationInverted: true,
         }
         return level
     },
@@ -155,39 +174,42 @@ var intervalsLevels = {
     //Intervalos de 2 mayor, 6 mayor y 7 mayor
     13: function () {
         var level = {
-            fundamental: 48,
-            intervals: [2, 9, 11],
+            fundamental:0,
+            pitch: 48,
+            notes: [2, 9, 11],
             direction: 1,
             timing: 1,
-            iterations: 20
+            iterations: 20,
         }
         return level
     },
     14: function () {
         var level = {
-            fundamental: 48,
-            intervals: [2, 9, 11],
+            fundamental:0,
+            pitch: 48,
+            notes: [2, 9, 11],
             direction: -1,
             timing: 1,
-            iterations: 20
+            iterations: 20,
         }
         return level
     },
     15: function () {
         var level = {
-            fundamental: 48,
-            intervals: [2, 9, 11],
+            fundamental:0,
+            pitch: 48,
+            notes: [2, 9, 11],
             direction: 1,
             timing: 0,
-            iterations: 20
+            iterations: 20,
         }
         return level
-
     },
     16: function () {
         var level = {
-            fundamental: 48,
-            intervals: [2, 9, 11],
+            fundamental: 0,
+            pitch: 48,
+            notes: [2, 9, 11],
             get direction() { return Math.floor(Math.random() * 3) - 1 },
             get timing() { return Math.floor(Math.random() * 2) },
             iterations: 20
@@ -197,8 +219,9 @@ var intervalsLevels = {
     //Intervalos de 2 mayor, 6 mayor y 7 mayor en distintas octavas Aleatorio
     17: function () {
         var level = {
-            get fundamental() { return 48 + (12 * Math.floor(Math.random() * 3)) },
-            intervals: [2, 9, 11],
+            fundamental:0,
+            get pitch() { return 48 + (12 * Math.floor(Math.random() * 3)) },
+            notes: [2, 9, 11],
             get direction() { return Math.floor(Math.random() * 3) - 1 },
             get timing() { return Math.floor(Math.random() * 2) },
             iterations: 20
@@ -208,7 +231,9 @@ var intervalsLevels = {
     //Intervalos de 2 mayor, 6 mayor y 7 mayor en distintas octavas fundamental aleatoria
     18: function () {
         var level = {
-            intervals: [2, 9, 11],
+            fundamental: 0,
+            pitch: undefined,
+            notes: [2, 9, 11],
             get direction() { return Math.floor(Math.random() * 3) - 1 },
             get timing() { return Math.floor(Math.random() * 2) },
             iterations: 20,
@@ -216,150 +241,267 @@ var intervalsLevels = {
         return level;
     },
 
+//---------------------------------------------------------------------------------------------//
+//---------------------------------------------------------------------------------------------//
+
     //Intervalos de inversión de 2 mayor, 6 mayor y 7 mayor
     19: function () {
         var level = {
-            fundamental: 50,
-            intervals: [1, 3, 10],
+            fundamental: 12,
+            pitch: 50,
+            intervals: [1,3,10],
+            notes: [2, 9, 11],
             direction: 1,
             timing: 1,
             iterations: 20,
-            isRelationInverted: true,
         }
         return level
     },
     20: function () {
         var level = {
-            fundamental: 50,
-            intervals: [1, 3, 10],
+            fundamental: 12,
+            pitch: 50,
+            intervals: [1,3,10],
+            notes: [2, 9, 11],
             direction: -1,
             timing: 1,
             iterations: 20,
-            isRelationInverted: true,
         }
         return level
     },
     21: function () {
         var level = {
-            fundamental: 50,
+            fundamental: 12,
+            pitch: 50,
             intervals: [1, 3, 10],
+            notes: [2, 9, 11],
             direction: 1,
             timing: 0,
             iterations: 20,
-            isRelationInverted: true,
         }
         return level
 
     },
     22: function () {
         var level = {
-            fundamental: 50,
+            fundamental: 12,
+            pitch: 50,
             intervals: [1, 3, 10],
+            notes: [2, 9, 11],
             get direction() { return Math.floor(Math.random() * 3) - 1 },
             get timing() { return Math.floor(Math.random() * 2) },
             iterations: 20,
-            isRelationInverted: true,
         }
         return level
     },
     //Intervalos de inversión de 2 mayor, 6 mayor y 7 mayor en distintas octavas Aleatorio
     23: function () {
         var level = {
-            get fundamental() { return 50 + (12 * Math.floor(Math.random() * 3)) },
+            fundamental: 12,
+            get pitch() { return 48 + (12 * Math.floor(Math.random() * 3)) },
             intervals: [1, 3, 10],
+            notes: [2, 9, 11],
             get direction() { return Math.floor(Math.random() * 3) - 1 },
             get timing() { return Math.floor(Math.random() * 2) },
             iterations: 20,
-            isRelationInverted: true,
         }
         return level
     },
     //Intervalos de inversión de 2 mayor, 6 mayor y 7 mayor en distintas octavas fundamental aleatoria
     24: function () {
         var level = {
+            fundamental: 12,
+            pitch: undefined,
             intervals: [1, 3, 10],
+            notes: [2, 9, 11],
             get direction() { return Math.floor(Math.random() * 3) - 1 },
             get timing() { return Math.floor(Math.random() * 2) },
-            iterations: 20,
-            isRelationInverted: true,
+            iterations: 20
         }
         return level;
     },
 
 //---------------------------------------------------------------------------------------------//
+//---------------------------------------------------------------------------------------------//
 
+
+    //Intervalos de escala mayor
+    25: function () {
+        var level = {
+            fundamental:0,
+            pitch:48,
+            intervals:  [2,4,5,7,9,11,12],
+            notes: [2,4,5,7,9,11,12],
+            get direction() { return Math.floor(Math.random() * 3) - 1 },
+            get timing() { return Math.floor(Math.random() * 2) },
+            iterations: 30
+        }
+        return level
+    },
+    //Intervalos de escala mayor en inversión
+    26: function () {
+        var level = {
+            fundamental:12,
+            pitch:50,
+            intervals: [1,3,5,7,8,10,12],
+            notes: [2,4,5,7,9,11],
+            get direction() { return Math.floor(Math.random() * 3) - 1 },
+            get timing() { return Math.floor(Math.random() * 2) },
+            iterations: 30
+        }
+        return level
+    },
     //Intervalos de escala mayor en distintas octavas en Do Aleatorio
-    25: function () {
+    27: function () {
         var level = {
-            get fundamental() { return 48 + (12 * Math.floor(Math.random() * 3)) },
-            get realIntervals() {
-                var ints = []
-                for (var i = 1; i < 13; i++) {
-                    ints.push(i)
-                }
-                ints.splice(5,1)
-                return ints
-            },
-            intervals: [2, 4, 5, 7, 9, 11, 12],
+            get fundamental() { return Math.floor(Math.random() * 2) * 12 },
+            get pitch() { return 48 + (12 * Math.floor(Math.random() * 3)) },
+            intervals: [1,2,3,4,5,7,8,9,10,11,12],
+            notes: [2,4,5,7,9,11,12],
             get direction() { return Math.floor(Math.random() * 3) - 1 },
             get timing() { return Math.floor(Math.random() * 2) },
+            iterations: 30
+        }
+        return level
+    },
+    //Intervalos que se forman con las notas de la escala de DO
+    28: function () {
+        var level = {
+            get fundamental() { 
+                fundamentalNotes = [2,4,5,7,9,11,12]
+                return fundamentalNotes[Math.floor(Math.random() * fundamentalNotes.length)]
+            },
+            get pitch() { return 48 + (12 * Math.floor(Math.random() * 3)) },
+            intervals: [1,2,3,4,5,6,7,8,9,10,11,12],
+            notes: [2,4,5,7,9,11,12],
+            get direction() { return Math.floor(Math.random() * 3) - 1 },
+            get timing() { return Math.floor(Math.random() * 2) },
+            iterations: 30
+        }
+        return level
+    },
+    //TODOS los intervalos dentro de la octava
+    29: function () {
+        var level = {
+            get fundamental() { return Math.floor(Math.random() * 2) * 12 },
+            pitch: undefined,
+            intervals: [1,2,3,4,5,6,7,8,9,10,11,12],
+            notes: [1,2,3,4,5,6,7,8,9,10,11,12],
+            get direction() { return Math.floor(Math.random() * 3) - 1 },
+            get timing() { return Math.floor(Math.random() * 2) },
+            iterations: 30
         }
         return level
     },
 
-    //Intervalos que se generan gracias a la escala de DO
-    //BONUS LEVEL --> Se agrega el tritono
-    25: function () {
-        var level = {
-            get fundamental() { return 48 + (12 * Math.floor(Math.random() * 3)) },
-            get realIntervals() {
-                var ints = []
-                for (var i = 1; i < 13; i++) {
-                    ints.push(i)
-                }
-                return ints
-            },
-            intervals: [2, 4, 5, 7, 9, 11, 12],
-            get direction() { return Math.floor(Math.random() * 3) - 1 },
-            get timing() { return Math.floor(Math.random() * 2) },
-        }
-        return level
-    },
+//---------------------------------------------------------------------------------------------//
+//---------------------------------------------------------------------------------------------//
 
-
-    //Intervalos de escala mayor en distintas octavas fundamental aleatoria
+    //DOBLE OCTAVA
+    //Intervalos de escala mayor en DO
     30: function () {
         var level = {
-            get intervals() {
-                var ints = []
-                for (var i = 1; i < 13; i++) {
+            fundamental:0,
+            pitch:48,
+            intervals: [14,16,17,19,21,23,24],
+            notes: [14,16,17,19,21,23,24],
+            get direction() { return Math.floor(Math.random() * 3) - 1 },
+            get timing() { return Math.floor(Math.random() * 2) },
+            iterations: 30
+        }
+        return level
+    },
+    //Intervalos de escala mayor fundamental aleatoria
+    31: function () {
+        var level = {
+            fundamental:0,
+            pitch:undefined,
+            intervals: [14,16,17,19,21,23,24],
+            notes: [14,16,17,19,21,23,24],
+            get direction() { return Math.floor(Math.random() * 3) - 1 },
+            get timing() { return Math.floor(Math.random() * 2) },
+            iterations: 30
+        }
+        return level
+    },
+    //Intervalos de escala mayor en inversión en DO
+    32: function () {
+        var level = {
+            fundamental:24,
+            pitch:50,
+            intervals: [13,15,17,19,20,22,24],
+            notes: [0,2,4,5,7,9,11],
+            get direction() { return Math.floor(Math.random() * 3) - 1 },
+            get timing() { return Math.floor(Math.random() * 2) },
+            iterations: 30
+        }
+        return level
+    },
+    //Intervalos de escala mayor en inversión fundamental aleatoria
+    33: function () {
+        var level = {
+            fundamental:24,
+            pitch:50,
+            intervals: [13,15,17,19,20,22,24],
+            notes: [0,2,4,5,7,9,11],
+            get direction() { return Math.floor(Math.random() * 3) - 1 },
+            get timing() { return Math.floor(Math.random() * 2) },
+            iterations: 30
+        }
+        return level
+    },
+
+    //Todos los intervalos compuestos
+    34: function () {
+        var level = {
+            fundamental:0,
+            pitch: undefined,
+            get intervals() { 
+                ints = []
+                for (var i = 13; i < 25; i++) {
+                    ints.push(i)
+                }
+                return ints
+            },
+            get notes() { 
+                ints = []
+                for (var i = 13; i < 25; i++) {
                     ints.push(i)
                 }
                 return ints
             },
             get direction() { return Math.floor(Math.random() * 3) - 1 },
             get timing() { return Math.floor(Math.random() * 2) },
+            iterations: 30
         }
-        return level;
+        return level
     },
 
-
-
-
-
-
-
-
-
-    /*
-    : function () {
-        var level = {}
-        level.intervals = []
-        for (var i = 1; i < 13; i++) {
-            level.intervals.push(i)
+    //TODOS LOS INTERVALOS
+    35: function () {
+        var level = {
+            fundamental:0,
+            pitch: undefined,
+            get intervals() { 
+                ints = []
+                for (var i = 1; i < 24; i++) {
+                    ints.push(i)
+                }
+                return ints
+            },
+            get notes() { 
+                ints = []
+                for (var i = 1; i < 24; i++) {
+                    ints.push(i)
+                }
+                return ints
+            },
+            get direction() { return Math.floor(Math.random() * 3) - 1 },
+            get timing() { return Math.floor(Math.random() * 2) },
+            iterations: 30
         }
-        return level;
-    }*/
+        return level
+    }
 }
 
 $('#intervalsSelection .list-group-item').click(function (e) {
@@ -371,9 +513,3 @@ $('#intervalsSelection .list-group-item').click(function (e) {
     currentExercise = new IntervalsExercise(Number(this.id.slice(3)));
     goToExercise();
 })
-
-
-
-/*
-Usar el concepto de pairFundamental: Armar el intervalo y después acomodarlo a las necesidades
-*/

@@ -12,6 +12,11 @@ Realizar el sistema de estadísticas
 
 Poner el porcentaje de correctas en el feedback
 
+POner respuesta correcta en feedback aunque el usuario haya respondido de manera correcta
+
+Indicar en qué nivel se encuentra mientras se juega y cuando lo pasa
+
+
 QA
 --
 
@@ -33,7 +38,7 @@ Pareciera que el ejercicio de acordes inicia dos veces
 Cuando pasé el nivel de intervalos se clavo en varios (me deshabilita el botón siguiente)
     No lo pude replicar
 
-Cuando se pide que repita un nivel custom al hapretar el botón te devuelve al tu nivel real.
+Cuando se pide que repita un nivel custom al apretar el botón te devuelve al tu nivel real.
     Ej: Pones el nivel 20, te va mal, te pide que repitas, y te lleva al 5
 
 
