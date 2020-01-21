@@ -1,10 +1,7 @@
 var user = {
     IntervalsLevel: 1,
     ProgresionLevel: 1,
-    ChordsLevel: {
-        level:1,
-        kind:0
-    },
+    ChordsLevel: 0,
     date:{}
 }
 
@@ -43,5 +40,6 @@ var winText = {
 
 var looseText = {
     primary: 'No has logrado superar este nivel',
-    secondary: 'Le recomiendo repetirlo, o volver al nivel anterior'
+    secondary: ''
+    //secondary: 'Le recomiendo repetirlo, o volver al nivel anterior'
 }

@@ -9,7 +9,7 @@ function deactivateIntervalsButtons(parent, exercise) {
     });
 }
 
-var selectedButtons = []
+//var selectedButtons = []
 
 $('#intervalsResponses .btn').click(function (e) {
     if (!$(this).hasClass('btn-primary')) {

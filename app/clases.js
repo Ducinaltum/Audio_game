@@ -63,15 +63,11 @@ function LevelManager(iterations = 20) {
     correct = 0;
     incorrect = 0
 
-    this.hasFinishedLevel = function (level, kind) {
+    this.hasFinishedLevel = function () {
         updateProgressBar(correct / totalRounds * 100, 
                         incorrect / totalRounds * 100);
         if (rounds >= totalRounds) {
             if (correct/rounds > winRatio) {
-                if (level == user[kind +'Level']) {
-                    user[kind +'Level']++;
-                    //localStorage[kind.toLowerCase() +'Level'] = user[kind.toLowerCase() + 'Level']
-                }
                 endLevelMenu('win')
             }
             else {

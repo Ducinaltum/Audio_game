@@ -1,23 +1,53 @@
-const sonorities = {
-    "PerfectConsonances": [5, 7, 12],
-    "NearConsonances": [3, 4],
-    "NearDisonances": [1, 2],
-    "FarConsonances": [8, 9],
-    "FarDisonances": [6, 10, 11],
+/*
+MODE: Juego
+WORLD: Intervalos que se usan
+AREA: Gradaciones de un WORLD
+ZONE: Ejercicios en sincronía
+EXERCISE: Ejercicio definido
+LEVEL: Ejercicio de modalidad única
+BADGE: Modalidad en un tipo de juego
+*/
+levelMaker = {
+    fundamentalFrom: {
+        get fundamental() { return 0; },
+        get majorScale() {
+            fundamentalNotes = [2, 4, 5, 7, 9, 11, 12];
+            return fundamentalNotes[Math.floor(Math.random() * fundamentalNotes.length)];
+        }
+    },
+    pitchFrom: {
+        get centralC() { return 0; },
+        get randomC() { return 48 + (12 * Math.floor(Math.random() * 3)); },
+        get random() { return undefined; }
+    },
+    notesSet: {
+        get majorChord() { return [4, 7, 12]; },
+        get majorScale() { return [2, 4, 5, 7, 9, 11, 12]; },
+        get simpleIntervals() { return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]; },
+        get compoundIntervals() { return [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]; },
+        get simpleAndCompoundIntervals() { return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]; }
+    },
+    intervalsSet: {
+
+    },
+    directionSet: {
+        ascendent: 1,
+        descendent: -1,
+        get random() { return (Math.floor(Math.random() * 2) - 0.5) * 2; }
+    },
+    timingSet: {
+        sequential: 1,
+        harmonic: 0,
+        get random() { return Math.floor(Math.random() * 2); }
+    },
+    iterations: {
+        show: 15,
+        lesson: 20,
+        exam: 30
+    }
 }
 
 var intervalsLevels = {
-    //Custom level
-    0: function (ints, dir, time, iter) {
-        var level = {
-            //fundamental : 48,
-            intervals: ints,
-            direction: dir,
-            timing: time,
-        }
-        return level
-    },
-
     //Intervalos de 3Mayor quinta y octava en DO
     1: function () {
         var level = {
@@ -48,7 +78,7 @@ var intervalsLevels = {
             notes: [4, 7, 12],
             direction: 1,
             timing: 0,
-            iterations: 20,
+            iterations: 1,
         }
         return level
 
@@ -89,8 +119,8 @@ var intervalsLevels = {
         return level
     },
 
-//---------------------------------------------------------------------------------------------//
-    
+    //---------------------------------------------------------------------------------------------//
+
     //Intervalos de inversión de 3Mayor quinta y octava en DO
     7: function () {
         var level = {
@@ -167,14 +197,29 @@ var intervalsLevels = {
         return level
     },
 
+    //---------------------------------------------------------------------------------------------//
+    //---------------------------------------------------------------------------------------------//
 
-//---------------------------------------------------------------------------------------------//
-//---------------------------------------------------------------------------------------------//
+    helloBeautyfull: function () {
+        var level = {
+            fundamental: 12,
+            pitch: undefined,
+            intervals: [5, 8, 12],
+            notes: [0, 4, 7],
+            get direction() { return Math.floor(Math.random() * 3) - 1 },
+            get timing() { return Math.floor(Math.random() * 2) },
+            iterations: 30,
+        }
+        return level
+    },
+
+    //---------------------------------------------------------------------------------------------//
+    //---------------------------------------------------------------------------------------------//
 
     //Intervalos de 2 mayor, 6 mayor y 7 mayor
     13: function () {
         var level = {
-            fundamental:0,
+            fundamental: 0,
             pitch: 48,
             notes: [2, 9, 11],
             direction: 1,
@@ -185,7 +230,7 @@ var intervalsLevels = {
     },
     14: function () {
         var level = {
-            fundamental:0,
+            fundamental: 0,
             pitch: 48,
             notes: [2, 9, 11],
             direction: -1,
@@ -196,7 +241,7 @@ var intervalsLevels = {
     },
     15: function () {
         var level = {
-            fundamental:0,
+            fundamental: 0,
             pitch: 48,
             notes: [2, 9, 11],
             direction: 1,
@@ -219,7 +264,7 @@ var intervalsLevels = {
     //Intervalos de 2 mayor, 6 mayor y 7 mayor en distintas octavas Aleatorio
     17: function () {
         var level = {
-            fundamental:0,
+            fundamental: 0,
             get pitch() { return 48 + (12 * Math.floor(Math.random() * 3)) },
             notes: [2, 9, 11],
             get direction() { return Math.floor(Math.random() * 3) - 1 },
@@ -241,15 +286,15 @@ var intervalsLevels = {
         return level;
     },
 
-//---------------------------------------------------------------------------------------------//
-//---------------------------------------------------------------------------------------------//
+    //---------------------------------------------------------------------------------------------//
+    //---------------------------------------------------------------------------------------------//
 
     //Intervalos de inversión de 2 mayor, 6 mayor y 7 mayor
     19: function () {
         var level = {
             fundamental: 12,
             pitch: 50,
-            intervals: [1,3,10],
+            intervals: [1, 3, 10],
             notes: [2, 9, 11],
             direction: 1,
             timing: 1,
@@ -261,7 +306,7 @@ var intervalsLevels = {
         var level = {
             fundamental: 12,
             pitch: 50,
-            intervals: [1,3,10],
+            intervals: [1, 3, 10],
             notes: [2, 9, 11],
             direction: -1,
             timing: 1,
@@ -321,17 +366,17 @@ var intervalsLevels = {
         return level;
     },
 
-//---------------------------------------------------------------------------------------------//
-//---------------------------------------------------------------------------------------------//
+    //---------------------------------------------------------------------------------------------//
+    //---------------------------------------------------------------------------------------------//
 
 
     //Intervalos de escala mayor
     25: function () {
         var level = {
-            fundamental:0,
-            pitch:48,
-            intervals:  [2,4,5,7,9,11,12],
-            notes: [2,4,5,7,9,11,12],
+            fundamental: 0,
+            pitch: 48,
+            intervals: [2, 4, 5, 7, 9, 11, 12],
+            notes: [2, 4, 5, 7, 9, 11, 12],
             get direction() { return Math.floor(Math.random() * 3) - 1 },
             get timing() { return Math.floor(Math.random() * 2) },
             iterations: 30
@@ -341,10 +386,10 @@ var intervalsLevels = {
     //Intervalos de escala mayor en inversión
     26: function () {
         var level = {
-            fundamental:12,
-            pitch:50,
-            intervals: [1,3,5,7,8,10,12],
-            notes: [2,4,5,7,9,11],
+            fundamental: 12,
+            pitch: 50,
+            intervals: [1, 3, 5, 7, 8, 10, 12],
+            notes: [2, 4, 5, 7, 9, 11],
             get direction() { return Math.floor(Math.random() * 3) - 1 },
             get timing() { return Math.floor(Math.random() * 2) },
             iterations: 30
@@ -356,8 +401,8 @@ var intervalsLevels = {
         var level = {
             get fundamental() { return Math.floor(Math.random() * 2) * 12 },
             get pitch() { return 48 + (12 * Math.floor(Math.random() * 3)) },
-            intervals: [1,2,3,4,5,7,8,9,10,11,12],
-            notes: [2,4,5,7,9,11,12],
+            intervals: [1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12],
+            notes: [2, 4, 5, 7, 9, 11, 12],
             get direction() { return Math.floor(Math.random() * 3) - 1 },
             get timing() { return Math.floor(Math.random() * 2) },
             iterations: 30
@@ -367,13 +412,13 @@ var intervalsLevels = {
     //Intervalos que se forman con las notas de la escala de DO
     28: function () {
         var level = {
-            get fundamental() { 
-                fundamentalNotes = [2,4,5,7,9,11,12]
+            get fundamental() {
+                fundamentalNotes = [2, 4, 5, 7, 9, 11, 12]
                 return fundamentalNotes[Math.floor(Math.random() * fundamentalNotes.length)]
             },
             get pitch() { return 48 + (12 * Math.floor(Math.random() * 3)) },
-            intervals: [1,2,3,4,5,6,7,8,9,10,11,12],
-            notes: [2,4,5,7,9,11,12],
+            intervals: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+            notes: [2, 4, 5, 7, 9, 11, 12],
             get direction() { return Math.floor(Math.random() * 3) - 1 },
             get timing() { return Math.floor(Math.random() * 2) },
             iterations: 30
@@ -385,8 +430,8 @@ var intervalsLevels = {
         var level = {
             get fundamental() { return Math.floor(Math.random() * 2) * 12 },
             pitch: undefined,
-            intervals: [1,2,3,4,5,6,7,8,9,10,11,12],
-            notes: [1,2,3,4,5,6,7,8,9,10,11,12],
+            intervals: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+            notes: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
             get direction() { return Math.floor(Math.random() * 3) - 1 },
             get timing() { return Math.floor(Math.random() * 2) },
             iterations: 30
@@ -394,17 +439,17 @@ var intervalsLevels = {
         return level
     },
 
-//---------------------------------------------------------------------------------------------//
-//---------------------------------------------------------------------------------------------//
+    //---------------------------------------------------------------------------------------------//
+    //---------------------------------------------------------------------------------------------//
 
     //DOBLE OCTAVA
     //Intervalos de escala mayor en DO
     30: function () {
         var level = {
-            fundamental:0,
-            pitch:48,
-            intervals: [14,16,17,19,21,23,24],
-            notes: [14,16,17,19,21,23,24],
+            fundamental: 0,
+            pitch: 48,
+            intervals: [14, 16, 17, 19, 21, 23, 24],
+            notes: [14, 16, 17, 19, 21, 23, 24],
             get direction() { return Math.floor(Math.random() * 3) - 1 },
             get timing() { return Math.floor(Math.random() * 2) },
             iterations: 30
@@ -414,10 +459,10 @@ var intervalsLevels = {
     //Intervalos de escala mayor fundamental aleatoria
     31: function () {
         var level = {
-            fundamental:0,
-            pitch:undefined,
-            intervals: [14,16,17,19,21,23,24],
-            notes: [14,16,17,19,21,23,24],
+            fundamental: 0,
+            pitch: undefined,
+            intervals: [14, 16, 17, 19, 21, 23, 24],
+            notes: [14, 16, 17, 19, 21, 23, 24],
             get direction() { return Math.floor(Math.random() * 3) - 1 },
             get timing() { return Math.floor(Math.random() * 2) },
             iterations: 30
@@ -427,10 +472,10 @@ var intervalsLevels = {
     //Intervalos de escala mayor en inversión en DO
     32: function () {
         var level = {
-            fundamental:24,
-            pitch:50,
-            intervals: [13,15,17,19,20,22,24],
-            notes: [0,2,4,5,7,9,11],
+            fundamental: 24,
+            pitch: 50,
+            intervals: [13, 15, 17, 19, 20, 22, 24],
+            notes: [0, 2, 4, 5, 7, 9, 11],
             get direction() { return Math.floor(Math.random() * 3) - 1 },
             get timing() { return Math.floor(Math.random() * 2) },
             iterations: 30
@@ -440,10 +485,10 @@ var intervalsLevels = {
     //Intervalos de escala mayor en inversión fundamental aleatoria
     33: function () {
         var level = {
-            fundamental:24,
-            pitch:50,
-            intervals: [13,15,17,19,20,22,24],
-            notes: [0,2,4,5,7,9,11],
+            fundamental: 24,
+            pitch: 50,
+            intervals: [13, 15, 17, 19, 20, 22, 24],
+            notes: [0, 2, 4, 5, 7, 9, 11],
             get direction() { return Math.floor(Math.random() * 3) - 1 },
             get timing() { return Math.floor(Math.random() * 2) },
             iterations: 30
@@ -454,16 +499,16 @@ var intervalsLevels = {
     //Todos los intervalos compuestos
     34: function () {
         var level = {
-            fundamental:0,
+            fundamental: 0,
             pitch: undefined,
-            get intervals() { 
+            get intervals() {
                 ints = []
                 for (var i = 13; i < 25; i++) {
                     ints.push(i)
                 }
                 return ints
             },
-            get notes() { 
+            get notes() {
                 ints = []
                 for (var i = 13; i < 25; i++) {
                     ints.push(i)
@@ -480,16 +525,16 @@ var intervalsLevels = {
     //TODOS LOS INTERVALOS
     35: function () {
         var level = {
-            fundamental:0,
+            fundamental: 0,
             pitch: undefined,
-            get intervals() { 
+            get intervals() {
                 ints = []
                 for (var i = 1; i < 24; i++) {
                     ints.push(i)
                 }
                 return ints
             },
-            get notes() { 
+            get notes() {
                 ints = []
                 for (var i = 1; i < 24; i++) {
                     ints.push(i)
@@ -501,6 +546,733 @@ var intervalsLevels = {
             iterations: 30
         }
         return level
+    }
+}
+
+var intervalsLevelsTree = {
+    kind: "mode",
+    title: "Intervalos",
+    class: "item active",
+    code:"Int",
+    components: {
+        1: {
+            kind: "world",
+            title: "Intervalos que componen el acorde mayor",
+            code:"_MayChord",
+            components: {
+                1: {
+                    kind: "area",
+                    title: "Separación entre intervalos fundamentales e invertidos",
+                    code:"",
+                    components: {
+                        1: {
+                            kind: "zone",
+                            title: "Fundamental del acorde como fundamental de la relación",
+                            code:"_From",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    title: "Desde un Do fijo",
+                                    code:"_Fix",
+                                    components: {
+                                        1: {
+                                            kind: "group",
+                                            id: "chordFixedFundCLesson",
+                                            code:"_Show",
+                                            title: "Aleatorio",
+                                            components: {
+                                                1: {
+                                                    kind: "badge",
+                                                    id: "chordFixedFundCLessonAsc",
+                                                    title: "Ascendente",
+                                                    code:"_Asc",
+                                                    components: 1
+                                                },
+                                                2: {
+                                                    kind: "badge",
+                                                    id: "chordFixedFundCLessonDesc",
+                                                    title: "Descendente",
+                                                    code:"_Desc",
+                                                    components: 2
+                                                },
+                                                3: {
+                                                    kind: "badge",
+                                                    id: "chordFixedFundCLessonHarm",
+                                                    title: "Armónico",
+                                                    code:"_Harm",
+                                                    components: 3
+                                                }
+                                            },
+                                        },
+                                        2: {
+                                            kind: "level",
+                                            id: "chordFixedCExam",
+                                            code:"_Lesson",
+                                            title: "Aleatorio",
+                                            components: {
+                                                1: {
+                                                    kind: "badge",
+                                                    //id: "chordFixedFundCLessonAsc",
+                                                    title: "Aleatorio",
+                                                    code:"_Rand",
+                                                    components: 1
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                2: {
+                                    kind: "exercise",
+                                    title: "Desde cualquier Do",
+                                    code:"_Any",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            id: "chordRandomCExam",
+                                            code:"_Lesson",
+                                            title: "",
+                                            components: {
+                                                1: {
+                                                    kind: "badge",
+                                                    //id: "chordFixedFundCLessonAsc",
+                                                    title: "Aleatorio",
+                                                    code:"_Rand",
+                                                    components: 1
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                3: {
+                                    kind: "exercise",
+                                    title: "Desde una nota aleatoria",
+                                    code:"_Rand",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            id: "chordRandomExam",
+                                            code:"_Exam",
+                                            title: "",
+                                            components: {
+                                                1: {
+                                                    kind: "badge",
+                                                    //id: "chordFixedFundCLessonAsc",
+                                                    title: "Aleatorio",
+                                                    code:"_Rand",
+                                                    components: 1
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        2: {
+                            kind: "zone",
+                            title: "Fundamental del acorde como intervalo de la relación",
+                            code:"_To",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    title: "Hacia un Do fijo",
+                                    code:"_Fix",
+                                    components: {
+                                        1: {
+                                            kind: "group",
+                                            title: "Aleatorio",
+                                            code:"_Lesson",
+                                            icon: "",
+                                            components: {
+                                                1: {
+                                                    kind: "badge",
+                                                    title: "Ascendente",
+                                                    code:"_Asc",
+                                                    components: 7
+                                                },
+                                                2: {
+                                                    kind: "badge",
+                                                    title: "Descendente",
+                                                    code:"_Desc",
+                                                    components: 8
+                                                },
+                                                3: {
+                                                    kind: "badge",
+                                                    title: "Armónico",
+                                                    code:"_Harm",
+                                                    components: 9
+                                                },
+                                            },
+                                        },
+                                        2: {
+                                            kind: "level",
+                                            title: "Aleatorio",
+                                            code:"_Lesson",
+                                            components: {
+                                                1: {
+                                                    kind: "badge",
+                                                    //id: "chordFixedFundCLessonAsc",
+                                                    title: "Aleatorio",
+                                                    code:"_Rand",
+                                                    components: 1
+                                                }
+                                            }
+                                        }
+                                    },
+                                },
+                                2: {
+                                    kind: "exercise",
+                                    title: "Hacia cualquier Do",
+                                    code:"_Any",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "",
+                                            code:"_Lesson",
+                                            components: {
+                                                1: {
+                                                    kind: "badge",
+                                                    //id: "chordFixedFundCLessonAsc",
+                                                    title: "Aleatorio",
+                                                    code:"_Rand",
+                                                    components: 1
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                3: {
+                                    kind: "exercise",
+                                    title: "Hacia una nota aleatoria",
+                                    code:"_Rand",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "",
+                                            code:"_Exam",
+                                            components: {
+                                                1: {
+                                                    kind: "badge",
+                                                    //id: "chordFixedFundCLessonAsc",
+                                                    title: "Aleatorio",
+                                                    code:"_Rand",
+                                                    components: 1
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                2: {
+                    kind: "area",
+                    title: "Unión de intervalos fundamentales e invertidos",
+                    code:"",
+                    components: {
+                        1: {
+                            kind: "zone",
+                            title: "Fundamental del acorde como fundamental y como intervalo de la relación",
+                            code:"_FromTo",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    title: "",
+                                    code:"_Rand",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "Examen",
+                                            code:"_Exam",
+                                            components: {
+                                                1: {
+                                                    kind: "badge",
+                                                    //id: "chordFixedFundCLessonAsc",
+                                                    title: "Aleatorio",
+                                                    code:"_Rand",
+                                                    components: 1
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        2: {
+            kind: "world",
+            title: "Intervalos que faltan para completar la escala mayor",
+            code:"_MayScale",
+            components: {
+                1: {
+                    kind: "area",
+                    title: "Separación entre intervalos fundamentales e invertidos",
+                    code:"",
+                    components: {
+                        1: {
+                            kind: "zone",
+                            title: "Fundamental de la escala como fundamental de la relación",
+                            code:"_From",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    title: "Desde un Do fijo",
+                                    code:"_Fix",
+                                    components: {
+                                        1: {
+                                            kind: "group",
+                                            title: "Desde un Do fijo",
+                                            code:"_Lesson",
+                                            components: {
+                                                1: {
+                                                    kind: "badge",
+                                                    title: "Ascendente",
+                                                    code:"_Asc",
+                                                    components: 13
+                                                },
+                                                2: {
+                                                    kind: "badge",
+                                                    title: "Descendente",
+                                                    code:"_Desc",
+                                                    components: 14
+                                                },
+                                                3: {
+                                                    kind: "badge",
+                                                    title: "Armónico",
+                                                    code:"_Harm",
+                                                    components: 15
+                                                },
+                                            }
+                                        },
+                                        2: {
+                                            kind: "level",
+                                            title: "Aleatorio",
+                                            code:"_Exam",
+                                            components: 16
+                                        }
+                                    }
+                                },
+                                2: {
+                                    kind: "exercise",
+                                    title: "Desde cualquier Do",
+                                    code:"_Any",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "",
+                                            code:"_Exam",
+                                            components: 17
+                                        }
+                                    }
+                                },
+                                3: {
+                                    kind: "exercise",
+                                    title: "Desde una nota aleatoria",
+                                    code:"_Rand",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "",
+                                            code:"_Exam",
+                                            components: 18
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        2: {
+                            kind: "zone",
+                            title: "Fundamental de la escala como intervalo de la relación",
+                            code:"_To",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    title: "Hacia un Do fijo",
+                                    code:"_Fix",
+                                    components: {
+                                        1: {
+                                            kind: "group",
+                                            title: "Hacia un Do fijo",
+                                            code:"_Lesson",
+                                            components: {
+                                                1: {
+                                                    kind: "badge",
+                                                    id: "chordFixedFundCLessonAsc",
+                                                    title: "Ascendente",
+                                                    code:"_Asc",
+                                                    components: 1
+                                                },
+                                                2: {
+                                                    kind: "badge",
+                                                    id: "chordFixedFundCLessonDesc",
+                                                    title: "Descendente",
+                                                    code:"_Desc",
+                                                    components: 2
+                                                },
+                                                3: {
+                                                    kind: "badge",
+                                                    id: "chordFixedFundCLessonHarm",
+                                                    title: "Armónico",
+                                                    code:"_Harm",
+                                                    components: 3
+                                                }
+                                            },
+                                        },
+                                        2: {
+                                            kind: "level",
+                                            title: "Aleatorio",
+                                            code:"_Exam",
+                                            components: 22
+                                        }
+                                    }
+                                },
+                                2: {
+                                    kind: "exercise",
+                                    title: "Hacia cualquier Do",
+                                    code:"_Any",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "",
+                                            code:"_Exam",
+                                            components: 23
+                                        }
+                                    }
+                                },
+                                3: {
+                                    kind: "exercise",
+                                    title: "Hacia una nota aleatoria",
+                                    code:"_Rand",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "",
+                                            code:"_Exam",
+                                            components: 24
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                2: {
+                    kind: "area",
+                    title: "Unión de intervalos fundamentales e invertidos",
+                    code:"",
+                    components: {
+                        1: {
+                            kind: "zone",
+                            title: "Fundamental de la escala como fundamental y como intervalo de la relación",
+                            code:"_FromTo",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    title: "",
+                                    code:"_Rand",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "",
+                                            code:"_Exam",
+                                            components: 24
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        3: {
+            kind: "world",
+            title: "Todos los intervalos que componen la escala mayor",
+            code:"_FullScale",
+            components: {
+                1: {
+                    kind: "area",
+                    title: "Separación entre intervalos fundamentales e invertidos",
+                    code:"",
+                    components: {
+                        1: {
+                            kind: "zone",
+                            title: "Fundamental de la escala como fundamental de la relación",
+                            code:"_From",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    title: "Desde un Do fijo",
+                                    code:"_Fix",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "",
+                                            code:"_Exam",
+                                            components: 25
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        2: {
+                            kind: "zone",
+                            title: "Fundamental de la escala como intervalo de la relación",
+                            code:"_To",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    title: "Hacia un Do fijo",
+                                    code:"_Fix",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "",
+                                            code:"_Exam",
+                                            components: 26
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                2: {
+                    kind: "area",
+                    title: "",
+                    code:"",
+                    components: {
+                        1: {
+                            kind: "zone",
+                            title: "Desde y hacia cualquier Do",
+                            code:"_FromTo",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    title: "",
+                                    code:"_Any",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "",
+                                            code:"_Exam",
+                                            components: 27
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                3: {
+                    //Este tal vez se pueda dividir en 4
+                    kind: "area",
+                    title: "Todos los intervalos posibles que se pueden generar entre las notas de la escala mayor",
+                    code:"",
+                    components: {
+                        1: {
+                            kind: "zone",
+                            title: "Cualquier nota de la escala como fundamental e intervalo de la relación",
+                            code:"_FromToAny",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    code:"_AnyInScale",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "",
+                                            code:"_Exam",
+                                            components: 28
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        4: {
+            kind: "world",
+            title: "Todos los intervalos contenidos en una octava",
+            code:"_Full",
+            components: {
+                1: {
+                    kind: "area",
+                    title: "",
+                    code:"",
+                    components: {
+                        1: {
+                            kind: "zone",
+                            title: "",
+                            code:"_FromTo",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    title: "",
+                                    code:"_Rand",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "",
+                                            code:"_Exam",
+                                            components: 29
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        5: {
+            kind: "world",
+            title: "Intervalos compuestos",
+            code:"_Comp",
+            components: {
+                1: {
+                    kind: "area",
+                    title: "Intervalos propios de la escala mayor",
+                    code:"",
+                    components: {
+                        1: {
+                            kind: "zone",
+                            title: "Fundamental de la escala como fundamental de la relación",
+                            code:"_From",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    title: "Desde un Do fijo",
+                                    code:"_Fix",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "",
+                                            code:"_Exam",
+                                            components: 30
+                                        }
+                                    }
+                                },
+                                2: {
+                                    kind: "exercise",
+                                    title: "Fundamental aleatoria",
+                                    code:"_Rand",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "",
+                                            code:"_Exam",
+                                            components: 31
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        2: {
+                            kind: "zone",
+                            title: "Fundamental de la escala como intervalo de la relación",
+                            code:"_To",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    title: "Hacia un Do fijo",
+                                    code:"_Fix",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "",
+                                            code:"_Exam",
+                                            components: 32
+                                        }
+                                    }
+                                },
+                                2: {
+                                    kind: "exercise",
+                                    title: "Fundamental aleatoria",
+                                    code:"_Rand",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "",
+                                            code:"_Exam",
+                                            components: 33
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                2: {
+                    kind: "area",
+                    title: "Todos los intervalos compuestos",
+                    code:"",
+                    components: {
+                        1: {
+                            kind: "zone",
+                            title: "Todos los intervalos compuestos",
+                            code:"_FromTo",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    title: "",
+                                    code:"_Rand",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "Exámen",
+                                            code:"_Exam",
+                                            components: 34
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        6: {
+            kind: "world",
+            title: "Todos los intervalos simples y compuestos",
+            code:"_All",
+            components: {
+                1: {
+                    kind: "area",
+                    title: "",
+                    code:"",
+                    components: {
+                        1: {
+                            kind: "zone",
+                            title: "",
+                            code:"_FromTo",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    title: "",
+                                    code:"_Rand",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "",
+                                            code:"_Exam",
+                                            components: 30
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

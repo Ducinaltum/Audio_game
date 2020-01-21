@@ -3,7 +3,7 @@ function ChordsExercise(actualLevel) {
     var typeOfExercise = 'Chords'
     var state = 'idle';
     var level = actualLevel
-    var exercise = setChordLevel(level);
+    var exercise = setChordLevel();
     var chordManager = new LevelManager(exercise.iterations);
     var saver = new saveManager(typeOfExercise);
     showScreen(typeOfExercise)
@@ -12,7 +12,7 @@ function ChordsExercise(actualLevel) {
     createChord();
 
     this.getKindOfExercise = function () { return typeOfExercise }
-    this.getLevel = function () { return level.level }
+    this.getLevel = function () { return level }
     this.getState = function () { return state }
     this.createNextQuestion = function () {
         createChord();
@@ -20,13 +20,12 @@ function ChordsExercise(actualLevel) {
 
     function createChord() {
         resetElements(typeOfExercise)
-        //La línea de abajo es innecesaria, solo sirve para pintar de azul la base del acorde si solo se está trabajando con una
         deactivateChordsButtons(typeOfExercise, exercise)
         if (!chordManager.hasFinishedLevel(level, typeOfExercise)) {
             state = 'playing';
             chord = new ChordBuilder(exercise)
             loadOnBuffer(chord.notes)
-        } else saver.flushUser()
+        } //else saver.flushUser()
     }
 
     this.checkResponse = function (response) {
@@ -69,17 +68,10 @@ function ChordsExercise(actualLevel) {
         }
     }
 
-    function setChordLevel(level) {
-        if(typeof level == "number"){
-            lvl = level;
-            level = {
-                level: Math.floor(lvl/4),
-                kind: lvl%4
-            }
-        }else level.level /= 4
-        var actualLevel = chordsLevels[level.level];
+    function setChordLevel() {
+        var actualLevel = chordsLevels[Math.floor(level/4)];
         actualLevel.iterations = 20;
-        switch (level.kind) {
+        switch (level%4) {
             case 0:
                 actualLevel.name += " - Ascendente"
                 actualLevel.direction = function () { return 1; };

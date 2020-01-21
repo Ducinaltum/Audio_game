@@ -82,7 +82,6 @@ function Progresion(ex) {
         progresion.push(chords[0])
         for (var i = 1; i < this.numberOfChords; i++) {
             currentChord = progresion[i - 1]
-            console.log(currentChord)
             nextChord = currentChord.direction[Math.floor(Math.random() * currentChord.direction.length)]
             progresion.push(nextChord);
         }

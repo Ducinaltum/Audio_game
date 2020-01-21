@@ -213,6 +213,7 @@ var progresionLevels = {
         exercise.chords = filterChords(new minorChords(), [1,2,3,4,5,6,7])
         return exercise;
     },
+
     //Acordes menores de todas las escalas  4cc
     12: function () {
         var exercise = {};
@@ -313,6 +314,578 @@ var progresionLevels = {
     //Mixtura modal: Tónica y dominantes en modo locrio, ocho compases.
     //Mixtura modal: Tónica y dominantes en modo lidio y mixolidio combinados, ocho compases.
     //Mixtura modal: Tónica y dominantes en modo eólico, dórico, frigio y locrio combinados, ocho compases.
+}
+
+var progresionLevelsTree = {
+    kind: "mode",
+    title: "Progresión",
+    class: "item",
+    components: {
+        1: {
+            kind: "world",
+            title: "Acordes principales",
+            components: {
+                1: {
+                    kind: "area",
+                    title: "",
+                    components: {
+                        1: {
+                            kind: "zone",
+                            title: "Modo mayor",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "4 compases en Do",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        2: {
+                                            kind: "level",
+                                            title: "8 compases en Do",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        3: {
+                                            kind: "level",
+                                            title: "8 compases en tonalidad aleatoria",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                    }
+                                }
+                            }
+                        },
+                        2: {
+                            kind: "zone",
+                            title: "Modo menor",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "4 compases en Do",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        2: {
+                                            kind: "level",
+                                            title: "8 compases en Do",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        3: {
+                                            kind: "level",
+                                            title: "8 compases en tonalidad aleatoria",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        2: {
+            kind: "world",
+            title: "Acordes principales y secundarios",
+            components: {
+                1: {
+                    kind: "area",
+                    title: "",
+                    components: {
+                        1: {
+                            kind: "zone",
+                            title: "Modo mayor",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "4 compases en Do",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        2: {
+                                            kind: "level",
+                                            title: "8 compases en Do",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        3: {
+                                            kind: "level",
+                                            title: "8 compases en tonalidad aleatoria",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                    }
+                                }
+                            }
+                        },
+                        2: {
+                            kind: "zone",
+                            title: "Modo menor",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "4 compases en Do",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        2: {
+                                            kind: "level",
+                                            title: "8 compases en Do",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        3: {
+                                            kind: "level",
+                                            title: "8 compases en tonalidad aleatoria",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        3: {
+            kind: "world",
+            title: "Acordes principales y secundarios de las tres escalas del modo menor",
+            components: {
+                1: {
+                    kind: "area",
+                    title: "",
+                    components: {
+                        2: {
+                            kind: "zone",
+                            title: "",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "4 compases en Do",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        2: {
+                                            kind: "level",
+                                            title: "8 compases en Do",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        3: {
+                                            kind: "level",
+                                            title: "8 compases en tonalidad aleatoria",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        4: {
+            kind: "world",
+            title: "Dominantes secundarias sobre acordes principales",
+            components: {
+                1: {
+                    kind: "area",
+                    title: "",
+                    components: {
+                        1: {
+                            kind: "zone",
+                            title: "Modo mayor",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                    }
+                                }
+                            }
+                        },
+                        2: {
+                            kind: "zone",
+                            title: "Modo menor",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        5: {
+            kind: "world",
+            title: "Dominantes secundarias sobre acordes principales y secundarios",
+            components: {
+                1: {
+                    kind: "area",
+                    title: "",
+                    components: {
+                        1: {
+                            kind: "zone",
+                            title: "Modo mayor",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                    }
+                                }
+                            }
+                        },
+                        2: {
+                            kind: "zone",
+                            title: "Modo menor",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        6: {
+            kind: "world",
+            title: "Modos mayores",
+            components: {
+                1: {
+                    kind: "area",
+                    title: "",
+                    components: {
+                        1: {
+                            kind: "zone",
+                            title: "Modo Lidio",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "4 compases",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        1: {
+                                            kind: "level",
+                                            title: "8 compases",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                    }
+                                }
+                            }
+                        },
+                        2: {
+                            kind: "zone",
+                            title: "Modo Mixolidio",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "4 compases",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        1: {
+                                            kind: "level",
+                                            title: "8 compases",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                2: {
+                    kind: "area",
+                    title: "",
+                    components: {
+                        1: {
+                            kind: "zone",
+                            title: "Modos mayores en mixtura",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "8 compases",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                    }
+                                }
+                            }
+                        },
+                    }
+                },
+            }
+        },
+        7: {
+            kind: "world",
+            title: "Modos menores",
+            components: {
+                1: {
+                    kind: "area",
+                    title: "",
+                    components: {
+                        1: {
+                            kind: "zone",
+                            title: "Modo Dórico",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "4 compases",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        1: {
+                                            kind: "level",
+                                            title: "8 compases",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                    }
+                                }
+                            }
+                        },
+                        2: {
+                            kind: "zone",
+                            title: "Modo Frigio",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "4 compases",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        1: {
+                                            kind: "level",
+                                            title: "8 compases",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                    }
+                                }
+                            }
+                        },
+                        3: {
+                            kind: "zone",
+                            title: "Modo Eólico",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "4 compases",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        1: {
+                                            kind: "level",
+                                            title: "8 compases",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                    }
+                                }
+                            }
+                        },
+                        4: {
+                            kind: "zone",
+                            title: "Modo Locrio",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "4 compases",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        1: {
+                                            kind: "level",
+                                            title: "8 compases",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                2: {
+                    kind: "area",
+                    title: "",
+                    components: {
+                        1: {
+                            kind: "zone",
+                            title: "Modos menores en mixtura",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "8 compases",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                    }
+                                }
+                            }
+                        },
+                    }
+                },
+            }
+        },
+        8: {
+            kind: "world",
+            title: "Mixtura modal",
+            components: {
+                1: {
+                    kind: "area",
+                    title: "",
+                    components: {
+                        1: {
+                            kind: "zone",
+                            title: "",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "",
+                                            icon: "",
+                                            components: 1
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 $('#progresionSelection .list-group-item').click(function (e) {

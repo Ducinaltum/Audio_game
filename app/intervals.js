@@ -1,15 +1,10 @@
-function IntervalsExercise(actualLevel = user.intervalsLevel) {
+function IntervalsExercise(actualLevel) {
     var typeOfExercise = 'Intervals'
     var state = 'idle';
-    var level = clamp(actualLevel, info.intervalsMaxLevel);
-    var exercise = intervalsLevels[level]()
+    var exercise = actualLevel;
     var intervalManager = new LevelManager(exercise.iterations);
     var saver = new saveManager(typeOfExercise);
     showScreen(typeOfExercise)
-    function hi() {
-        var ints = exercise.intervals != undefined ? exercise.intervals : exercise.notes
-        return ints
-    }
     deactivateIntervalsButtons(typeOfExercise, ints = exercise.intervals != undefined ? exercise.intervals : exercise.notes)
     var interval = createInterval();
 
@@ -43,12 +38,12 @@ function IntervalsExercise(actualLevel = user.intervalsLevel) {
 
     function createInterval() {
         resetElements(typeOfExercise)
-        if (!intervalManager.hasFinishedLevel(level, typeOfExercise)) {
+        if (!intervalManager.hasFinishedLevel()) {
             state = 'playing';
             int = new Interval(exercise)
             loadOnBuffer(int.notes);
             return int;
-        }
+        } //else saver.flushUser()
     }
 }
 
@@ -79,8 +74,6 @@ function Interval(exercise) {
     }
 
     function buildStream() {
-        console.log(fundamental)
-        console.log(note)
         fundamental += pitch
         note += pitch
         var stream = [];

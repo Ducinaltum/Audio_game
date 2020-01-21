@@ -17,19 +17,19 @@ const chordsTree = {
 
 const baseChords = [
     ['major',
-        [   
-            ['7', 
+        [
+            ['7',
                 [['b9'], ['9'], ['#9'], ['#11'], ['13']]],
-            ['majj7', 
+            ['majj7',
                 [['9'], ['#11'], ['13']]]
         ]
     ],
     ['minor',
         [
             //['6'],
-            ['7',  
+            ['7',
                 [['9'], ['11'], ['13']]],
-            ['majj7', 
+            ['majj7',
                 [['9'], ['11'], ['13']]]
             //11 b13
         ]
@@ -43,9 +43,9 @@ const baseChords = [
     ],
     ['aug',
         [
-            ['7', 
+            ['7',
                 [['b9'], ['9'], ['#9'], ['#11'], ['13']]],
-            ['majj7', 
+            ['majj7',
                 [['9'], ['#11'], ['13']]]
         ]
     ],
@@ -55,7 +55,7 @@ const baseChords = [
 var chordsLevels = {
     get 0() {
         var level = {
-            name: "",
+            name: "Tríadas mayor y menor",
             base: [baseChords[0], baseChords[1]],
             depth: 1,
             isOpen: false,
@@ -275,6 +275,1044 @@ var chordsLevels = {
     },
 }
 
+var chordsLevelsTree = {
+    kind: "mode",
+    title: "Chords",
+    class: "item",
+    components: {
+        1: {
+            kind: "world",
+            title: "Acordes Tríada",
+            components: {
+                1: {
+                    kind: "area",
+                    title: "",
+                    components: {
+                        1: {
+                            kind: "zone",
+                            title: "Acordes con quinta justa",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+
+                                        1: {
+                                            kind: "level",
+                                            title: "Ascendente",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        2: {
+                                            kind: "level",
+                                            title: "Descendente",
+                                            icon: "",
+                                            components: 2
+                                        },
+                                        3: {
+                                            kind: "level",
+                                            title: "Armónico",
+                                            icon: "",
+                                            components: 3
+                                        },
+                                        4: {
+                                            kind: "level",
+                                            title: "Aleatorio",
+                                            icon: "",
+                                            components: 4
+                                        }
+                                    }
+                                },
+                            }
+                        },
+                        2: {
+                            kind: "zone",
+                            title: "Acordes con quinta aumentada o disminuida",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+
+                                        1: {
+                                            kind: "level",
+                                            title: "Ascendente",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        2: {
+                                            kind: "level",
+                                            title: "Descendente",
+                                            icon: "",
+                                            components: 2
+                                        },
+                                        3: {
+                                            kind: "level",
+                                            title: "Armónico",
+                                            icon: "",
+                                            components: 3
+                                        },
+                                        4: {
+                                            kind: "level",
+                                            title: "Aleatorio",
+                                            icon: "",
+                                            components: 4
+                                        }
+                                    }
+                                },
+                            }
+                        }
+                    }
+                },
+                2: {
+                    kind: "area",
+                    title: "",
+                    components: {
+                        1: {
+                            kind: "zone",
+                            title: "Todos los acordes triada",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+                                        1: {
+                                            kind: "level",
+                                            title: "Ascendente",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        2: {
+                                            kind: "level",
+                                            title: "Descendente",
+                                            icon: "",
+                                            components: 2
+                                        },
+                                        3: {
+                                            kind: "level",
+                                            title: "Armónico",
+                                            icon: "",
+                                            components: 3
+                                        },
+                                        4: {
+                                            kind: "level",
+                                            title: "Aleatorio",
+                                            icon: "",
+                                            components: 4
+                                        }
+                                    }
+                                },
+                            }
+                        }
+                    }
+                },
+                3: {
+                    kind: "area",
+                    title: "",
+                    components: {
+                        1: {
+                            kind: "zone",
+                            title: "Todos los acordes triada en posición abierta",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+
+                                        1: {
+                                            kind: "level",
+                                            title: "Ascendente",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        2: {
+                                            kind: "level",
+                                            title: "Descendente",
+                                            icon: "",
+                                            components: 2
+                                        },
+                                        3: {
+                                            kind: "level",
+                                            title: "Armónico",
+                                            icon: "",
+                                            components: 3
+                                        },
+                                        4: {
+                                            kind: "level",
+                                            title: "Aleatorio",
+                                            icon: "",
+                                            components: 4
+                                        }
+                                    }
+                                },
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        2: {
+            kind: "world",
+            title: "Acordes con séptima",
+            components: {
+                1: {
+                    kind: "area",
+                    title: "",
+                    components: {
+                        1: {
+                            kind: "zone",
+                            title: "Acordes mayores",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+
+                                        1: {
+                                            kind: "level",
+                                            title: "Ascendente",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        2: {
+                                            kind: "level",
+                                            title: "Descendente",
+                                            icon: "",
+                                            components: 2
+                                        },
+                                        3: {
+                                            kind: "level",
+                                            title: "Armónico",
+                                            icon: "",
+                                            components: 3
+                                        },
+                                        4: {
+                                            kind: "level",
+                                            title: "Aleatorio",
+                                            icon: "",
+                                            components: 4
+                                        }
+                                    }
+                                },
+                            }
+                        },
+                        2: {
+                            kind: "zone",
+                            title: "Acordes menores",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+
+                                        1: {
+                                            kind: "level",
+                                            title: "Ascendente",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        2: {
+                                            kind: "level",
+                                            title: "Descendente",
+                                            icon: "",
+                                            components: 2
+                                        },
+                                        3: {
+                                            kind: "level",
+                                            title: "Armónico",
+                                            icon: "",
+                                            components: 3
+                                        },
+                                        4: {
+                                            kind: "level",
+                                            title: "Aleatorio",
+                                            icon: "",
+                                            components: 4
+                                        }
+                                    }
+                                },
+                            }
+                        },
+                        3: {
+                            kind: "zone",
+                            title: "Acordes disminuidos",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+
+                                        1: {
+                                            kind: "level",
+                                            title: "Ascendente",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        2: {
+                                            kind: "level",
+                                            title: "Descendente",
+                                            icon: "",
+                                            components: 2
+                                        },
+                                        3: {
+                                            kind: "level",
+                                            title: "Armónico",
+                                            icon: "",
+                                            components: 3
+                                        },
+                                        4: {
+                                            kind: "level",
+                                            title: "Aleatorio",
+                                            icon: "",
+                                            components: 4
+                                        }
+                                    }
+                                },
+                            }
+                        },
+                        4: {
+                            kind: "zone",
+                            title: "Acordes aumentados",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+
+                                        1: {
+                                            kind: "level",
+                                            title: "Ascendente",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        2: {
+                                            kind: "level",
+                                            title: "Descendente",
+                                            icon: "",
+                                            components: 2
+                                        },
+                                        3: {
+                                            kind: "level",
+                                            title: "Armónico",
+                                            icon: "",
+                                            components: 3
+                                        },
+                                        4: {
+                                            kind: "level",
+                                            title: "Aleatorio",
+                                            icon: "",
+                                            components: 4
+                                        }
+                                    }
+                                },
+                            }
+                        }
+                    }
+                },
+                2: {
+                    kind: "area",
+                    title: "",
+                    components: {
+                        1: {
+                            kind: "zone",
+                            title: "Acordes con quinta justa en posición cerrada",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+
+                                        1: {
+                                            kind: "level",
+                                            title: "Ascendente",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        2: {
+                                            kind: "level",
+                                            title: "Descendente",
+                                            icon: "",
+                                            components: 2
+                                        },
+                                        3: {
+                                            kind: "level",
+                                            title: "Armónico",
+                                            icon: "",
+                                            components: 3
+                                        },
+                                        4: {
+                                            kind: "level",
+                                            title: "Aleatorio",
+                                            icon: "",
+                                            components: 4
+                                        }
+                                    }
+                                },
+                            }
+                        },
+                        2: {
+                            kind: "zone",
+                            title: "Acordes con quinta aumentada o disminuida",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+
+                                        1: {
+                                            kind: "level",
+                                            title: "Ascendente",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        2: {
+                                            kind: "level",
+                                            title: "Descendente",
+                                            icon: "",
+                                            components: 2
+                                        },
+                                        3: {
+                                            kind: "level",
+                                            title: "Armónico",
+                                            icon: "",
+                                            components: 3
+                                        },
+                                        4: {
+                                            kind: "level",
+                                            title: "Aleatorio",
+                                            icon: "",
+                                            components: 4
+                                        }
+                                    }
+                                },
+                            }
+                        }
+                    }
+                },
+                3: {
+                    kind: "area",
+                    title: "",
+                    components: {
+                        1: {
+                            kind: "zone",
+                            title: "Acordes con quinta justa en posición abierta",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+
+                                        1: {
+                                            kind: "level",
+                                            title: "Ascendente",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        2: {
+                                            kind: "level",
+                                            title: "Descendente",
+                                            icon: "",
+                                            components: 2
+                                        },
+                                        3: {
+                                            kind: "level",
+                                            title: "Armónico",
+                                            icon: "",
+                                            components: 3
+                                        },
+                                        4: {
+                                            kind: "level",
+                                            title: "Aleatorio",
+                                            icon: "",
+                                            components: 4
+                                        }
+                                    }
+                                },
+                            }
+                        },
+                        2: {
+                            kind: "zone",
+                            title: "Acordes con quinta aumentada o disminuida en posición abierta",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+
+                                        1: {
+                                            kind: "level",
+                                            title: "Ascendente",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        2: {
+                                            kind: "level",
+                                            title: "Descendente",
+                                            icon: "",
+                                            components: 2
+                                        },
+                                        3: {
+                                            kind: "level",
+                                            title: "Armónico",
+                                            icon: "",
+                                            components: 3
+                                        },
+                                        4: {
+                                            kind: "level",
+                                            title: "Aleatorio",
+                                            icon: "",
+                                            components: 4
+                                        }
+                                    }
+                                },
+                            }
+                        }
+                    }
+                },
+                4: {
+                    kind: "area",
+                    title: "",
+                    components: {
+                        1: {
+                            kind: "zone",
+                            title: "Todos los acordes con séptima en posición cerrada",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+
+                                        1: {
+                                            kind: "level",
+                                            title: "Ascendente",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        2: {
+                                            kind: "level",
+                                            title: "Descendente",
+                                            icon: "",
+                                            components: 2
+                                        },
+                                        3: {
+                                            kind: "level",
+                                            title: "Armónico",
+                                            icon: "",
+                                            components: 3
+                                        },
+                                        4: {
+                                            kind: "level",
+                                            title: "Aleatorio",
+                                            icon: "",
+                                            components: 4
+                                        }
+                                    }
+                                },
+                            }
+                        }
+                    }
+                },
+                5: {
+                    kind: "area",
+                    title: "",
+                    components: {
+                        1: {
+                            kind: "zone",
+                            title: "Todos los acordes con séptima en posición abierta",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+
+                                        1: {
+                                            kind: "level",
+                                            title: "Ascendente",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        2: {
+                                            kind: "level",
+                                            title: "Descendente",
+                                            icon: "",
+                                            components: 2
+                                        },
+                                        3: {
+                                            kind: "level",
+                                            title: "Armónico",
+                                            icon: "",
+                                            components: 3
+                                        },
+                                        4: {
+                                            kind: "level",
+                                            title: "Aleatorio",
+                                            icon: "",
+                                            components: 4
+                                        }
+                                    }
+                                },
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        3: {
+            kind: "world",
+            title: "Acordes extendidos",
+            components: {
+                1: {
+                    kind: "area",
+                    title: "",
+                    components: {
+                        1: {
+                            kind: "zone",
+                            title: "Acordes extendidos mayores",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+
+                                        1: {
+                                            kind: "level",
+                                            title: "Ascendente",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        2: {
+                                            kind: "level",
+                                            title: "Descendente",
+                                            icon: "",
+                                            components: 2
+                                        },
+                                        3: {
+                                            kind: "level",
+                                            title: "Armónico",
+                                            icon: "",
+                                            components: 3
+                                        },
+                                        4: {
+                                            kind: "level",
+                                            title: "Aleatorio",
+                                            icon: "",
+                                            components: 4
+                                        }
+                                    }
+                                },
+                            }
+                        },
+                        2: {
+                            kind: "zone",
+                            title: "Acordes extendidos menores",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+
+                                        1: {
+                                            kind: "level",
+                                            title: "Ascendente",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        2: {
+                                            kind: "level",
+                                            title: "Descendente",
+                                            icon: "",
+                                            components: 2
+                                        },
+                                        3: {
+                                            kind: "level",
+                                            title: "Armónico",
+                                            icon: "",
+                                            components: 3
+                                        },
+                                        4: {
+                                            kind: "level",
+                                            title: "Aleatorio",
+                                            icon: "",
+                                            components: 4
+                                        }
+                                    }
+                                },
+                            }
+                        },
+                        3: {
+                            kind: "zone",
+                            title: "Acordes extendidos disminuidos",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+
+                                        1: {
+                                            kind: "level",
+                                            title: "Ascendente",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        2: {
+                                            kind: "level",
+                                            title: "Descendente",
+                                            icon: "",
+                                            components: 2
+                                        },
+                                        3: {
+                                            kind: "level",
+                                            title: "Armónico",
+                                            icon: "",
+                                            components: 3
+                                        },
+                                        4: {
+                                            kind: "level",
+                                            title: "Aleatorio",
+                                            icon: "",
+                                            components: 4
+                                        }
+                                    }
+                                },
+                            }
+                        },
+                        4: {
+                            kind: "zone",
+                            title: "Acordes extendidos aumentados",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+
+                                        1: {
+                                            kind: "level",
+                                            title: "Ascendente",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        2: {
+                                            kind: "level",
+                                            title: "Descendente",
+                                            icon: "",
+                                            components: 2
+                                        },
+                                        3: {
+                                            kind: "level",
+                                            title: "Armónico",
+                                            icon: "",
+                                            components: 3
+                                        },
+                                        4: {
+                                            kind: "level",
+                                            title: "Aleatorio",
+                                            icon: "",
+                                            components: 4
+                                        }
+                                    }
+                                },
+                            }
+                        }
+                    }
+                },
+                2: {
+                    kind: "area",
+                    title: "",
+                    components: {
+                        1: {
+                            kind: "zone",
+                            title: "Acordes extendidos con quinta justa en posición cerrada",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+
+                                        1: {
+                                            kind: "level",
+                                            title: "Ascendente",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        2: {
+                                            kind: "level",
+                                            title: "Descendente",
+                                            icon: "",
+                                            components: 2
+                                        },
+                                        3: {
+                                            kind: "level",
+                                            title: "Armónico",
+                                            icon: "",
+                                            components: 3
+                                        },
+                                        4: {
+                                            kind: "level",
+                                            title: "Aleatorio",
+                                            icon: "",
+                                            components: 4
+                                        }
+                                    }
+                                },
+                            }
+                        },
+                        2: {
+                            kind: "zone",
+                            title: "Acordes extendidos con quinta aumentada o disminuida",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+
+                                        1: {
+                                            kind: "level",
+                                            title: "Ascendente",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        2: {
+                                            kind: "level",
+                                            title: "Descendente",
+                                            icon: "",
+                                            components: 2
+                                        },
+                                        3: {
+                                            kind: "level",
+                                            title: "Armónico",
+                                            icon: "",
+                                            components: 3
+                                        },
+                                        4: {
+                                            kind: "level",
+                                            title: "Aleatorio",
+                                            icon: "",
+                                            components: 4
+                                        }
+                                    }
+                                },
+                            }
+                        }
+                    }
+                },
+                3: {
+                    kind: "area",
+                    title: "",
+                    components: {
+                        1: {
+                            kind: "zone",
+                            title: "Acordes extendidos con quinta justa en posición abierta",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+
+                                        1: {
+                                            kind: "level",
+                                            title: "Ascendente",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        2: {
+                                            kind: "level",
+                                            title: "Descendente",
+                                            icon: "",
+                                            components: 2
+                                        },
+                                        3: {
+                                            kind: "level",
+                                            title: "Armónico",
+                                            icon: "",
+                                            components: 3
+                                        },
+                                        4: {
+                                            kind: "level",
+                                            title: "Aleatorio",
+                                            icon: "",
+                                            components: 4
+                                        }
+                                    }
+                                },
+                            }
+                        },
+                        2: {
+                            kind: "zone",
+                            title: "Acordes extendidos con quinta aumentada o disminuida en posición abierta",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+
+                                        1: {
+                                            kind: "level",
+                                            title: "Ascendente",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        2: {
+                                            kind: "level",
+                                            title: "Descendente",
+                                            icon: "",
+                                            components: 2
+                                        },
+                                        3: {
+                                            kind: "level",
+                                            title: "Armónico",
+                                            icon: "",
+                                            components: 3
+                                        },
+                                        4: {
+                                            kind: "level",
+                                            title: "Aleatorio",
+                                            icon: "",
+                                            components: 4
+                                        }
+                                    }
+                                },
+                            }
+                        }
+                    }
+                },
+                4: {
+                    kind: "area",
+                    title: "",
+                    components: {
+                        1: {
+                            kind: "zone",
+                            title: "Todos los acordes extendidos en posición cerrada",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+
+                                        1: {
+                                            kind: "level",
+                                            title: "Ascendente",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        2: {
+                                            kind: "level",
+                                            title: "Descendente",
+                                            icon: "",
+                                            components: 2
+                                        },
+                                        3: {
+                                            kind: "level",
+                                            title: "Armónico",
+                                            icon: "",
+                                            components: 3
+                                        },
+                                        4: {
+                                            kind: "level",
+                                            title: "Aleatorio",
+                                            icon: "",
+                                            components: 4
+                                        }
+                                    }
+                                },
+                            }
+                        }
+                    }
+                },
+                5: {
+                    kind: "area",
+                    title: "",
+                    components: {
+                        1: {
+                            kind: "zone",
+                            title: "Todos los acordes extendidos en posición abierta",
+                            components: {
+                                1: {
+                                    kind: "exercise",
+                                    description: "",
+                                    title: "Ex4",
+                                    icon: "",
+                                    components: {
+
+                                        1: {
+                                            kind: "level",
+                                            title: "Ascendente",
+                                            icon: "",
+                                            components: 1
+                                        },
+                                        2: {
+                                            kind: "level",
+                                            title: "Descendente",
+                                            icon: "",
+                                            components: 2
+                                        },
+                                        3: {
+                                            kind: "level",
+                                            title: "Armónico",
+                                            icon: "",
+                                            components: 3
+                                        },
+                                        4: {
+                                            kind: "level",
+                                            title: "Aleatorio",
+                                            icon: "",
+                                            components: 4
+                                        }
+                                    }
+                                },
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 
 $('#chordsSelection .list-group-item').click(function (e) {
     var levelSelected = {}
@@ -284,8 +1322,10 @@ $('#chordsSelection .list-group-item').click(function (e) {
         if (currentExercise.getKindOfExercise() != 'Chords') {
             progressRestore()
         }
-    }    
+    }
     currentExercise = new ChordsExercise(levelSelected);
     goToExercise();
 })
+
+
 
