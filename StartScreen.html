@@ -1,0 +1,110 @@
+<script src="app\mainMenuUIController.js" type="text/javascript"></script>
+<header id=mainMenuHeader>
+    <nav id="mainMenuNav" class="navbar">
+        <div class="container-fluid">
+            <div>
+                <ul class="nav navbar-nav text-center">
+                    <li class="">
+                        <a id="home" href="#">
+                            <span class="glyphicon glyphicon-home"></span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-user"></span>   Registrarse
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li style="margin:30px">
+                                    <div class="form-group" style="text-align: center;">
+                                        <label for="registerUsr">Nombre de usuario:</label>
+                                        <input type="text" class="form-control" id="registerUsr">
+                                    </div>
+                                    <div class="form-group" style="text-align: center;">
+                                        <label for="registerPwd">Contraseña:</label>
+                                        <input type="password" class="form-control" id="registerPwd">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div style="text-align: center;">
+                                        <button class="btn" type="button">
+                                            Crear usuario
+                                        </button>
+                                    </div>
+                                </li>
+                                <li role="separator" class="divider"></li>
+                                <li>
+                                    <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">
+                                        Registrarse a través de Facebook
+                                    </button>
+
+                                </li>
+                                <li>
+                                    <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">
+                                        Registrarse a través de Google
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </li>
+                    <li>
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-log-in"></span>   Iniciar Sesión
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li style="margin:30px">
+                                    <div class="form-group" style="text-align: center;">
+                                        <label for="logInUsr">Nombre de usuario:</label>
+                                        <input type="text" class="form-control" id="logInUsr">
+                                    </div>
+                                    <div class="form-group" style="text-align: center;">
+                                        <label for="logInPwd">Contraseña:</label>
+                                        <input type="password" class="form-control" id="logInPwd">
+                                    </div>
+
+                                </li>
+                                <li>
+                                    <div style="text-align: center;">
+                                        <button class="btn" type="button">
+                                            Iniciar sesión
+                                        </button>
+                                    </div>
+                                </li>
+                                <li role="separator" class="divider"></li>
+                                <li>
+                                    <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">
+                                        Iniciar sesión a través de Facebook
+                                    </button>
+
+                                </li>
+                                <li>
+                                    <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">
+                                        Iniciar sesión a través de Google
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div id="mainMenu" class="mainDivElement">
+    <div class="container">
+        <div class="jumbotron" style="text-align: center;">
+            <button class="btn" onclick="goToExerciseSelector()">
+                <h1 style="text-align: center;">JUGAR</h1>
+            </button>
+        </div>
+        <p>Estadísticas</p>
+        <p>Medallas</p>
+    </div>
+</div>

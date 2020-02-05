@@ -1,8 +1,5 @@
 var user = {
-    IntervalsLevel: 1,
-    ProgresionLevel: 1,
-    ChordsLevel: 0,
-    date:{}
+    id:""
 }
 
 $('#document').ready(function () {
@@ -35,11 +32,9 @@ function mergeObjectsAdd(firstObject, secondObject) {
 
 var winText = {
     primary: '¡Has superado este nivel!',
-    secondary: 'Puede continuar al siguiente'
 }
 
 var looseText = {
     primary: 'No has logrado superar este nivel',
-    secondary: ''
-    //secondary: 'Le recomiendo repetirlo, o volver al nivel anterior'
+    secondary: 'Puedes intentarlo de nuevo'
 }

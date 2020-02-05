@@ -10,7 +10,7 @@ var answer = {}
 var recievedExercise
 var depth
 
-function deactivateChordsButtons(parent, e) {
+function deactivateChordsButtons(e) {
     recievedExercise = e.base;
     depth = e.depth;
     answer.kind = undefined;
@@ -19,12 +19,12 @@ function deactivateChordsButtons(parent, e) {
     answer.b5 = undefined;
     if (depth > 1) hasSeventh = true;
     if (depth > 2) hasExtention = true;
-    $("#" + parent + "InputButtons :input").prop("disabled", true)
+    $("#" + e.kind + "InputButtons :input").prop("disabled", true)
         .removeClass('btn-primary')
         .addClass('btn-default')
     if (recievedExercise.length == 1) {
         selectedChordPath[0] = recievedExercise[0];
-        $("#" + parent + " #" + selectedChordPath[0][0]).prop("disabled", false)
+        $("#" + e.kind + " #" + selectedChordPath[0][0]).prop("disabled", false)
             .removeClass('btn-default')
             .addClass('btn-primary');
         answer.kind = selectedChordPath[0][0]
@@ -32,7 +32,7 @@ function deactivateChordsButtons(parent, e) {
     }
     else {
         recievedExercise.forEach(element => {
-            $("#" + parent + " #" + element[0]).prop("disabled", false)
+            $("#" + e.kind + " #" + element[0]).prop("disabled", false)
         });
     }
     $('#ChordsKeyInput').focus()
@@ -200,14 +200,14 @@ $('#ChordsKeyInput').on('input', function () {
 })
 
 //Feedback
-function chordsButtonAnswer(parent, correctValue, failValue) {
+function chordsButtonAnswer(correctValue, failValue) {
     for (let i = 0; i < correctValue.length; i++) {
         if (failValue[i] != undefined) {
-            $("#" + parent + " #" + correctValue[i].replace('#', 's')).addClass(btnCorrection);
-            $("#" + parent + " #" + failValue[i].replace('#', 's')).addClass(btnFail);
+            $("#Chords #" + correctValue[i].replace('#', 's')).addClass(btnCorrection);
+            $("#Chords #" + failValue[i].replace('#', 's')).addClass(btnFail);
         }
         else {
-            $("#" + parent + " #" + correctValue[i].replace('#', 's')).addClass(btnSuccess);
+            $("#Chords #" + correctValue[i].replace('#', 's')).addClass(btnSuccess);
         }
     }
     $('#ChordsKeyInput').val('')

@@ -1,26 +1,101 @@
 <script src="levelSelectorContructor.js" type="text/javascript"></script>
-<div id="exerciseSelector">
-    <div id="carouselEjercicios" class="carousel slide">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-            <li data-target="#carouselEjercicios" data-slide-to="0"></li>
-            <li data-target="#carouselEjercicios" data-slide-to="1"></li>
-            <li data-target="#carouselEjercicios" data-slide-to="2"></li>
-        </ol>
+<header id="exerciseSelectorHeader" style="display: none;">
+    <nav id="exerciseSelectorNav" class="navbar navbar-default navbar-fixed-top">
+        <ul class="nav navbar-nav">
+            <ul class="nav nav-tabs nav-justified" class="modeSelector">
+                <li id="indicatorChords" data-target="#carouselEjercicios" data-slide-to="0"
+                    style="text-align: center;"  class="modeSelector">
+                    <svg id="svgChords" width="100" height="100" shape-rendering="antialiasing">
+                        <circle id="" r="48" cy="50" cx="50"
+                            style="fill:#fd3333;fill-opacity:1;stroke:#000000;stroke-width:0.79374999;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+                    </svg>
+                </li>
+                <li id="indicatorIntervals" data-target="#carouselEjercicios" data-slide-to="1"
+                    style="text-align: center;" class="modeSelector">
+                    <svg id="svgIntervals" width="100" height="100" shape-rendering="antialiasing">
+                        <circle id="" r="48" cy="50" cx="50"
+                            style="fill:#fd3333;fill-opacity:1;stroke:#000000;stroke-width:0.79374999;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+                    </svg>
+                </li>
+                <li id="indicatorProgresion" data-target="#carouselEjercicios" data-slide-to="2"
+                    style="text-align: center;" class="modeSelector">
+                    <svg id="svgProgresion" width="100" height="100" shape-rendering="antialiasing">
+                        <circle id="" r="48" cy="50" cx="50"
+                            style="fill:#fd3333;fill-opacity:1;stroke:#000000;stroke-width:0.79374999;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+                    </svg>
+                </li>
+            </ul>
+        </ul>
+    </nav>
+</header>
 
-        <!-- Wrapper for slides -->
+<div id="exerciseSelector" style="display:none;">
+    <div id="carouselEjercicios" class="carousel slide tab-content">
+        <!--<nav id="exerciseSelectorNav" class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <ul class="nav navbar-nav">
+                    <ul class="nav nav-tabs nav-justified">
+                        <li id="indicatorChords" class="active" data-target="#carouselEjercicios" data-slide-to="0" style="text-align: center;">
+                            <svg id="svgChords" width="100" height="100" shape-rendering="antialiasing">
+                                <circle id="" r="48" cy="50" cx="50"
+                                    style="fill:#fd3333;fill-opacity:1;stroke:#000000;stroke-width:0.79374999;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+                            </svg>
+                        </li>
+                        <li id="indicatorIntervals" data-target="#carouselEjercicios" data-slide-to="1" style="text-align: center;">
+                            <svg id="svgIntervals" width="100" height="100" shape-rendering="antialiasing">
+                                <circle id="" r="48" cy="50" cx="50"
+                                    style="fill:#fd3333;fill-opacity:1;stroke:#000000;stroke-width:0.79374999;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+                            </svg>
+                        </li>
+                        <li id="indicatorProgresion" data-target="#carouselEjercicios" data-slide-to="2" style="text-align: center;">
+                            <svg id="svgProgresion" width="100" height="100" shape-rendering="antialiasing">
+                                <circle id="" r="48" cy="50" cx="50"
+                                    style="fill:#fd3333;fill-opacity:1;stroke:#000000;stroke-width:0.79374999;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+                            </svg>
+                        </li>
+                    </ul>
+                </ul>
+                <br>
+            </div>
+        </nav>
+    -->
         <div id="gameSelector" class="carousel-inner">
 
         </div>
-
-        <!-- Left and right controls -->
-        <a class="left carousel-control" href="#carouselEjercicios" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#carouselEjercicios" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right"></span>
-            <span class="sr-only">Next</span>
-        </a>
     </div>
 </div>
+
+<!--
+<script src="levelSelectorContructor.js" type="text/javascript"></script>
+<div id="exerciseSelector" class="tab-content" style="display:none">
+    <nav id="exerciseSelectorNav" class="navbar navbar-default navbar-fixed-top" style="text-align: center;">
+        <div class="container-fluid" style="text-align: center;">
+            <ul class="nav nav-tabs" style="text-align: center;">
+                <li class="active" style="text-align: center;">
+                    <a >
+                        <svg data-toggle="tab" href="#Acordes" id="svgChords" width="100" height="100" shape-rendering="antialiasing">
+                            <circle id="" r="48" cy="50" cx="50"
+                                style="fill:#fd3333;fill-opacity:1;stroke:#000000;stroke-width:0.79374999;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a >
+                        <svg data-toggle="tab" href="#Intervalos" id="svgChords" width="100" height="100" shape-rendering="antialiasing">
+                            <circle id="" r="48" cy="50" cx="50"
+                                style="fill:#fd3333;fill-opacity:1;stroke:#000000;stroke-width:0.79374999;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a > 
+                        <svg data-toggle="tab" href="#Progresión" id="svgChords" width="100" height="100" shape-rendering="antialiasing">
+                            <circle id="" r="48" cy="50" cx="50" style="fill:#fd3333;fill-opacity:1;stroke:#000000;stroke-width:0.79374999;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+-->

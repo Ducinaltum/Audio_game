@@ -1,11 +1,12 @@
 function IntervalsExercise(actualLevel) {
-    var typeOfExercise = 'Intervals'
+    const typeOfExercise = 'Intervals'
     var state = 'idle';
-    var exercise = actualLevel;
-    var intervalManager = new LevelManager(exercise.iterations);
+    const exercise = actualLevel;
+    const intervalManager = new LevelManager(exercise.iterations);
     var saver = new saveManager(typeOfExercise);
     showScreen(typeOfExercise)
-    deactivateIntervalsButtons(typeOfExercise, ints = exercise.intervals != undefined ? exercise.intervals : exercise.notes)
+    //Reacomodar para que solo marque los que se usan
+    deactivateIntervalsButtons(typeOfExercise, ints = exercise.structure != undefined ? exercise.structure : exercise.structure)
     var interval = createInterval();
 
     //Publicas
@@ -48,9 +49,11 @@ function IntervalsExercise(actualLevel) {
 }
 
 function Interval(exercise) {
+    var direction = exercise.direction;
     note = setNote()
-    fundamental = exercise.fundamental != undefined ? exercise.fundamental : 0;    
-    direction = exercise.direction;
+    console.log(exercise.fundamental)
+
+    fundamental = exercise.fundamental 
     if(fundamental == note) fundamental -=12;
     if(fundamental > note ^ direction == -1){
         var aux = fundamental;
@@ -60,10 +63,11 @@ function Interval(exercise) {
     this.interval = Math.abs(fundamental - note)
     pitch = exercise.pitch != undefined ? exercise.pitch : setPitch(this.interval);
     this.notes = buildStream();
+    console.log(this.notes)
 
     function setNote() {
-        var index = Math.floor(Math.random() * exercise.notes.length)
-        note = exercise.notes[index];
+        var index = Math.floor(Math.random() * exercise.structure.length)
+        note = exercise.structure[index];
         return note;
     }
 
@@ -77,11 +81,16 @@ function Interval(exercise) {
         fundamental += pitch
         note += pitch
         var stream = [];
+        var timing = 1
+        if(direction == 0){
+            direction = 1
+            timing = 0
+        }
         stream[0] = new Note(fundamental,
             0,
             1);
         stream[1] = new Note(note,
-            0 + exercise.timing,
+            0 + timing,
             1);
         return stream;
     }

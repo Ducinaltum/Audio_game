@@ -62,7 +62,6 @@ function LevelManager(iterations = 20) {
     winRatio = 0.8
     correct = 0;
     incorrect = 0
-
     this.hasFinishedLevel = function () {
         updateProgressBar(correct / totalRounds * 100, 
                         incorrect / totalRounds * 100);
@@ -255,12 +254,12 @@ function octavate(note, oct){
     return note + (12 * oct)
 }
 
-
+/*
 var info = {
     intervalsMaxLevel: 100,
     chordsMaxLevel: 100,
     progresionMaxLevel: 100
-}
+}*/
 
 function randomNote(){
     return Math.floor(Math.random()*12) - 6
@@ -291,4 +290,11 @@ var intervalsInHalfStep = {
     22: "14m",
     23: "14M",
     24: "15J",
+}
+
+colors = {
+    red: "#e4022dff",
+    yellow:"#f6a016ff",
+    turquose:"#009aa8ff",
+    pink:"#df8797ff",
 }

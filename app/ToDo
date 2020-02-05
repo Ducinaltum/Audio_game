@@ -1,6 +1,5 @@
 Game design
 -----------
-Agregar acordes 2, 4, 6 y estructuras superiores
 
 Finalizar Progresion de niveles en Intervalos
 
@@ -12,22 +11,18 @@ Realizar el sistema de estadísticas
 
 Poner el porcentaje de correctas en el feedback
 
-POner respuesta correcta en feedback aunque el usuario haya respondido de manera correcta
+Poner respuesta correcta en feedback aunque el usuario haya respondido de manera correcta
 
 Indicar en qué nivel se encuentra mientras se juega y cuando lo pasa
-
 
 QA
 --
 
 Deshabilitar los botones luego de la respuesta
 
-¿Se podría poner el feedback sobre el bótn de play para ahorrar espacio vertical?
+¿Se podría poner el feedback sobre el botón de play para ahorrar espacio vertical?
 
 Alterar las progresiones en el modo menor para impedir que haga 2-6-2 o 6-2-6
-
-Eligiendo el ultimo nivel de acordes y ganándolo me llevó de nuevo al menú
-    Es realmente un error?
 
 Pareciera que el ejercicio de acordes inicia dos veces
     En realidad pareciera que se llama dos veces a la reproducción
@@ -35,20 +30,12 @@ Pareciera que el ejercicio de acordes inicia dos veces
         capaz ponerle un delay a la llamada lo solucionaría?
     NO LO PUDE REPLICAR, TOQUÉ ALGO QUE LO ARREGLÓ??? (me acordé del meme del perro)
 
-Cuando pasé el nivel de intervalos se clavo en varios (me deshabilita el botón siguiente)
-    No lo pude replicar
-
-Cuando se pide que repita un nivel custom al apretar el botón te devuelve al tu nivel real.
-    Ej: Pones el nivel 20, te va mal, te pide que repitas, y te lleva al 5
-
 
 Ideas
 -----
 Para simplificar la estructura de la generación de acordes y progresión se puede 
 tomar un modelo regresivo donde se especifiquen las posibilidades finales y se 
 construye reversamente desde ahí
-
-
 
 
 Si la página ocupa solo la mital de la pantalla en el monitor chiquito los botones del modal fin del ejercicio se ubican bien

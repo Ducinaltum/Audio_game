@@ -1,28 +1,24 @@
 const ranges = [12*5, 12*6, 12*7]
 
-function HarmonicProgresionExercise(actualLevel = user.progresionLevel) {
-    var typeOfExercise = 'Progresion'
+function HarmonicProgresionExercise(actualLevel) {
     var state = 'idle';
-    var level = clamp(actualLevel, info.progresionMaxLevel)
-    var exercise = progresionLevels[level]();
-    exercise.iterations = 20;
+    var exercise = actualLevel
+    console.log(exercise)
     var progresion;
     var progresionManager = new LevelManager(exercise.iterations)
-    var saver = new saveManager(typeOfExercise);
-    showScreen(typeOfExercise)
+    var saver = new saveManager(exercise.kind);
+    showScreen(exercise.kind)
     createProgresion();
-    this.getKindOfExercise = function(){return typeOfExercise}
-    this.getLevel = function(){return level}     
+    this.getKindOfExercise = function(){return exercise.kind}
     this.getState = function(){return state}
-
     this.createNextQuestion = function(){
         createProgresion();
     }
 
     function createProgresion() {
-        resetElements(typeOfExercise)
-        initiateExercise(exercise.numberOfChords, typeOfExercise, exercise.mode)
-        if (!progresionManager.hasFinishedLevel(level, typeOfExercise)) {
+        resetElements(exercise.kind)
+        initiateExercise(exercise.duration, exercise.kind, exercise.mode)
+        if (!progresionManager.hasFinishedLevel()) {
             progresion = new Progresion(exercise)
             loadOnBuffer(progresion.notes)
             state = 'playing';
@@ -31,15 +27,16 @@ function HarmonicProgresionExercise(actualLevel = user.progresionLevel) {
 
     this.checkResponse = function(response){
         if (state == 'playing') {
-            saveObject = {}
+            var saveObject = {}
             state = 'answer'
             var score = 0;
             for (var i = 0; i < progresion.progresion.length; i++) {
+                let answer = {}
                 answer.grade =  progresion.progresion[i].grade.replace(/[M|m|d|A]/,'')
                 answer.kind = progresion.progresion[i].chord.kind
-                usrResponse = response[i]
+                let usrResponse = response[i]
                 usrResponse.grade.replace(/[\/]/,'')
-                var hit = 0;
+                let hit = 0;
                 if (answer.grade == usrResponse.grade) {
                     if (answer.kind == usrResponse.kind) {
                         hit+=1;
@@ -47,7 +44,7 @@ function HarmonicProgresionExercise(actualLevel = user.progresionLevel) {
                     }else hit+=0.5;
                 }
                 if(hit != 1){
-                    grade = answer.grade.split("");
+                    let grade = answer.grade.split("");
                     grade = grade.map(function(char){
                         if(!isNaN(char)) {
                             return romanize(char)
@@ -61,7 +58,7 @@ function HarmonicProgresionExercise(actualLevel = user.progresionLevel) {
                 saveObject[valueToAdd].correct = saveObject[valueToAdd].correct + hit || hit;
                 saveObject[valueToAdd].times = saveObject[valueToAdd].times + 1 || 1;
             };
-            score /= exercise.numberOfChords;
+            score /= exercise.duration;
             mode = {}
             saver.storeValues(mode[exercise.mode[0]] = saveObject);
             progresionManager.trackScore(score)                  
@@ -71,27 +68,28 @@ function HarmonicProgresionExercise(actualLevel = user.progresionLevel) {
 
 
 function Progresion(ex) {
-    this.exercise = ex;
-    this.progresion = setProgresion(this.exercise.chords, this.exercise.numberOfChords);
-    voicing = buildChorale(this.progresion, this.exercise);
+    var exercise = ex;
+    this.progresion = setProgresion(exercise);
+    var voicing = buildChorale(this.progresion);
     this.notes = buildStream(voicing);
 
-    function setProgresion(chords, number) {
-        numberOfChords = number;
-        progresion = []
-        progresion.push(chords[0])
-        for (var i = 1; i < this.numberOfChords; i++) {
-            currentChord = progresion[i - 1]
-            nextChord = currentChord.direction[Math.floor(Math.random() * currentChord.direction.length)]
+    function setProgresion() {
+        var numberOfChords = exercise.duration;
+        var progresion = []
+        progresion.push(exercise.chords[0])
+        for (var i = 1; i < numberOfChords; i++) {
+            let currentChord = progresion[i - 1]
+            let nextChord = currentChord.direction[Math.floor(Math.random() * currentChord.direction.length)]
             progresion.push(nextChord);
         }
         return progresion;
     }
 
-    function buildChorale(progresion, exercise) {
+    function buildChorale(progresion) {
+        console.log(progresion)
         findOccurences = function (note) {
-            octave = 0
-            retrieve = []
+            var octave = 0
+            var retrieve = []
             while (octave < limits.max) {
                 for (var i = 0; i < chordTypes[note.chord.kind].length; i++) {
                     if(i == 0 && note.chord.seven != undefined){
@@ -106,18 +104,17 @@ function Progresion(ex) {
             retrieve.sort(function (a, b) { return a - b });
             return retrieve;
         }
-
-        choir = []
-        bass = []
-        tenor = []
-        alto = []
-        soprano = []
+        var choir = []
+        var bass = []
+        var tenor = []
+        var alto = []
+        var soprano = []
         var choirScope = {}
         //Se le suman 12 (puede ser cualquier número) para que el acorde tenga margen para descender
         var randomStartPos = Math.floor(Math.random() * 3) + 12;
         for (var i = 0; i < progresion.length; i++) {
             //Se traza el bajo            
-            chord = findOccurences(progresion[i])
+            var chord = findOccurences(progresion[i])
             bass[i] = progresion[i].distanceToTonic;
             choirScope.lowest = bass[i];
             choirScope.highest = bass[i];
@@ -192,7 +189,7 @@ function Progresion(ex) {
                 }
                 if(soprano[i] > choirScope.highest) choirScope.highest = soprano[i];
                 if(tenor[i] < choirScope.lowestMid) choirScope.lowestMid = tenor[i];
-                distBassToTenor = tenor[i] - bass[i];
+                var distBassToTenor = tenor[i] - bass[i];
                 if(distBassToTenor < choirScope.lowestDistBassTenor) choirScope.lowestDistBassTenor = distBassToTenor;
             }
         }
@@ -201,7 +198,7 @@ function Progresion(ex) {
         choirScope.medianNote = Math.floor((choirScope.scope / 2) + choirScope.lowestMid);
         var voiceTranposition = Math.floor((ranges[Math.floor(Math.random()*ranges.length)] - choirScope.medianNote)/12)*12;
         var bassTranposition = Math.floor(choirScope.lowestDistBassTenor/12);
-        var tonality = exercise.tonality()
+        var tonality = exercise.tonality
         if(bassTranposition == 0) bassTranposition -= 12;
         for (var m = 0; m < bass.length; m++) {
             bass[m] += 12 * bassTranposition;
@@ -214,7 +211,6 @@ function Progresion(ex) {
             alto[i]+= voiceTranposition + tonality;
             soprano[i]+= voiceTranposition + tonality;
         }
-
         choir[0] = bass;
         choir[1] = tenor;
         choir[2] = alto;

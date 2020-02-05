@@ -1,27 +1,22 @@
-//const safeZone = 20;
 function ChordsExercise(actualLevel) {
-    var typeOfExercise = 'Chords'
     var state = 'idle';
-    var level = actualLevel
-    var exercise = setChordLevel();
+    var exercise = actualLevel
     var chordManager = new LevelManager(exercise.iterations);
-    var saver = new saveManager(typeOfExercise);
-    showScreen(typeOfExercise)
-    deactivateChordsButtons(typeOfExercise, exercise)
+    var saver = new saveManager(exercise.kind);
+    showScreen(exercise.kind)
 
     createChord();
 
-    this.getKindOfExercise = function () { return typeOfExercise }
-    this.getLevel = function () { return level }
+    this.getKindOfExercise = function () { return exercise.kind }
     this.getState = function () { return state }
     this.createNextQuestion = function () {
         createChord();
     }
 
     function createChord() {
-        resetElements(typeOfExercise)
-        deactivateChordsButtons(typeOfExercise, exercise)
-        if (!chordManager.hasFinishedLevel(level, typeOfExercise)) {
+        resetElements(exercise.kind)
+        deactivateChordsButtons(exercise)
+        if (!chordManager.hasFinishedLevel()) {
             state = 'playing';
             chord = new ChordBuilder(exercise)
             loadOnBuffer(chord.notes)
@@ -46,7 +41,7 @@ function ChordsExercise(actualLevel) {
                 posibilities++;
             }
             hit = hit / posibilities;
-            chordsButtonAnswer(typeOfExercise, correctAnswer, failedAnswers)
+            chordsButtonAnswer(correctAnswer, failedAnswers)
             if (hit == 1) {
                 updateFeedback("¡Correcto!", 'success', strResponse)
             }
@@ -66,30 +61,6 @@ function ChordsExercise(actualLevel) {
             saver.storeValues(saveObject);
             chordManager.trackScore(hit)
         }
-    }
-
-    function setChordLevel() {
-        var actualLevel = chordsLevels[Math.floor(level/4)];
-        actualLevel.iterations = 20;
-        switch (level%4) {
-            case 0:
-                actualLevel.name += " - Ascendente"
-                actualLevel.direction = function () { return 1; };
-                break;
-            case 1:
-                actualLevel.name += " - Descendente"
-                actualLevel.direction = function () { return -1;};
-                break;
-            case 2:
-                actualLevel.name += " - Armónico"
-                actualLevel.direction = function () { return 0;};
-                break;
-            case 3:
-                actualLevel.name += " - Aleatorio"
-                actualLevel.direction = function () { return Math.floor(Math.random() * 3) - 1 };
-                break;
-        }
-        return actualLevel;
     }
 
     function buildFeedbackAnswer(correctChord) {
@@ -139,7 +110,7 @@ function ChordsExercise(actualLevel) {
 
 function ChordBuilder(ex) {
     exercise = ex;
-    direction = exercise.direction();
+    direction = exercise.direction;
     chord = buildChord();
     fundamental = setFundamental(chord);
     this.kind = chord[0];

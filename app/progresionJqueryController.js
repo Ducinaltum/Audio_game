@@ -66,7 +66,7 @@ $('#Progresion #inputFields .chord-bar').focus(function () {
     });
     var index = this.id.slice(2)
     if (activeChordIndex != index) activeChordIndex = index;
-    responseChords[activeChordIndex].updateButtons(responseChords[activeChordIndex])
+    responseChords[activeChordIndex].updateButtons()//responseChords[activeChordIndex])
     var valueToShow = responseChords[activeChordIndex].getChordAsString();
     if(valueToShow == '') {
         valueToShow = '&nbsp'

@@ -1,38 +1,59 @@
 function ExerciseLevel(ex) {
-    this.exercise = ex;
-    this.icon;
-    this.modalBlock;
-
-    this.exerciseClick = function (e) {
-        const manager = icons.levels[e.target.id]
+    const exercise = ex;
+    var icon;
+    var modalBlock;
+    this.start = function () {
+        icon = document.getElementById(exercise.code);
+        icon.addEventListener("click", exerciseClick, false);
+        modalBlock = createModalBlock();
+    }
+    const exerciseClick = function (e) {
         const exerciseDiv = document.getElementById("modalExercises")
         while (exerciseDiv.firstChild) {
             exerciseDiv.removeChild(exerciseDiv.firstChild);
         }
-        exerciseDiv.appendChild(manager.modalBlock);
+        exerciseDiv.appendChild(modalBlock);
         $('#selectionOfExercise').modal('show');
     }
-
-    this.start = function () {
-        this.icon = document.getElementById(this.exercise.code);
-        this.icon.addEventListener("click", this.exerciseClick, false);
-        this.modalBlock = createModalBlock(this.exercise)
+    const createModalBlock = function () {
+        const elements = icons.badges[exercise.code]
+        var node = document.createElement("div");
+        node.id = "modal" + exercise.code;
+        node.style.textAlign = "center";
+        Object.keys(elements).forEach(function (e) {
+            elements[e].start(node)
+        })
+        return node;
     }
 }
 
 function LessonLevel(ex) {
-    this.exercise = ex;
-    this.icon;
-
-    this.lessonClick = function (e) {
-        console.log("HI")
-        const manager = icons.levels[e.target.code]
-
-    }
+    const exercise = ex;
+    var icon;
+    const lessonClick = function (e) {
+        const exerciseParameters = e.target.id.split("_")
+        var exerciseBuilder;
+        switch (exerciseParameters[0]) {
+            case "Int":
+                exerciseBuilder = intervalsBuilder;
+                break;
+            case "Cho":
+                exerciseBuilder = chordsBuilder;
+                break;
+            case "Prog":
+                exerciseBuilder = progresionBuilder;
+                break;
+        }
+        goToExercise(exerciseBuilder(exerciseParameters))
+    };
 
     this.start = function (node) {
-        this.icon = node.querySelector("#"+this.exercise.code);
-        this.icon.addEventListener("click", this.lessonClick, false);
+        if(user[exercise.code] == undefined) user[exercise.code] = 0;
+        const element = `<svg id=svg` + exercise.code + ` width="200" height="200" shape-rendering="antialiasing">`
+            + levelIcon(exercise.code) + `</svg>`;
+        node.insertAdjacentHTML('beforeend', element)
+        icon = node.querySelector("#" + exercise.code);
+        icon.addEventListener("click", lessonClick, false);
     }
 }
 
@@ -43,14 +64,20 @@ var nodeMaker = {
         var node = document.createElement("div");
         node.className = element.class;
         node.interval = false;
-        node.id = element.title
-        node.innerHTML = `<br><h1 style="text-align: center">` + element.title + `</h1><br>`
+        node.id = element.title;
+        node.style.margin = "2%"
+        node.style.background = colors[element.color];
+        node.style.borderRadius = "25px"
+        node.innerHTML = `<br><h1 style="text-align: center">` + element.title + `</h1>`;
         return node;
     },
     world: function (element) {
         var node = document.createElement("div");
-        node.id = element.title
-        node.innerHTML = `<h4 style="text-align: center">` + element.title + `</h4><br>`
+        node.id = element.title;
+        node.style.background = "#ffffff";
+        node.style.margin = "4%"
+        node.style.borderRadius = "25px"
+        node.innerHTML = `<br><h2 style="text-align: center">` + element.title + `</h2><br>`
         return node;
     },
     area: function (element) {
@@ -76,7 +103,7 @@ var nodeMaker = {
     group: function (element) {
         var node = document.createElement("div");
         var frame = `<svg id=svg` + element.code + ` width="200" height="200" shape-rendering="antialiasing">` + levelIcon(element.code) + `</svg>`
-        node.id = element.code
+        node.id = "div" + element.code
         node.innerHTML = frame;
         icons.levels[element.code] = new ExerciseLevel(element)
         return node;
@@ -84,23 +111,23 @@ var nodeMaker = {
     level: function (element) {
         var node = document.createElement("div");
         var frame = `<svg id=svg` + element.code + ` width="200" height="200" shape-rendering="antialiasing">` + levelIcon(element.code) + `</svg>`
-        node.id = element.code
+        node.id = "div" + element.code
         node.innerHTML = frame;
         icons.levels[element.code] = new ExerciseLevel(element)
         return node;
     },
     badge: function (element, siblings, father) {
-        if (icons.badges[father.id] == undefined) icons.badges[father.id] = {};
-        icons.badges[father.id][element.code] = new LessonLevel(element)
-        //return node;
+        var name = father.id.replace("div", "")
+        if (icons.badges[name] == undefined) icons.badges[name] = {};
+        icons.badges[name][element.code] = new LessonLevel(element)
     }
 }
 
 var gamesTrees = {
     components: {
-        1: intervalsLevelsTree,
-        //2: chordsLevelsTree,
-        //3: progresionLevelsTree
+        1: chordsLevelsTree,
+        2: intervalsLevelsTree,
+        3: progresionLevelsTree
     }
 }
 
@@ -120,11 +147,14 @@ function generateSelectionInterface(layer, father, brothers, codeName) {
         let actualLayer = layer.components[e];
         if (codeName != undefined) actualLayer.code = codeName + actualLayer.code
         let htmlElement = nodeMaker[actualLayer.kind](actualLayer, brothers, father)
-        let siblings = Object.keys(actualLayer.components).length
-        generateSelectionInterface(actualLayer, htmlElement, siblings, actualLayer.code)
+        if (actualLayer.components != undefined) {
+            let siblings = Object.keys(actualLayer.components).length
+            generateSelectionInterface(actualLayer, htmlElement, siblings, actualLayer.code)
+        }
         return htmlElement;
     })
     if (element != undefined && layer.kind != "group") {
+        if (layer.kind == "mode") element.push(document.createElement("br"))
         element.forEach(function (e) {
             if (e != undefined) father.appendChild(e);
         })
@@ -132,35 +162,12 @@ function generateSelectionInterface(layer, father, brothers, codeName) {
     return father;
 }
 
-function createModalBlock(exercise) {
-    var node = document.createElement("div");
-    node.id = "modal" + exercise.code;
-    node.style.textAlign = "center";
-    if (exercise.kind == "level") {
-        node.innerHTML = `<svg id=svg` + exercise.code + ` width="200" height="200" shape-rendering="antialiasing">` + levelIcon(exercise.code) + `</svg>`;
-    }
-    else if (exercise.kind == "group") {
-        const elements = icons.badges[exercise.code]
-        var element = ""
-        Object.keys(elements).forEach(function (e) {
-            element += `<svg id=svg` + exercise.code + ` width="200" height="200" shape-rendering="antialiasing">`
-                + levelIcon(elements[e].exercise.code) + `</svg>`;
-        })
-        /*var element = "";
-        for (let i = 0; i < 3; i++) {
-            element += `<svg id=svg` + exercise.id + ` width="200" height="200" shape-rendering="antialiasing">` + levelIcon(exercise.id + i) + `</svg>`;
-        }*/
-        node.innerHTML = element;
-        Object.keys(elements).forEach(function (e) {
-            levelIcon(elements[e].start(node))
-        })
-    }
-    console.log(node)
-    return node;
-}
+
 
 
 /*
+code:"Int",
+
 code:"_MayChord",
 code:"_MayScale",
 code:"_FullScale",
@@ -188,5 +195,75 @@ code:"_Asc",
 code:"_Desc",
 code:"_Harm",
 code:"_Rand",
+
+*/
+
+
+
+/*
+code:"Chord",
+
+code:"_Triad",
+code:"_Seventh",
+code:"_Extended",
+
+code:"_Closed",
+code:"_Open",
+
+code:"_Major",
+code:"_Minor",
+code:"_Dim",
+code:"_Aug",
+code:"_Perfect",
+code:"_Imperfect",
+code:"_All",
+
+code:"_Exam",
+code:"_Lesson",
+code:"_Show",
+
+code:"_Asc",
+code:"_Desc",
+code:"_Harm",
+code:"_Rand",
+
+*/
+
+/*
+code:"Prog",
+
+code:"_Prin",
+code:"_Sec",
+code:"_MinorScales",
+code:"_DomOnPrinc",
+code:"_DomOnAll",
+code:"_MajorModes",
+code:"_MinorModes",
+code:"_ModalMix",
+
+code:"",
+
+code:"_Major",
+code:"_Minor",
+code:"_Lid",
+code:"_Mixol",
+code:"_Dor",
+code:"_Frig",
+code:"_Aeo",
+code:"_Loc",
+code:"_MixMajMode",
+code:"_MixMinMode",
+code:"_Mix",
+
+
+code:"_InC",
+code:"_Rand",
+
+code:"_Exam",
+code:"_Lesson",
+code:"_Show",
+
+code:"_Four",
+code:"_Eight",
 
 */

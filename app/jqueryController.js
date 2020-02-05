@@ -16,7 +16,6 @@ function resetElements(parent) {
             .removeClass('btn-danger')
             .addClass('btn-default')
             .blur();
-        $('#ex0').focus()
     }
     else {
         $("#" + parent + " :input").removeClass("btn-success")
@@ -35,14 +34,12 @@ function resetElements(parent) {
     $("#play-pause").prop("disabled", false)
 }
 
-
-
 //End level modal window REPARAR
 function endLevelMenu(outcome) {
     if (outcome == "win") {
         $('#repeat').addClass("btn-default").removeClass('btn-primary')
         $('#endLevelPrimary').html(winText.primary)
-        $('#endLevelSecondary').html(winText.secondary)
+
         $('#next').prop("disabled", false);
     }
     if (outcome == "loose") {
@@ -51,23 +48,9 @@ function endLevelMenu(outcome) {
         $('#endLevelPrimary').html(looseText.primary)
         $('#endLevelSecondary').html(looseText.secondary)
     }
-    console.log($('#endOfExercise'))
     $('#endOfExercise').modal('show');
 }
 
-/*
-//Modal click handlers
-$('#next').click(function () {
-    goToLevel(1);
-})
-$('#repeat').click(function () {
-    goToLevel(0)
-})
-$('#previous').click(function () {
-    goToLevel(-1);
-})
-*/
-//Screen management
 function showScreen(container) {
     var inputs = $('#inputZone').children()
     for(var i = 0; i < inputs.length; i++){
@@ -76,16 +59,6 @@ function showScreen(container) {
     $("#" + container).show().prop('disabled', true);
     $("#" + container).css("display", "block");
 }
-
-/*
-function goToLevel(level) {
-    var newlevel = currentExercise.getLevel() + level;
-    var kind = currentExercise.getKindOfExercise();
-    var Exercise = setExerciseConstructor(kind);
-    currentExercise = null
-    currentExercise = new Exercise(newlevel);
-}
-*/
 
 function setExerciseConstructor(kind) {
     switch (kind) {
@@ -125,27 +98,11 @@ $(document).keypress(function (e) {
     }
     
 });
-/*
-$(document).click(function(){
-    if(currentExercise != null) {
-        if(currentExercise.getKindOfExercise() == 'Chords'){
-            $('#' + currentExercise.getKindOfExercise() + 'KeyInput').focus();
-        }
-    }
-})
-*/
-/*
-$('.selector').click(function(){
-    var container = $(this).parent().parent().attr('id');
-    $('#' + container + ' .selector').removeClass('btn-primary')
-        .addClass('btn-default');
-    $(this).removeClass('btn-default')
-        .addClass('btn-primary');
-})
-*/
+
 $('#home').click(function(){
     goToHome();
 })
+
 //CAPAZ QUE ESTO NO SIRVE MAS
 $(document).on('hide.bs.modal','#endOfExercise', function () {
     $('.collapse').collapse()
@@ -156,30 +113,16 @@ function goToHome(){
     $('#exercise').hide().prop('disabled', true);
     $('#exerciseSelector').show().prop('disabled', false);
 };
-/*
-function goToExercise(){
-    $('#exerciseSelector').hide().prop('disabled', true);
-    $('#exercise').show().prop('disabled', false);    
-};*/
 
 function goToExercise(exercise){
     $('#exerciseSelector').hide().prop('disabled', true);
+    $('#selectionOfExercise').modal('hide');
     $('#exercise').show().prop('disabled', false);
-    var kind = "Intervals"
-    var Exercise = setExerciseConstructor(kind);
+    $("#exerciseSelectorHeader").hide().prop('disabled', true);
+    var Exercise = setExerciseConstructor(exercise.kind);
     currentExercise = null
     currentExercise = new Exercise(exercise);
 }
-/*
-$('.continue').click(function(){
-    var kind = this.id.replace("continue", "");
-    var level = user[kind + "Level"]
-    var Exercise = setExerciseConstructor(kind);
-    currentExercise = null
-    currentExercise = new Exercise(level);
-    goToExercise();
-})
-*/
 
 //Este bloque sirve para que el carrusel de selección de ejercicio no se autoanime
 $('.carousel').carousel({
