@@ -39,25 +39,12 @@ function endLevelMenu(outcome) {
     if (outcome == "win") {
         $('#repeat').addClass("btn-default").removeClass('btn-primary')
         $('#endLevelPrimary').html(winText.primary)
-
-        $('#next').prop("disabled", false);
     }
     if (outcome == "loose") {
-        $('#repeat').addClass('btn-primary').removeClass('btn-default')
-        $('#next').addClass("btn-default").removeClass('btn-primary')
         $('#endLevelPrimary').html(looseText.primary)
         $('#endLevelSecondary').html(looseText.secondary)
     }
     $('#endOfExercise').modal('show');
-}
-
-function showScreen(container) {
-    var inputs = $('#inputZone').children()
-    for(var i = 0; i < inputs.length; i++){
-        $(inputs[i]).hide().prop('disabled', true);
-    }
-    $("#" + container).show().prop('disabled', true);
-    $("#" + container).css("display", "block");
 }
 
 function setExerciseConstructor(kind) {
@@ -103,11 +90,25 @@ $('#home').click(function(){
     goToHome();
 })
 
+
 //CAPAZ QUE ESTO NO SIRVE MAS
 $(document).on('hide.bs.modal','#endOfExercise', function () {
     $('.collapse').collapse()
     //goToHome();
 });
+
+function hideIndividualExercisesUI(){
+    var inputs = $('#playerInput').children()
+    for(var i = 0; i < inputs.length; i++){
+        $(inputs[i]).hide().prop('disabled', true);
+    }
+}
+
+function showScreen(container) {
+    hideIndividualExercisesUI()
+    $("#" + container).show().prop('disabled', true);
+    $("#" + container).css("display", "block");
+}
 
 function goToHome(){
     $('#exercise').hide().prop('disabled', true);
@@ -115,16 +116,30 @@ function goToHome(){
 };
 
 function goToExercise(exercise){
+    hideIndividualExercisesUI()
+    $("#exerciseSelectorHeader").hide().prop('disabled', true);
     $('#exerciseSelector').hide().prop('disabled', true);
     $('#selectionOfExercise').modal('hide');
-    $('#exercise').show().prop('disabled', false);
-    $("#exerciseSelectorHeader").hide().prop('disabled', true);
+
+    $('#exercise').show().prop('disabled', false);    
+    $("#exerciseHeader").show().prop('disabled', false);
+    $("#feedbackUIcontainer").show().prop('disabled', false);
     var Exercise = setExerciseConstructor(exercise.kind);
     currentExercise = null
     currentExercise = new Exercise(exercise);
+}
+
+function goToExerciseSelector(){
+    hideIndividualExercisesUI()
+    $("#mainMenuHeader").hide().prop('disabled', true);
+    $("#mainMenu").hide().prop('disabled', true);
+    $("#exerciseSelectorHeader").show().prop('disabled', false); 
+    $("#exerciseSelector").show().prop('disabled', false);
+    document.getElementById("carouselEjercicios").style.marginTop = (document.getElementById("exerciseSelectorNav").offsetHeight) + "px";
 }
 
 //Este bloque sirve para que el carrusel de selección de ejercicio no se autoanime
 $('.carousel').carousel({
     interval: false
 })
+

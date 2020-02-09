@@ -116,6 +116,10 @@ button.non-highlight {
 .glyphicon.glyphicon-stop {
   font-size: 75px;
 }
+
+.glyphicon.glyphicon-arrow-left {
+  font-size: 35px;
+}
 /*
 #indicatorChords{
   background-color: #df8797ff;
@@ -140,4 +144,8 @@ button.non-highlight {
 
 * {
   text-align: center;
+}
+
+.navbar{
+  margin-bottom: 50px !important;
 }

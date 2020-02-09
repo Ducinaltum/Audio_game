@@ -18,6 +18,10 @@ Indicar en qué nivel se encuentra mientras se juega y cuando lo pasa
 QA
 --
 
+NO DEBERÍA APARECER LA OCTAVA SIMPLE EN INTERVALOS COMPUESTOS
+
+Chequear los siguiente: Si el intervalo está invertido y aparece la octava, dunciona bien?
+
 Deshabilitar los botones luego de la respuesta
 
 ¿Se podría poner el feedback sobre el botón de play para ahorrar espacio vertical?

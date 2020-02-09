@@ -4,9 +4,10 @@ function IntervalsExercise(actualLevel) {
     const exercise = actualLevel;
     const intervalManager = new LevelManager(exercise.iterations);
     var saver = new saveManager(typeOfExercise);
+
     showScreen(typeOfExercise)
     //Reacomodar para que solo marque los que se usan
-    deactivateIntervalsButtons(typeOfExercise, ints = exercise.structure != undefined ? exercise.structure : exercise.structure)
+    deactivateIntervalsButtons(typeOfExercise, buildIntervalsForUI())
     var interval = createInterval();
 
     //Publicas
@@ -46,30 +47,49 @@ function IntervalsExercise(actualLevel) {
             return int;
         } //else saver.flushUser()
     }
+
+    function buildIntervalsForUI() {
+        console.log(exercise.isInverted)
+        if (exercise.isInverted == false) {
+            return exercise.structure
+        }
+        //El pivote es la mitad del scope del ejercicio
+        var pivot = exercise.structure[exercise.structure.length - 1] > 12 ? pivot = 18 : 6;
+        invertedIntervals = exercise.structure.map(function (e) {
+            return pivot + (pivot - e)
+        });
+        if (exercise.isInverted == undefined) {
+            return exercise.structure.concat(invertedIntervals)
+        }
+        else if (exercise.isInverted) {
+            return invertedIntervals
+        }
+    }
 }
 
 function Interval(exercise) {
+    /*
+    structure
+    isInverted
+    pitch
+    direction
+    */
+    var isInverted = exercise.isInverted == undefined ? [true, false][Math.floor(Math.random() * 2)] : exercise.isInverted;
+    var fundamental = exercise.structure[exercise.structure.length - 1] > 12 ? 24 : 12;
     var direction = exercise.direction;
-    note = setNote()
-    console.log(exercise.fundamental)
+    var note = exercise.structure[Math.floor(Math.random() * exercise.structure.length)];
+    note = !isInverted ? fundamental + note : fundamental == note ? note - fundamental : note;
 
-    fundamental = exercise.fundamental 
-    if(fundamental == note) fundamental -=12;
-    if(fundamental > note ^ direction == -1){
+    if (fundamental > note ^ direction == -1) {
         var aux = fundamental;
         fundamental = note;
         note = aux;
     }
-    this.interval = Math.abs(fundamental - note)
-    pitch = exercise.pitch != undefined ? exercise.pitch : setPitch(this.interval);
-    this.notes = buildStream();
-    console.log(this.notes)
 
-    function setNote() {
-        var index = Math.floor(Math.random() * exercise.structure.length)
-        note = exercise.structure[index];
-        return note;
-    }
+    this.interval = Math.abs(fundamental - note)
+    var pitch = exercise.pitch != undefined ? exercise.pitch : setPitch(this.interval);
+
+    this.notes = buildStream();
 
     function setPitch(interval) {
         scope = limits.max - limits.min - interval;
@@ -82,7 +102,7 @@ function Interval(exercise) {
         note += pitch
         var stream = [];
         var timing = 1
-        if(direction == 0){
+        if (direction == 0) {
             direction = 1
             timing = 0
         }
