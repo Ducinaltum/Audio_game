@@ -49,19 +49,19 @@ function IntervalsExercise(actualLevel) {
     }
 
     function buildIntervalsForUI() {
-        console.log(exercise.isInverted)
         if (exercise.isInverted == false) {
             return exercise.structure
         }
         //El pivote es la mitad del scope del ejercicio
-        var pivot = exercise.structure[exercise.structure.length - 1] > 12 ? pivot = 18 : 6;
+        var pivot = exercise.structure[exercise.structure.length - 1] > 12 ? 18 : 6;
         invertedIntervals = exercise.structure.map(function (e) {
-            return pivot + (pivot - e)
+            let interval = pivot + (pivot - e)
+            return interval == 0 || interval == 12 ? pivot + 6 : interval;
         });
         if (exercise.isInverted == undefined) {
             return exercise.structure.concat(invertedIntervals)
         }
-        else if (exercise.isInverted) {
+        if (exercise.isInverted) {
             return invertedIntervals
         }
     }
@@ -78,23 +78,31 @@ function Interval(exercise) {
     var fundamental = exercise.structure[exercise.structure.length - 1] > 12 ? 24 : 12;
     var direction = exercise.direction;
     var note = exercise.structure[Math.floor(Math.random() * exercise.structure.length)];
+    //console.log("Original note: " + note)
     note = !isInverted ? fundamental + note : fundamental == note ? note - fundamental : note;
-
     if (fundamental > note ^ direction == -1) {
         var aux = fundamental;
         fundamental = note;
         note = aux;
     }
-
     this.interval = Math.abs(fundamental - note)
-    var pitch = exercise.pitch != undefined ? exercise.pitch : setPitch(this.interval);
-
+    var pitch = setPitch(this.interval);
     this.notes = buildStream();
 
     function setPitch(interval) {
-        scope = limits.max - limits.min - interval;
-        pitchNote = Math.floor(Math.random() * scope) + limits.min;
-        return pitchNote;
+        var pitchNote = exercise.pitch;
+        if (pitchNote == undefined) {
+            let scope = limits.max - limits.min - interval;
+            pitchNote = Math.floor(Math.random() * scope) + limits.min;
+        }
+        if (direction == -1) {
+            //Igualar con note dado que ésta será la verdadera fundamental
+            return pitchNote - note
+        }
+        else {
+            //Igualar con fundamental
+            return pitchNote - fundamental
+        }
     }
 
     function buildStream() {

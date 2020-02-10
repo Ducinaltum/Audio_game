@@ -18,21 +18,15 @@ Indicar en qué nivel se encuentra mientras se juega y cuando lo pasa
 QA
 --
 
-NO DEBERÍA APARECER LA OCTAVA SIMPLE EN INTERVALOS COMPUESTOS
+Deshabilitar los botones luego de la respuesta (Todos?)
 
-Chequear los siguiente: Si el intervalo está invertido y aparece la octava, dunciona bien?
-
-Deshabilitar los botones luego de la respuesta
+Las progresiones del modo menor con las tres escalas son espantosas
 
 ¿Se podría poner el feedback sobre el botón de play para ahorrar espacio vertical?
 
 Alterar las progresiones en el modo menor para impedir que haga 2-6-2 o 6-2-6
 
-Pareciera que el ejercicio de acordes inicia dos veces
-    En realidad pareciera que se llama dos veces a la reproducción
-        Puede llegar a ser que tarda en pasar los valores a tiempo e iniciarse correcatmente, 
-        capaz ponerle un delay a la llamada lo solucionaría?
-    NO LO PUDE REPLICAR, TOQUÉ ALGO QUE LO ARREGLÓ??? (me acordé del meme del perro)
+Saltó este error en Progresión con Dominantes secundarias principales en modo mayor
 
 
 Ideas

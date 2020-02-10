@@ -6,8 +6,8 @@ const majorPrincipalsDominants = majorSecondaries.concat(["5/4", "7/4", "5/5", "
 const minorPrincipalsDominants = minorFull.concat(["5/4", "7/4", "5/5", "7/5"])
 const majorSecondariesDominants = majorPrincipalsDominants.concat(['5/6', '5/2', '7/6', '7/2'])
 const minorSecondariesDominants = minorPrincipalsDominants.concat(['5/3', '5/6', '5/b7', '7/6', '7/b7'])
-const lydian = ["2M", "7m"]
-const mixolydian = ["b7M", "5m"]
+const lydian = ["2 Lidio", "7 Lidio"]
+const mixolydian = ["7 Mixolidio", "5 Mixolidio"]
 const majorModes = mixolydian.concat(lydian)
 const dorian = ["4M", "2m"]
 const phrigian = ["b2M", "b7m"]
@@ -37,10 +37,10 @@ function majorChords() {
     arr.push(new Grade('7/6', new Chord('dim'), 8, [6]))
     arr.push(new Grade('7/2', new Chord('dim'), 1, [2]))
 
-    arr.push(new Grade('2M', new Chord('major'), 2, [1, "7m"]))
-    arr.push(new Grade('7m', new Chord('minor'), 11, [1]))
-    arr.push(new Grade('b7', new Chord('major'), 10, [1, "5m"]))
-    arr.push(new Grade('5m', new Chord('minor'), 7, [1]))
+    arr.push(new Grade('2 Lidio', new Chord('major'), 2, [1, "7 Lidio"]))
+    arr.push(new Grade('7 Lidio', new Chord('minor'), 11, [1]))
+    arr.push(new Grade('7 Mixolidio', new Chord('major'), 10, [1, "5m"]))
+    arr.push(new Grade('5 Mixolidio', new Chord('minor'), 7, [1]))
     arr.push(new Grade('4M', new Chord('major'), 5, [1, "2m"]))
     arr.push(new Grade('2m', new Chord('minor'), 2, [1]))
     arr.push(new Grade('b2M', new Chord('major'), 1, [1, "b7m"]))
@@ -74,15 +74,15 @@ function minorChords() {
     arr.push(new Grade('7/4', new Chord('dim'), 4, [4], 'minor'))
     arr.push(new Grade('7/5', new Chord('dim'), 6, [5], 'minor'))
 
-    arr.push(new Grade('5/3', new Chord('major', 2, '7'), 10, [4, '7/3'], 'minor'))
-    arr.push(new Grade('5/6', new Chord('major', 2, '7'), 3, [5, '7/6'], 'minor'))
-    arr.push(new Grade('5/b7', new Chord('major'), 2, [5, '7/b7'], 'minor'))
+    arr.push(new Grade('5/3', new Chord('major', 2, '7'), 10, [3, '7/3'], 'minor'))
+    arr.push(new Grade('5/6', new Chord('major', 2, '7'), 3, [6, '7/6'], 'minor'))
+    arr.push(new Grade('5/b7', new Chord('major'), 2, ["b7", '7/b7'], 'minor'))
     //Este lo comento por que corresponde al segundo que no cambia de tipo
     //arr.push(new Grade('7/3', new Chord('dim', '7'), 4, [[3]]))
     arr.push(new Grade('7/6', new Chord('dim'), 7, [6], 'minor'))
     arr.push(new Grade('7/b7', new Chord('dim'), 9, ['b7'], 'minor'))
 
-    arr.push(new Grade('2 Lidio', new Chord('major'), 2, [1, "7 Lidio"]))
+    arr.push(new Grade('2 Lidio', new Chord('major'), 2, [1, "7 Lidio"], 'minor'))
     arr.push(new Grade('7 Lidio', new Chord('minor'), 11, [1]))
     arr.push(new Grade('7 Mixolidio', new Chord('major'), 10, [1, "5 Mixolidio"]))
     arr.push(new Grade('5 Mixolidio', new Chord('minor'), 7, [1]))
@@ -226,7 +226,7 @@ progresionLevelMaker = {
     },
     tonality: {
         InC: 0,
-        Rand: randomNote
+        get Rand() { return randomNote() }
     },
     iterations: {
         Show: 15,
@@ -700,7 +700,7 @@ var progresionLevelsTree = {
                         1: {
                             kind: "zone",
                             title: "Modo mayor",
-                            code: "_Major",
+                            code: "_Minor",
                             components: {
                                 1: {
                                     kind: "exercise",

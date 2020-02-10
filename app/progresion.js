@@ -32,7 +32,7 @@ function HarmonicProgresionExercise(actualLevel) {
             var score = 0;
             for (var i = 0; i < progresion.progresion.length; i++) {
                 let answer = {}
-                answer.grade =  progresion.progresion[i].grade.replace(/[M|m|d|A]/,'')
+                answer.grade =  progresion.progresion[i].grade.replace(/(?<!\D)[M|m|d|A]/,'')
                 answer.kind = progresion.progresion[i].chord.kind
                 let usrResponse = response[i]
                 usrResponse.grade.replace(/[\/]/,'')
@@ -50,6 +50,8 @@ function HarmonicProgresionExercise(actualLevel) {
                             return romanize(char)
                         } return char;
                     }).join("")
+                    console.log(grade)
+                    console.log(progresion.progresion[i])
                     failChordAnswer(grade, progresion.progresion[i].chord.kind, i)
                 }
                 score += hit;
@@ -76,6 +78,7 @@ function Progresion(ex) {
     function setProgresion() {
         var numberOfChords = exercise.duration;
         var progresion = []
+        console.log(exercise.chords)
         progresion.push(exercise.chords[0])
         for (var i = 1; i < numberOfChords; i++) {
             let currentChord = progresion[i - 1]

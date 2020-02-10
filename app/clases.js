@@ -138,6 +138,42 @@ var progresionMode = {
         '#6': 'dim',
         'b7': 'major',
         '7': 'dim'
+    },
+    lydian:{
+        '1': 'major',
+        '2': 'major',
+        '7': 'minor'
+    },
+    mixolydian:{
+        '1': 'major',
+        '5': 'minor',
+        'b7': 'major',
+        '7': 'major'
+    },
+    dorian:{
+        '1': 'minor',
+        '2': 'minor',
+        '4': 'major',
+    },
+    phrygian:{
+        '1': 'minor',
+        'b2': 'major',
+        '2': 'major',
+        'b7': 'minor',
+        '7': 'minor'
+    },
+    aeolian:{
+        '1': 'minor',
+        '5': 'minor',
+        'b7': 'major',
+        '7': 'major'
+    },
+    locrian:{
+        '1': 'minor',
+        'b3': 'minor',
+        '3': 'minor',
+        'b5': 'major',
+        '5': 'major',
     }
 }
 
@@ -174,8 +210,14 @@ var chordTypes = {
 }
 
 const limits = {
-    "min": 40,
-    "max": 100
+    /*
+    Estos son los reales
+    "min": 21,
+    "max": 108
+    */
+   //Estos son ajustados para óptima claridad
+   "min": 31,
+   "max": 98
 }
 
 var chordsKeys = {
