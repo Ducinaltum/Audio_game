@@ -10,12 +10,13 @@ var btnCorrection = "btn-info"
 //Global
 function resetElements(parent) {
     if (parent == 'Progresion') {
-        $('#' + parent + ' .chord-bar').html("&nbsp")
-            .popover('hide')
+        $('#' + parent + ' .chord-bar').popover('hide')
             .removeClass('btn-success')
             .removeClass('btn-danger')
             .addClass('btn-default')
             .blur();
+        $('#' + parent + " .gradeIndicator").html('&nbsp')
+        $('#' + parent + ' .modeIndicator').html('&nbsp')
     }
     else {
         $("#" + parent + " :input").removeClass("btn-success")

@@ -31,8 +31,8 @@ function HarmonicProgresionExercise(actualLevel) {
             state = 'answer'
             var score = 0;
             for (var i = 0; i < progresion.progresion.length; i++) {
-                let answer = {}
-                answer.grade =  progresion.progresion[i].grade.replace(/(?<!\D)[M|m|d|A]/,'')
+                var answer = {}
+                answer.grade =  progresion.progresion[i].grade.replace(/(?<!\D)[M|m|d|A]/,'').replace(/\s/g,'')
                 answer.kind = progresion.progresion[i].chord.kind
                 let usrResponse = response[i]
                 usrResponse.grade.replace(/[\/]/,'')
@@ -50,8 +50,6 @@ function HarmonicProgresionExercise(actualLevel) {
                             return romanize(char)
                         } return char;
                     }).join("")
-                    console.log(grade)
-                    console.log(progresion.progresion[i])
                     failChordAnswer(grade, progresion.progresion[i].chord.kind, i)
                 }
                 score += hit;
@@ -78,8 +76,7 @@ function Progresion(ex) {
     function setProgresion() {
         var numberOfChords = exercise.duration;
         var progresion = []
-        console.log(exercise.chords)
-        progresion.push(exercise.chords[0])
+        progresion[0] = Object.values(exercise.chords)[0];
         for (var i = 1; i < numberOfChords; i++) {
             let currentChord = progresion[i - 1]
             let nextChord = currentChord.direction[Math.floor(Math.random() * currentChord.direction.length)]
@@ -89,7 +86,6 @@ function Progresion(ex) {
     }
 
     function buildChorale(progresion) {
-        console.log(progresion)
         findOccurences = function (note) {
             var octave = 0
             var retrieve = []

@@ -32,6 +32,7 @@ function stop() {
 }
 
 function playSequence() {
+    console.log("hello")
     var duration = 0;
     MIDI.stopAllNotes();
     MIDI.setVolume(0, 127);
