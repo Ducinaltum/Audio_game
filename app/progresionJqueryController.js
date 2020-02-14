@@ -1,4 +1,3 @@
-
 function inputChord() {
     this.gradeModifier = undefined;
     this.grade = undefined;
@@ -17,6 +16,7 @@ function inputChord() {
         return retrieve;
     }
 
+    //Colorea los botones indicados al tocar un cuadro de input
     this.updateButtons = function () {
         var chord = this
         $('#inputButtons :button').removeClass('btn-primary')
@@ -34,14 +34,12 @@ function inputChord() {
     }
 }
 
-
 //Progresion Input Fields
 var enters = 0;
 var responseChords = [];
 var activeChordIndex;
 var individualFields = {};
 var mode;
-
 
 function initiateExercise(numberOfChords, container, exerciseMode) {
     $("#play-pause").prop("disabled", false)

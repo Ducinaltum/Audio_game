@@ -101,229 +101,6 @@ chordLevelMaker = {
     }
 }
 
-var chordsLevels = {
-    get 0() {
-        var level = {
-            name: "Tríadas mayor y menor",
-            base: [baseChords[0], baseChords[1]],
-            depth: 1,
-            isOpen: false,
-        }
-        return level;
-    },
-    get 1() {
-        var level = {
-            name: "",
-            base: [baseChords[2], baseChords[3]],
-            depth: 1,
-            isOpen: false
-        }
-        return level;
-    },
-    get 2() {
-        var level = {
-            name: "",
-            base: [baseChords[0], baseChords[1], baseChords[2], baseChords[3]],
-            depth: 1,
-            isOpen: false
-        }
-        return level;
-    },
-    get 3() {
-        var level = {
-            name: "",
-            base: [baseChords[0], baseChords[1], baseChords[2], baseChords[3]],
-            depth: 1,
-            isOpen: true
-        }
-        return level;
-    },
-
-    //Séptimas
-    get 4() {
-        var level = {
-            name: "",
-            base: [baseChords[0]],
-            depth: 2,
-            isOpen: false
-        }
-        return level;
-    },
-    get 5() {
-        var level = {
-            name: "",
-            base: [baseChords[1]],
-            depth: 2,
-            isOpen: false
-        }
-        return level;
-    },
-    get 6() {
-        var level = {
-            name: "",
-            base: [baseChords[0], baseChords[1]],
-            depth: 2,
-            isOpen: false
-        }
-        return level;
-    },
-    get 7() {
-        var level = {
-            name: "",
-            base: [baseChords[0], baseChords[1]],
-            depth: 2,
-            isOpen: true
-        }
-        return level;
-    },
-    get 8() {
-        var level = {
-            name: "",
-            base: [baseChords[2]],
-            depth: 2,
-            isOpen: false
-        }
-        return level;
-    },
-    get 9() {
-        var level = {
-            name: "",
-            base: [baseChords[3]],
-            depth: 2,
-            isOpen: false
-        }
-        return level;
-    },
-    get 10() {
-        var level = {
-            name: "",
-            base: [baseChords[2], baseChords[3]],
-            depth: 2,
-            isOpen: false
-        }
-        return level;
-    },
-    get 11() {
-        var level = {
-            name: "",
-            base: [baseChords[2], baseChords[3]],
-            depth: 2,
-            isOpen: true
-        }
-        return level;
-    },
-    get 12() {
-        var level = {
-            name: "",
-            base: [baseChords[0], baseChords[1], baseChords[2], baseChords[3]],
-            depth: 2,
-            isOpen: false
-        }
-        return level;
-    },
-    get 13() {
-        var level = {
-            name: "",
-            base: [baseChords[0], baseChords[1], baseChords[2], baseChords[3]],
-            depth: 2,
-            isOpen: true
-        }
-        return level;
-    },
-
-    //Novenas
-    get 14() {
-        var level = {
-            name: "",
-            base: [baseChords[0]],
-            depth: 3,
-            isOpen: false
-        }
-        return level;
-    },
-    get 15() {
-        var level = {
-            name: "",
-            base: [baseChords[1]],
-            depth: 3,
-            isOpen: false
-        }
-        return level;
-    },
-    get 16() {
-        var level = {
-            name: "",
-            base: [baseChords[0], baseChords[1]],
-            depth: 3,
-            isOpen: false
-        }
-        return level;
-    },
-    get 17() {
-        var level = {
-            name: "",
-            base: [baseChords[0], baseChords[1]],
-            depth: 3,
-            isOpen: true
-        }
-        return level;
-    },
-    get 18() {
-        var level = {
-            name: "",
-            base: [baseChords[2]],
-            depth: 3,
-            isOpen: false
-        }
-        return level;
-    },
-    get 19() {
-        var level = {
-            name: "",
-            base: [baseChords[3]],
-            depth: 3,
-            isOpen: false
-        }
-        return level;
-    },
-    get 20() {
-        var level = {
-            name: "",
-            base: [baseChords[2], baseChords[3]],
-            depth: 3,
-            isOpen: false
-        }
-        return level;
-    },
-    get 21() {
-        var level = {
-            name: "",
-            base: [baseChords[2], baseChords[3]],
-            depth: 3,
-            isOpen: true
-        }
-        return level;
-    },
-    get 22() {
-        var level = {
-            name: "",
-            base: [baseChords[0], baseChords[1], baseChords[2], baseChords[3]],
-            depth: 3,
-            isOpen: false
-        }
-        return level;
-    },
-    get 23() {
-        var level = {
-            name: "",
-            base: [baseChords[0], baseChords[1], baseChords[2], baseChords[3]],
-            depth: 3,
-            isOpen: true
-        }
-        return level;
-    },
-}
-
 var chordsLevelsTree = {
     kind: "mode",
     title: "Acordes",
@@ -1116,7 +893,7 @@ var chordsLevelsTree = {
                     components: {
                         1: {
                             kind: "zone",
-                            title: "Acordes extendidos mayores",
+                            title: "Mayores",
                             code:"_Major",
                             components: {
                                 1: {
@@ -1167,7 +944,7 @@ var chordsLevelsTree = {
                         },
                         2: {
                             kind: "zone",
-                            title: "Acordes extendidos menores",
+                            title: "Menores",
                             code:"_Minor",
                             components: {
                                 1: {
@@ -1218,7 +995,7 @@ var chordsLevelsTree = {
                         },
                         3: {
                             kind: "zone",
-                            title: "Acordes extendidos disminuidos",
+                            title: "Disminuidos",
                             code:"_Dim",
                             components: {
                                 1: {
@@ -1269,7 +1046,7 @@ var chordsLevelsTree = {
                         },
                         4: {
                             kind: "zone",
-                            title: "Acordes extendidos aumentados",
+                            title: "Aumentados",
                             code:"_Aug",
                             components: {
                                 1: {
@@ -1327,7 +1104,7 @@ var chordsLevelsTree = {
                     components: {
                         1: {
                             kind: "zone",
-                            title: "Acordes extendidos con quinta justa en posición cerrada",
+                            title: "Acordes con quinta justa en posición cerrada",
                             code:"_Perfect",
                             components: {
                                 1: {
@@ -1378,7 +1155,7 @@ var chordsLevelsTree = {
                         },
                         2: {
                             kind: "zone",
-                            title: "Acordes extendidos con quinta aumentada o disminuida",
+                            title: "Acordes con quinta aumentada o disminuida",
                             code:"_Imperfect",
                             components: {
                                 1: {
@@ -1436,7 +1213,7 @@ var chordsLevelsTree = {
                     components: {
                         1: {
                             kind: "zone",
-                            title: "Acordes extendidos con quinta justa en posición abierta",
+                            title: "Acordes con quinta justa en posición abierta",
                             code:"_Perfect",
                             components: {
                                 1: {
@@ -1487,7 +1264,7 @@ var chordsLevelsTree = {
                         },
                         2: {
                             kind: "zone",
-                            title: "Acordes extendidos con quinta aumentada o disminuida en posición abierta",
+                            title: "Acordes con quinta aumentada o disminuida en posición abierta",
                             code:"_Imperfect",
                             components: {
                                 1: {
@@ -1545,7 +1322,7 @@ var chordsLevelsTree = {
                     components: {
                         1: {
                             kind: "zone",
-                            title: "Todos los acordes extendidos en posición cerrada",
+                            title: "Acordes extendidos en posición cerrada",
                             code:"_All",
                             components: {
                                 1: {
@@ -1603,7 +1380,7 @@ var chordsLevelsTree = {
                     components: {
                         1: {
                             kind: "zone",
-                            title: "Todos los acordes extendidos en posición abierta",
+                            title: "Acordes extendidos en posición abierta",
                             code:"_All",
                             components: {
                                 1: {
@@ -1659,8 +1436,6 @@ var chordsLevelsTree = {
     }
 }
 
-
-
 $('#chordsSelection .list-group-item').click(function (e) {
     var levelSelected = {}
     levelSelected.level = Number(this.id.slice(3)) * 4
@@ -1673,6 +1448,3 @@ $('#chordsSelection .list-group-item').click(function (e) {
     currentExercise = new ChordsExercise(levelSelected);
     goToExercise();
 })
-
-
-

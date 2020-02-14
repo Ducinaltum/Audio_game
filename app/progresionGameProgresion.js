@@ -136,32 +136,37 @@ function Modes() {
         _2d: new Grade("2d", new Chord('dim'), 2, []),
         _b3M: new Grade("b3M", new Chord('major'), 3, []),
         _b3A: new Grade("b3A", new Chord('aug'), 3, []),
-
         _4M: new Grade("4M", new Chord('major'), 5, []),
         _4m: new Grade("4m", new Chord('minor'), 5, []),
-
         _5M: new Grade("5M", new Chord('major'), 7, []),
-
         _b6M: new Grade("b6M", new Chord('major'), 8, []),
         _6m: new Grade("6m", new Chord('minor'), 9, []),
         _b7M: new Grade("b7M", new Chord('major'), 10, []),
         _7d: new Grade("7d", new Chord('dim'), 11, []),
-
+        _5_5: new Grade("2M", new Chord('major', 2, "7"), 2, []),
+        _7_5: new Grade("#4d", new Chord('dim'), 6, []),
+        _5_4: new Grade("1M", new Chord('major', 0, "7"), 0, []),
+        _7_4: new Grade("3d", new Chord('dim'), 4, []),
+        _5_2: new Grade("6M", new Chord('major', 9, "7"), 11, []),
+        _7_2: new Grade("#1d", new Chord('dim'), 2, []),
+        _5_6: new Grade("3M", new Chord('major', 4, "7"), 11, []),
+        _7_6: new Grade("#5d", new Chord('dim'), 8, []),
+        _5_b3: new Grade("b7M", new Chord('major', 10, "7"), 11, []),
+        //_7_b3M: new Grade("2d", new Chord('dim'), 2, []),
+        _5_b6: new Grade("b3M", new Chord('major', 3, "7"), 11, []),
+        _7_b6: new Grade("5d", new Chord('dim'), 7, []),
+        _5_b7: new Grade("4M", new Chord('major', 5, "7"), 11, []),
+        _7_b7: new Grade("6d", new Chord('dim'), 9, []),
         _2Lid: new Grade("2M", new Chord('major'), 2, []),
         _7Lid: new Grade("7m", new Chord('minor'), 11, []),
-
         _7Mix: new Grade("b7M", new Chord('major'), 10, []),
         _5Mix: new Grade("5m", new Chord('minor'), 7, []),
-
         _4Dor: new Grade("4M", new Chord('major'), 5, []),
         _2Dor: new Grade("2m", new Chord('minor'), 2, []),
-
         _2Frig: new Grade("b2M", new Chord('major'), 1, []),
         _7Frig: new Grade("b7m", new Chord('minor'), 10, []),
-
         _7Aeo: new Grade("b7M", new Chord('major'), 10, []),
         _5Aeo: new Grade("5m", new Chord('minor'), 7, []),
-
         _5Loc: new Grade("b5M", new Chord('major'), 6, []),
         _3Loc: new Grade("b3m", new Chord('minor'), 3, []),
     }
@@ -180,7 +185,6 @@ function Modes() {
             secondary: [chords._7d, chords._b3A]
         },
         neutral: [chords._b7M],
-
         lydian: {
             primary: [chords._2Lid],
             secondary: [chords._7Lid]
@@ -205,22 +209,7 @@ function Modes() {
             primary: [chords._5Loc],
             secondary: [chords._3Loc]
         },
-
     }
-
-    /*
-    rc(tonic)                                               {prim: [,], sec[,]}
-        not array   
-            rc(tonic.prim){                                 {[,]}
-                is array
-                    return obj
-            }
-            rc(tonic.sec){                                  {[,]}
-                is array
-                    return obj
-            }
-    
-    */
 
     retrieveLeafs = function (obj) {
         let leafs = []
@@ -234,61 +223,52 @@ function Modes() {
         else {
             return obj;
         }
-
     }
 
     loadDirections = function () {
+        chords._1M.direction = retrieveLeafs(tree);
+        console.log(chords._1M.direction)
+        chords._1m.direction = retrieveLeafs(tree);
+        chords._2m.direction = retrieveLeafs({ ...[tree.tonic, tree.subDominant.secondary, tree.dominant]});
+        chords._2d.direction = retrieveLeafs({ ...[tree.tonic, tree.dominant]});
+        chords._b3M.direction = retrieveLeafs({ ...[tree.tonic.secondary, tree.subDominant, tree.dominant]});
+        chords._b3A.direction = retrieveLeafs({ ...[tree.tonic]});
+        chords._4M.direction = retrieveLeafs({ ...[tree.tonic, tree.subDominant, tree.dominant]});
+        chords._4m.direction = retrieveLeafs({ ...[tree.tonic, tree.subDominant.secondary, tree.dominant]});
+        chords._5M.direction = retrieveLeafs({ ...[tree.tonic, tree.dominant]});
+        chords._b6M.direction = retrieveLeafs({ ...[tree.tonic, tree.dominant]});
+        chords._6m.direction = retrieveLeafs({ ...[tree.tonic.secondary, tree.subDominant, tree.dominant]});
+        chords._b7M.direction = retrieveLeafs({ ...[tree.tonic.secondary, tree.subDominant.primary]});
+        chords._7d.direction = retrieveLeafs(tree.tonic.primary);
 
-        //        console.log(retrieveLeafs(tree.tonic))
+        chords._5_5.direction = retrieveLeafs({...[tree.dominant.primary, [chords._7_5]]});
+        chords._7_5.direction = retrieveLeafs([chords._5M]);
+        chords._5_4.direction = retrieveLeafs({...[tree.subDominant.primary, [chords._7_4]]});
+        chords._7_4.direction = retrieveLeafs([chords._4M]);
 
-        chords._1M.direction = [].concat(retrieveLeafs(tree));
+        chords._5_2.direction = retrieveLeafs({...[[chords._2m], [chords._7_2]]});
+        chords._7_2.direction = retrieveLeafs([chords._2m]);
+        chords._5_6.direction = retrieveLeafs({...[[chords._6m], [chords._7_6]]});
+        chords._7_6.direction = retrieveLeafs([chords._6m]);
+        chords._5_b3.direction = retrieveLeafs([chords._b3M]);
+        //_7_b3M: new Grade("2d", new Chord('dim'), 11, []),
+        chords._5_b6.direction = retrieveLeafs({...[[chords._b6M], [chords._7_b6]]});
+        chords._7_b6.direction = retrieveLeafs([chords._b6M]);
+        chords._5_b7.direction = retrieveLeafs({...[tree.neutral, [chords._7_b7]]});
+        chords._7_b7.direction = retrieveLeafs(tree.neutral);        
 
-        chords._1m.direction = [].concat(retrieveLeafs(tree));
-
-        chords._2m.direction = [].concat(retrieveLeafs(tree.tonic), retrieveLeafs(tree.subDominant.secondary), retrieveLeafs(tree.dominant));
-
-        chords._2d.direction = [].concat(retrieveLeafs(tree.tonic), retrieveLeafs(tree.dominant));
-
-        chords._b3M.direction = [].concat(retrieveLeafs(tree.tonic.secondary), retrieveLeafs(tree.subDominant), retrieveLeafs(tree.dominant));
-
-        chords._b3A.direction = [].concat(retrieveLeafs(tree.tonic));
-
-        chords._4M.direction = [].concat(retrieveLeafs(tree.tonic, retrieveLeafs(tree.subDominant), retrieveLeafs(tree.dominant)));
-
-        chords._4m.direction = [].concat(retrieveLeafs(tree.tonic), retrieveLeafs(tree.subDominant.secondary), retrieveLeafs(tree.dominant));
-
-        chords._5M.direction = [].concat(retrieveLeafs(tree.tonic), retrieveLeafs(tree.dominant));
-
-        chords._b6M.direction = [].concat(retrieveLeafs(tree.tonic), retrieveLeafs(tree.dominant));
-
-        chords._6m.direction = [].concat(retrieveLeafs(tree.tonic.secondary), retrieveLeafs(tree.subDominant), retrieveLeafs(tree.dominant));
-
-        chords._b7M.direction = [].concat(retrieveLeafs(tree.tonic.secondary), retrieveLeafs(tree.subDominant.primary));
-
-        chords._7d.direction = [].concat(retrieveLeafs(tree.tonic.primary));
-
-        chords._b6M.direction = []
-        chords._6m.direction = []
-        chords._b7M.direction = []
-        chords._7d.direction = []
-
-        chords._2Lid.direction = [].concat(retrieveLeafs(tree.tonic.primary), retrieveLeafs(tree.lydian.secondary));
-        chords._7Lid.direction = [].concat(retrieveLeafs(tree.tonic.primary));
-
-        chords._7Mix.direction = [].concat(retrieveLeafs(tree.tonic.primary), retrieveLeafs(tree.mixolydian.secondary));
-        chords._5Mix.direction = [].concat(retrieveLeafs(tree.tonic.primary));
-
-        chords._4Dor.direction = [].concat(retrieveLeafs(tree.tonic.primary), retrieveLeafs(tree.dorian.secondary));
-        chords._2Dor.direction = [].concat(retrieveLeafs(tree.tonic.primary));
-
-        chords._2Frig.direction = [].concat(retrieveLeafs(tree.tonic.primary), retrieveLeafs(tree.phrygian.secondary));
-        chords._7Frig.direction = [].concat(retrieveLeafs(tree.tonic.primary));
-
-        chords._7Aeo.direction = [].concat(retrieveLeafs(tree.tonic.primary), retrieveLeafs(tree.aeolian.secondary));
-        chords._5Aeo.direction = [].concat(retrieveLeafs(tree.tonic.primary));
-
-        chords._5Loc.direction = [].concat(retrieveLeafs(tree.tonic.primary), retrieveLeafs(tree.locrian.secondary));
-        chords._3Loc.direction = [].concat(retrieveLeafs(tree.tonic.primary));
+        chords._2Lid.direction = retrieveLeafs({ ...[tree.tonic.primary, tree.lydian.secondary]});
+        chords._7Lid.direction = retrieveLeafs(tree.tonic.primary);
+        chords._7Mix.direction = retrieveLeafs({ ...[tree.tonic.primary,tree.mixolydian.secondary]});
+        chords._5Mix.direction = retrieveLeafs(tree.tonic.primary);
+        chords._4Dor.direction = retrieveLeafs({ ...[tree.tonic.primary,tree.dorian.secondary]});
+        chords._2Dor.direction = retrieveLeafs(tree.tonic.primary);
+        chords._2Frig.direction = retrieveLeafs({ ...[tree.tonic.primary, tree.phrygian.secondary]});
+        chords._7Frig.direction = retrieveLeafs(tree.tonic.primary);
+        chords._7Aeo.direction = retrieveLeafs({ ...[tree.tonic.primary,tree.aeolian.secondary]});
+        chords._5Aeo.direction = retrieveLeafs(tree.tonic.primary);
+        chords._5Loc.direction = retrieveLeafs({ ...[tree.tonic.primary,tree.locrian.secondary]});
+        chords._3Loc.direction = retrieveLeafs(tree.tonic.primary);
     }
 
     loadDirections();
@@ -299,20 +279,15 @@ function Modes() {
 
 }
 
-
 const majorPrincipals = ["1M", "4M", "5M"]
 const minorPrincipals = ["1m", "4m", "5M"]
 const majorSecondaries = majorPrincipals.concat(["2m", "6m", "7d"])
 const minorSecondaries = minorPrincipals.concat(["2d", "b3M", "b6M", "7d"])
-//const minorFull = minorSecondaries.concat(["2m", "3A", "4M", "#6", "b7"])
 const minorFull = minorSecondaries.concat(["3A", "b7M"])
-//Buscarle la vuelta pa que ande
-const majorPrincipalsDominants = majorSecondaries.concat(["5/4", "7/4", "5/5", "7/5"])
-const minorPrincipalsDominants = minorFull.concat(["5/4", "7/4", "5/5", "7/5"])
-const majorSecondariesDominants = majorPrincipalsDominants.concat(['5/6', '5/2', '7/6', '7/2'])
-const minorSecondariesDominants = minorPrincipalsDominants.concat(['5/3', '5/6', '5/b7', '7/6', '7/b7'])
-//
-
+const majorPrincipalsDominants = majorSecondaries.concat(["5_4", "7_4", "5_5", "7_5"])
+const minorPrincipalsDominants = minorFull.concat(["5_4", "7_4", "5_5", "7_5"])
+const majorSecondariesDominants = majorPrincipalsDominants.concat(['5_6', '5_2', '7_6', '7_2'])
+const minorSecondariesDominants = minorPrincipalsDominants.concat(['5_b3', '5_b6', '5_b7', '7_b6', '7_b7'])
 const lydian = ["1M", "2Lid", "7Lid"]
 const mixolydian = ["1M", "7Mix", "5Mix"]
 const majorModes = mixolydian.concat(lydian)
@@ -332,34 +307,31 @@ function filterChords(harmonies, availableChords) {
         })
     })
     const build = buildDirections(buildedMode)
-    console.log(build)
     return build
 }
 
-
 function buildDirections(chords) {
-    console.log(chords)
     Object.keys(chords).forEach(function (c) {
         const actualChord = chords[c]
-        buildDirection = []
+        console.log(actualChord)
+        console.log(actualChord.direction)
+        //buildDirection = []
+        var buildDirection = {}
         actualChord.direction.forEach(function (d) {
             const candidate = d.grade;
             Object.keys(chords).forEach(function (pair) {
-                console.log(d)
-                console.log(d.grade)
-                console.log(pair)
-                //if (candidate == pair.replace("_", "")) {
+               //if (candidate == pair.replace("_", "")) {
                 if (candidate == chords[pair].grade) {
-                    buildDirection.push(chords[pair])
+                    //buildDirection.push(chords[pair])
+                    buildDirection[pair] = chords[pair];
                 }
             })
         })
+        console.log(buildDirection)
         actualChord.direction = buildDirection
     })
     return chords
 }
-
-
 
 function progresionBuilder(exercise) {
     var level = {
@@ -370,7 +342,6 @@ function progresionBuilder(exercise) {
         iterations: progresionLevelMaker.iterations[exercise[4]],
         get duration() { return progresionLevelMaker.duration[exercise[5]] },
     }
-    console.log(level)
     return level;
 }
 
@@ -476,6 +447,7 @@ progresionLevelMaker = {
         Eight: 8
     }
 };
+
 var progresionLevelsTree = {
     kind: "mode",
     title: "Progresión",
@@ -1000,7 +972,7 @@ var progresionLevelsTree = {
                     components: {
                         1: {
                             kind: "zone",
-                            title: "Modo lidio",
+                            title: "Lidio",
                             code: "_Lid",
                             components: {
                                 1: {
@@ -1050,7 +1022,7 @@ var progresionLevelsTree = {
                         },
                         2: {
                             kind: "zone",
-                            title: "Modo mixolidio",
+                            title: "Mixolidio",
                             code: "_Mixol",
                             components: {
                                 1: {
@@ -1166,7 +1138,7 @@ var progresionLevelsTree = {
                     components: {
                         1: {
                             kind: "zone",
-                            title: "Modo dórico",
+                            title: "Dórico",
                             code: "_Dor",
                             components: {
                                 1: {
@@ -1216,7 +1188,7 @@ var progresionLevelsTree = {
                         },
                         2: {
                             kind: "zone",
-                            title: "Modo frigio",
+                            title: "Frigio",
                             code: "_Frig",
                             components: {
                                 1: {
@@ -1266,7 +1238,7 @@ var progresionLevelsTree = {
                         },
                         3: {
                             kind: "zone",
-                            title: "Modo eólico",
+                            title: "Eólico",
                             code: "_Aeo",
                             components: {
                                 1: {
@@ -1316,7 +1288,7 @@ var progresionLevelsTree = {
                         },
                         4: {
                             kind: "zone",
-                            title: "Modo locrio",
+                            title: "Locrio",
                             code: "_Loc",
                             components: {
                                 1: {
