@@ -1,12 +1,12 @@
-const ranges = [12 * 5, 12 * 6, 12 * 7]
+const ranges = [12 * 4, 12 * 5, 12 * 6]
+const gradeCleaner = /(?<!\D)[M|m|d|A]/
 
 function HarmonicProgresionExercise(actualLevel) {
     var state = 'idle';
     var exercise = actualLevel
-    console.log(exercise)
     var progresion;
     var progresionManager = new LevelManager(exercise.iterations)
-    var saver = new saveManager(exercise.kind);
+    var saver = new SaveManager(exercise.kind);
     showScreen(exercise.kind)
     createProgresion();
     this.getKindOfExercise = function () { return exercise.kind }
@@ -14,7 +14,6 @@ function HarmonicProgresionExercise(actualLevel) {
     this.createNextQuestion = function () {
         createProgresion();
     }
-
     function createProgresion() {
         resetElements(exercise.kind)
         initiateExercise(exercise.duration, exercise.kind, exercise.mode)
@@ -24,43 +23,40 @@ function HarmonicProgresionExercise(actualLevel) {
             state = 'playing';
         }
     }
-
     this.checkResponse = function (response) {
         if (state == 'playing') {
             var saveObject = {}
             var score = 0;
             state = 'answer'
             for (var i = 0; i < progresion.progresion.length; i++) {
-                var answer = {}
-                console.log(progresion.progresion[i])
-                //answer.grade = progresion.progresion[i].grade.replace(/(?<!\D)[M|m|d|A]/, '').replace(/\s/g, '')
-                //answer.kind = progresion.progresion[i].chord.kind
-                chord = exercise.chords[progresion.progresion[i]]
-                console.log(chord)
-                answer.grade = progresion.progresion[i].replace("_", '').replace(/(?<!\D)[M|m|d|A]/, '').replace("_", '/')
-                answer.kind = chord.chord.kind
+                let correctAnswer = {}
                 let usrResponse = response[i]
-                console.log(usrResponse)
-                console.log(answer)
+                chord = exercise.chords[progresion.progresion[i]]
+                correctAnswer.grade = chord.grade.replace(/(?<!\D)[M|m|d|A]/, '')
+                //answer.grade = progresion.progresion[i].replace("_", '').replace(/(?<!\D)[M|m|d|A]/, '').replace("_", '/')
+                correctAnswer.kind = chord.chord.kind
+                console.log(correctAnswer.kind)
+
                 usrResponse.grade.replace(/[\/]/, '')
                 let hit = 0;
-                if (answer.grade == usrResponse.grade) {
-                    if (answer.kind == usrResponse.kind) {
+                if (correctAnswer.grade == usrResponse.grade) {
+                    if (correctAnswer.kind == usrResponse.kind) {
                         hit += 1;
                         correctChordAnswer(i)
                     } else hit += 0.5;
                 }
                 if (hit != 1) {
-                    let grade = answer.grade.split("");
+                    let grade = correctAnswer.grade.split("");
                     grade = grade.map(function (char) {
                         if (!isNaN(char)) {
                             return romanize(char)
                         } return char;
                     }).join("")
-                    failChordAnswer(grade, answer.kind, i)
+                    failChordAnswer(grade, correctAnswer.kind, i)
+                    failChordAnswer(grade, i)
                 }
                 score += hit;
-                valueToAdd = answer.grade + answer.kind
+                valueToAdd = progresion.progresion[i].replace("_", '')
                 saveObject[valueToAdd] = saveObject[valueToAdd] || {}
                 saveObject[valueToAdd].correct = saveObject[valueToAdd].correct + hit || hit;
                 saveObject[valueToAdd].times = saveObject[valueToAdd].times + 1 || 1;
@@ -79,32 +75,7 @@ function Progresion(ex) {
     this.progresion = setProgresion(exercise);
     var voicing = buildChorale(this.progresion);
     this.notes = buildStream(voicing);
-
     function setProgresion() {
-        /*
-        var numberOfChords = exercise.duration;
-        var progresion = []
-        console.log(exercise.chords)
-        var newObject = {}
-        newObject[Object.keys(exercise.chords)[0]] = Object.values(exercise.chords)[0];
-        
-        progresion[0] = newObject
-        for (var i = 1; i < numberOfChords; i++) {
-            let currentChord = progresion[i - 1]
-            console.log(currentChord)
-            //let nextChord = currentChord.direction[Math.floor(Math.random() * currentChord.direction.length)]
-            let posibleDirections = Object.keys(currentChord.direction)
-            console.log(posibleDirections)
-            let chordPicked = posibleDirections[Math.floor(Math.random() * posibleDirections.length)]
-            console.log(chordPicked)
-            let nextChord = currentChord.direction[chordPicked]
-            console.log(nextChord)
-            let nextChordObject = {}
-            nextChordObject[currentChord.direction[chordPicked]] = nextChord
-            progresion.push(nextChordObject);
-        }
-        console.log(progresion)
-        */
         var numberOfChords = exercise.duration;
         var progresion = []
         progresion[0] = Object.keys(exercise.chords)[0]
@@ -113,13 +84,11 @@ function Progresion(ex) {
             let nextChord = Object.keys(posibleDirections)[Math.floor(Math.random() * Object.keys(posibleDirections).length)]
             progresion.push(nextChord);
         }
-        console.log(progresion)
         return progresion;
     }
-
     function buildChorale(progresionAnalysis) {
         var progresion = []
-        progresionAnalysis.forEach(function(element, index) {
+        progresionAnalysis.forEach(function (element, index) {
             progresion.push(exercise.chords[element])
         });
         findOccurences = function (note) {
@@ -252,13 +221,11 @@ function Progresion(ex) {
         choir[3] = soprano;
         return choir;
     }
-
     function buildStream(choir) {
         var stream = [];
         stream = setTexture(choir);
         return stream;
     }
-
     function setTexture(choir) {
         var stream = [];
         var texture = Math.floor(Math.random() * 6);

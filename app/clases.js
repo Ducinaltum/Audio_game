@@ -73,7 +73,6 @@ function LevelManager(iterations = 20) {
                 endLevelMenu('loose')
             }
             progressRestore()
-            //correct, incorrect, rounds = 0;
             return true;
         }
         return false;
@@ -86,96 +85,11 @@ function LevelManager(iterations = 20) {
     }
 }
 
-function saveManager(ex) {
-    typeofExercice = ex
-    this.storeValues = function (obj) {
-        save = {}
-        save[typeofExercice] = obj
-        date = setDate()
-        if (!(date in user.date)) {
-            user.date[date] = save;
-        } else {
-            user.date[date] = mergeObjectsAdd(user.date[date], save)
-        }
-    }
-
-    setDate = function () {
-        var d = new Date();
-        d = d.getFullYear() + "/" + d.getMonth() + "/" + d.getDate()
-        return d;
-    }
-}
 //Scales
 var majorScale = [0, 2, 4, 5, 7, 9, 11]
 var minorScale = [0, 2, 3, 5, 7, 8, 10]
 
-var progresionModeTest = {
-    major: {
-        '1M': 'major',
-        'b2M': 'major',
-        '2m': 'minor',
-        'b3M': 'major',
-        '3m': 'minor',
-        '4M': 'major',
-        '#4d': 'dim',
-        'b5d': 'dim',
-        '5M': 'major',
-        'b6M': 'major',
-        '6m': 'minor',
-        'b7M': 'major',
-        '7d': 'dim'
-    },
-    minor: {
-        '1m': 'minor',
-        'b2M': 'major',
-        '2d': 'dim',
-        '3M': 'major',
-        '4m': 'minor',
-        '5M': 'major',
-        'b6M': 'major',
-        '6M': 'major',
-        'b7': 'major',
-        '7d': 'dim'
-    },
-    lydian: {
-        '1M': 'major',
-        '2M': 'major',
-        '7m': 'minor'
-    },
-    mixolydian: {
-        '1M': 'major',
-        '5m': 'minor',
-        'b7M': 'major',
-        '7M': 'major'
-    },
-    dorian: {
-        '1m': 'minor',
-        '2m': 'minor',
-        '4M': 'major',
-    },
-    phrygian: {
-        '1m': 'minor',
-        'b2M': 'major',
-        '2M': 'major',
-        'b7m': 'minor',
-        '7m': 'minor'
-    },
-    aeolian: {
-        '1m': 'minor',
-        '5m': 'minor',
-        'b7M': 'major',
-        '7M': 'major'
-    },
-    locrian: {
-        '1m': 'minor',
-        'b3m': 'minor',
-        '3m': 'minor',
-        'b5M': 'major',
-        '5M ': 'major',
-    }
-}
-
-var progresionMode = {
+var progresionModeKinds = {
     major: {
         '1': 'major',
         'b2': 'major',
@@ -243,6 +157,41 @@ var progresionMode = {
     }
 }
 
+var progresionModeGrades = {
+    major: {},
+    minor: {
+        '3': 'b3',
+        '6': 'b6',
+    },
+    lydian: {
+        '4': '#4',
+    },
+    mixolydian: {
+        '7': 'b7'
+    },
+    dorian: {
+        '3': 'b3',
+        '7': 'b7',
+    },
+    phrygian: {
+        '2': 'b2',
+        '3': 'b3',
+        '7': 'b7',
+    },
+    aeolian: {
+        '3': 'b3',
+        '6': 'b6',
+        '7': 'b7'
+    },
+    locrian: {
+        '2': 'b2',
+        '3': 'b3',
+        '5': 'b5',
+        '6': 'b6',
+        '7': 'b7'
+    }
+}
+
 var handInputTable = {
     'major': 'major',
     'M': 'major',
@@ -271,6 +220,8 @@ var formatChordsToDisplay = {
 var formatModeToDisplay = {
     'major': "Mayor",
     'minor': "Menor",
+    'dim': "Disminuido",
+    'aug': "Aumentado",
     'lydian': "Lidio",
     'mixolydian': "Mixolidio",
     'dorian': "Dórico",
@@ -287,11 +238,7 @@ var chordTypes = {
 }
 
 const limits = {
-    /*
-    Estos son los reales
-    "min": 21,
-    "max": 108
-    */
+    //Estos son los reales "min": 21, "max": 108
     //Estos son ajustados para óptima claridad
     "min": 31,
     "max": 98
@@ -372,13 +319,6 @@ function deromanize(str) {
 function octavate(note, oct) {
     return note + (12 * oct)
 }
-
-/*
-var info = {
-    intervalsMaxLevel: 100,
-    chordsMaxLevel: 100,
-    progresionMaxLevel: 100
-}*/
 
 function randomNote() {
     return Math.floor(Math.random() * 12) - 6

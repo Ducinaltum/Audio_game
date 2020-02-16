@@ -2,7 +2,7 @@ function inputChord() {
     this.gradeModifier = undefined;
     this.grade = undefined;
     this.kind = undefined;
-    this.secondaryDominat = undefined;
+    this.secondaryDominant = undefined;
     this.mode = undefined
 
     //Convierte los valores del objeto en una cadena para que la visualice el usuario
@@ -10,9 +10,9 @@ function inputChord() {
         var chord = this
         var grade = [chord.gradeModifier, romanize(this.grade)].join('')
         var kind = [formatChordsToDisplay[chord.kind]].join('')
-        var secondaryDominat = (chord.secondaryDominat != undefined) ? romanize(chord.secondaryDominat) + '/' : '';
-        var mode = chord.mode != undefined && (chord.mode != "major" || chord.mode != "minor") ? " " + chord.mode : "";
-        var retrieve = secondaryDominat + grade + kind;
+        var secondaryDominant = (chord.secondaryDominant != undefined) ? romanize(chord.secondaryDominant) + '/' : '';
+        //var mode = chord.mode != undefined && (chord.mode != "major" || chord.mode != "minor") ? " " + chord.mode : "";
+        var retrieve = secondaryDominant + grade + kind;
         return retrieve;
     }
 
@@ -37,6 +37,7 @@ function inputChord() {
 //Progresion Input Fields
 var enters = 0;
 var responseChords = [];
+var chordsModes = []
 var activeChordIndex;
 var individualFields = {};
 var mode;
@@ -55,11 +56,12 @@ function initiateExercise(numberOfChords, container, exerciseMode) {
     individualFields.parent = $('#' + container + " .chord-bar");
     individualFields.grade = $('#' + container + " .gradeIndicator");
     individualFields.mode = $('#' + container + " .modeIndicator");
-    mode = exerciseMode;
     for (var i = 0; i < numberOfChords; i++) {
         responseChords[i] = new inputChord();
         //responseChords[i].mode = mode;
     }
+    mode = exerciseMode;
+    responseChords[0].mode = mode;
     activeChordIndex = 0
     $(individualFields.parent[activeChordIndex]).focus();
 }
@@ -124,31 +126,45 @@ $('#progresionResponse').click(function () {
 
 function getResponses() {
     var responses = []
+    var carryingMode = mode;
     responseChords.forEach(element => {
-        var retrievedChord = {};
-        if (element.secondaryDominat != undefined) element.secondaryDominat += '/'
-        retrievedChord.grade = [element.secondaryDominat, element.gradeModifier, element.grade, element.mode].join('').replace('s', '#')
-        retrievedChord.kind = element.kind;
-        if (retrievedChord.grade != undefined && retrievedChord.grade != "") {
-            if (retrievedChord.kind == undefined) {
-                if (element.secondaryDominat != undefined) {
-                    retrievedChord.kind = progresionMode[mode][[element.secondaryDominat.slice(0, element.secondaryDominat.length - 1)]];
+        let chord = {
+            grade: undefined,
+            mode: undefined,
+            kind: undefined,
+            secondaryDominant:""
+        };
+        if (element.mode != undefined) {
+            chord.mode = element.mode;
+            carryingMode = element.mode;
+        }
+        else chord.mode = carryingMode;
+        if (element.secondaryDominant != undefined) {
+            chord.secondaryDominant = element.secondaryDominant + "/"
+        }
+        chord.grade = progresionModeGrades[chord.mode][element.grade] != undefined ? progresionModeGrades[chord.mode][element.grade] : element.grade;
+        chord.grade = [chord.secondaryDominant, element.gradeModifier, chord.grade].join('').replace('s', '#')
+        chord.kind = element.kind;
+        if (chord.grade != undefined && chord.grade != "") {
+            if (chord.kind == undefined) {
+                if (element.secondaryDominant != undefined) {
+                    console.log(element.secondaryDominant)
+                    chord.kind = progresionModeKinds[chord.mode][element.secondaryDominant];
                 }
-                else retrievedChord.kind = progresionMode[mode][[element.gradeModifier, element.grade].join('')];
+                else chord.kind = progresionModeKinds[chord.mode][[element.gradeModifier, element.grade].join('')];
             }
         }
-        console.log(retrievedChord)
-        responses.push(retrievedChord)
+        responses.push(chord)
     })
     return responses;
 }
 
 function updateModesStrip() {
-    var actualMode = responseChords[0].mode == undefined? formatModeToDisplay[mode]:formatModeToDisplay[responseChords[0].mode];
-    individualFields.mode[0].innerHTML = actualMode;
+    var initialMode = responseChords[0].mode == undefined ? formatModeToDisplay[mode] : formatModeToDisplay[responseChords[0].mode];
+    individualFields.mode[0].innerHTML = initialMode;
     for (i = 1; i < responseChords.length; i++) {
-        if (responseChords[i].mode != undefined && responseChords[i].mode != actualMode) {
-            actualMode = formatModeToDisplay[responseChords[i].mode]
+        if (responseChords[i].mode != undefined && responseChords[i].mode != initialMode) {
+            let actualMode = formatModeToDisplay[responseChords[i].mode]
             individualFields.mode[i].innerHTML = actualMode
         }
         else {
@@ -157,10 +173,11 @@ function updateModesStrip() {
     }
 }
 
+
 //Feedback
 function failChordAnswer(grade, kind, index) {
-    if (kind == 'major') kind = '';
-    text = grade + ' ' + kind;
+    //if (kind == 'major') kind = '';
+    text = grade + ' ' + formatModeToDisplay[kind];
     $('#ex' + index).attr('data-content', text).popover('show')
     $('#ex' + index).removeClass('btn-default').addClass('btn-danger')
 }

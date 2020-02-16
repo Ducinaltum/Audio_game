@@ -2,7 +2,7 @@ function ChordsExercise(actualLevel) {
     var state = 'idle';
     var exercise = actualLevel
     var chordManager = new LevelManager(exercise.iterations);
-    var saver = new saveManager(exercise.kind);
+    var saver = new SaveManager(exercise.kind);
     showScreen(exercise.kind)
 
     createChord();

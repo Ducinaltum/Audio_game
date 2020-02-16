@@ -48,7 +48,7 @@ function LessonLevel(ex) {
     };
 
     this.start = function (node) {
-        if(user[exercise.code] == undefined) user[exercise.code] = 0;
+        //if(user[exercise.code] == undefined) user[exercise.code] = 0;
         const element = `<svg id=svg` + exercise.code + ` width="200" height="200" shape-rendering="antialiasing">`
             + levelIcon(exercise.code) + `</svg>`;
         node.insertAdjacentHTML('beforeend', element)
@@ -136,20 +136,25 @@ var icons = {
     badges: {}
 };
 const parent = document.getElementById('gameSelector')
-var objs = generateSelectionInterface(gamesTrees, parent);
+var userPointer = user.gameProgres
+console.log(userPointer)
+var objs = generateSelectionInterface(gamesTrees, parent, userPointer);
+
 
 Object.keys(icons.levels).forEach(function (icon) {
     icons.levels[icon].start()
 })
 
-function generateSelectionInterface(layer, father, brothers, codeName) {
+function generateSelectionInterface(layer, father, pointer, brothers, codeName) {
+    console.log(pointer)
     var element = Object.keys(layer.components).map(function (e) {
         let actualLayer = layer.components[e];
+        sendPointer = buildSaverObject(pointer, actualLayer.code.replace("_",""))
         if (codeName != undefined) actualLayer.code = codeName + actualLayer.code
         let htmlElement = nodeMaker[actualLayer.kind](actualLayer, brothers, father)
         if (actualLayer.components != undefined) {
             let siblings = Object.keys(actualLayer.components).length
-            generateSelectionInterface(actualLayer, htmlElement, siblings, actualLayer.code)
+            generateSelectionInterface(actualLayer, htmlElement, sendPointer, siblings, actualLayer.code)
         }
         return htmlElement;
     })
@@ -162,7 +167,15 @@ function generateSelectionInterface(layer, father, brothers, codeName) {
     return father;
 }
 
-
+function buildSaverObject(pointer, newname){
+    console.log(pointer.toString())
+    console.log(newname)
+    if(newname!= "") {
+        pointer[newname] = pointer[newname] || {}
+        return pointer[newname]
+    }
+    else return pointer
+}
 
 
 /*

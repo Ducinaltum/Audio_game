@@ -3,7 +3,7 @@ function IntervalsExercise(actualLevel) {
     var state = 'idle';
     const exercise = actualLevel;
     const intervalManager = new LevelManager(exercise.iterations);
-    var saver = new saveManager(typeOfExercise);
+    var saver = new SaveManager(typeOfExercise);
 
     showScreen(typeOfExercise)
     //Reacomodar para que solo marque los que se usan
