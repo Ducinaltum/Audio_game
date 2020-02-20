@@ -35,8 +35,6 @@ function HarmonicProgresionExercise(actualLevel) {
                 correctAnswer.grade = chord.grade.replace(/(?<!\D)[M|m|d|A]/, '')
                 //answer.grade = progresion.progresion[i].replace("_", '').replace(/(?<!\D)[M|m|d|A]/, '').replace("_", '/')
                 correctAnswer.kind = chord.chord.kind
-                console.log(correctAnswer.kind)
-
                 usrResponse.grade.replace(/[\/]/, '')
                 let hit = 0;
                 if (correctAnswer.grade == usrResponse.grade) {
@@ -254,7 +252,6 @@ function Progresion(ex) {
         }
         return stream;
     }
-
     function choral(choir) {
         var stream = [];
         var delay = 0;

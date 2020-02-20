@@ -45,7 +45,7 @@ function IntervalsExercise(actualLevel) {
             int = new Interval(exercise)
             loadOnBuffer(int.notes);
             return int;
-        } //else saver.flushUser()
+        } else saver.flushUser()
     }
 
     function buildIntervalsForUI() {

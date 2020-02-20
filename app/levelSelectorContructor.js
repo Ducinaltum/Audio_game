@@ -137,7 +137,6 @@ var icons = {
 };
 const parent = document.getElementById('gameSelector')
 var userPointer = user.gameProgres
-console.log(userPointer)
 var objs = generateSelectionInterface(gamesTrees, parent, userPointer);
 
 
@@ -146,7 +145,6 @@ Object.keys(icons.levels).forEach(function (icon) {
 })
 
 function generateSelectionInterface(layer, father, pointer, brothers, codeName) {
-    console.log(pointer)
     var element = Object.keys(layer.components).map(function (e) {
         let actualLayer = layer.components[e];
         sendPointer = buildSaverObject(pointer, actualLayer.code.replace("_",""))
@@ -168,8 +166,6 @@ function generateSelectionInterface(layer, father, pointer, brothers, codeName) 
 }
 
 function buildSaverObject(pointer, newname){
-    console.log(pointer.toString())
-    console.log(newname)
     if(newname!= "") {
         pointer[newname] = pointer[newname] || {}
         return pointer[newname]

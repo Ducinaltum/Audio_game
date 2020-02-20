@@ -324,6 +324,43 @@ function randomNote() {
     return Math.floor(Math.random() * 12) - 6
 }
 
+function mergeObjectsAdd(firstObject, secondObject) {
+    var result = $.extend(true, {}, firstObject, secondObject);
+    for (var k in result) {
+        if ("object" === typeof result[k]) {
+            firstObject[k] = firstObject[k] || {};
+            secondObject[k] = secondObject[k] || {};
+            result[k] = mergeObjectsAdd(firstObject[k], secondObject[k]);
+        }
+        else {
+            firstObject[k] = firstObject[k] || 0;
+            secondObject[k] = secondObject[k] || 0;
+            result[k] = ("number" === typeof firstObject[k] && "number" === typeof secondObject[k]) ? (firstObject[k] + secondObject[k]) : result[k];
+        }
+    }
+    return result;
+}
+
+function clone(obj) {
+    var result = Object.assign({}, obj);
+    for (var k in result) {
+        if  (Array.isArray(result[k])){
+            result[k] = result[k].slice()
+        } else if ("object" === typeof result[k]) {
+            result[k] = clone(result[k]);
+        } else {
+            result[k] = result[k];
+        }
+    }
+    return result;
+}
+
+function formatDates(d) {
+    return d.getFullYear() + d.getMonth().toString().padStart(2, '0') + d.getDate().toString().padStart(2, '0')
+}
+
+
+
 var intervalsInHalfStep = {
     1: "2m",
     2: "2M",
