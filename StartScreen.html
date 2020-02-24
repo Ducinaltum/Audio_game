@@ -115,13 +115,31 @@
                     <div class="panel-group">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" href="#statsChords">Acordes</a>
+                                <h4  id="showChordsStatistics" class="panel-title" data-toggle="collapse" href="#statsChords">
+                                    Acordes
                                 </h4>
                             </div>
                             <div id="statsChords" class="panel-collapse collapse">
-                                <div class="panel-body">Panel Body</div>
-                                <div class="panel-footer">Panel Footer</div>
+                                <div id="chordsPeriod" class="btn-group btn-group-lg" role="group">
+                                    <button id="week" type="button" class="btn btn-primary">Semana</button>
+                                    <button id="month" class="btn btn-default">Mes</button>
+                                    <button id="historic" class="btn btn-default">Histórico</button>
+                                </div>
+                                <div>
+                                    <!--<canvas id="baseChordsChart" width="700" height="700"></canvas>-->
+                                    <div id="major">
+                                        
+                                    </div>
+                                    <div id="minor">
+                                        
+                                    </div>
+                                    <div id="dim">
+                                        
+                                    </div>
+                                    <div id="aug">
+                                        
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -134,7 +152,7 @@
                             </div>
                             <div id="statsIntervals" class="panel-collapse collapse">
                                 <div id="intervalsPeriod" class="btn-group btn-group-lg" role="group">
-                                    <button id="week" type="button" class="btn btn-default">Semana</button>
+                                    <button id="week" type="button" class="btn btn-primary">Semana</button>
                                     <button id="month" class="btn btn-default">Mes</button>
                                     <button id="historic" class="btn btn-default">Histórico</button>
                                 </div>
@@ -150,27 +168,24 @@
                     <div class="panel-group">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" href="#statsProgresion">Progresión</a>
+                                <h4 id="showProgresionStatistics"  data-toggle="collapse" href="#statsProgresion" class="panel-title">
+                                Progresión
                                 </h4>
                             </div>
                             <div id="statsProgresion" class="panel-collapse collapse">
                                 <div id="progresionPeriod" class="btn-group btn-group-lg" role="group">
-                                    <button id="week" type="button" class="btn btn-default">Semana</button>
+                                    <button id="week" type="button" class="btn btn-primary">Semana</button>
                                     <button id="month" class="btn btn-default">Mes</button>
                                     <button id="historic" class="btn btn-default">Histórico</button>
                                 </div>
                                 <div>
-                                    <canvas id="progresionPrincipalsChart" width="200" height="50"></canvas>
+                                    <canvas id="majorProgresionChart" width="200" height="50"></canvas>
                                 </div>
                                 <div>
-                                    <canvas id="progresionSecondariesChart" width="200" height="50"></canvas>
+                                    <canvas id="minorProgresionChart" width="200" height="50"></canvas>
                                 </div>
                                 <div>
-                                    <canvas id="progresionSecondDominantsChart" width="200" height="50"></canvas>
-                                </div>
-                                <div>
-                                    <canvas id="progresionModalsChart" width="200" height="50"></canvas>
+                                    <canvas id="modalProgresionChart" width="200" height="50"></canvas>
                                 </div>
                             </div>
                         </div>

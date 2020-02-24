@@ -20,7 +20,7 @@ function ChordsExercise(actualLevel) {
             state = 'playing';
             chord = new ChordBuilder(exercise)
             loadOnBuffer(chord.notes)
-        } //else saver.flushUser()
+        } else saver.flushUser()
     }
 
     this.checkResponse = function (response) {

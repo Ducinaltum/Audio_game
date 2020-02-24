@@ -21,7 +21,7 @@ function HarmonicProgresionExercise(actualLevel) {
             progresion = new Progresion(exercise)
             loadOnBuffer(progresion.notes)
             state = 'playing';
-        }
+        } else saver.flushUser()
     }
     this.checkResponse = function (response) {
         if (state == 'playing') {
@@ -55,9 +55,11 @@ function HarmonicProgresionExercise(actualLevel) {
                 }
                 score += hit;
                 valueToAdd = progresion.progresion[i].replace("_", '')
-                saveObject[valueToAdd] = saveObject[valueToAdd] || {}
-                saveObject[valueToAdd].correct = saveObject[valueToAdd].correct + hit || hit;
-                saveObject[valueToAdd].times = saveObject[valueToAdd].times + 1 || 1;
+                var mode = chord.inMode != ""? chord.inMode: exercise.mode
+                saveObject[mode] = saveObject[mode] ||{}
+                saveObject[mode][valueToAdd] = saveObject[mode][valueToAdd] || {}
+                saveObject[mode][valueToAdd].correct = saveObject[mode][valueToAdd].correct + hit || hit;
+                saveObject[mode][valueToAdd].times = saveObject[mode][valueToAdd].times + 1 || 1;
             };
             score /= exercise.duration;
             mode = {}

@@ -192,6 +192,88 @@ var progresionModeGrades = {
     }
 }
 
+var progresionModeGradesForCharts = {
+    "1M": "I",
+    "1m": "I",
+    "2m": "II",
+    "2d": "II",
+    "b3M": "III",
+    "b3A": "III Aug",
+    "4M": "IV",
+    "4m": "IV",
+    "5M": "V",
+    "b6M": "VI",
+    "6m": "VI",
+    "b7M": "bVII",
+    "7d": "VII",
+    "5_5": "V/V",
+    "7_5": "VII/V",
+    "5_4": "V/IV",
+    "7_4": "VII/IV",
+    "5_2": "V/II",
+    "7_2": "VII/II",
+    "5_6": "V/VI",
+    "7_6": "V/VI",
+    "5_b3": "V/III",
+    "5_b6": "V/VI",
+    "7_b6": "VII/VI",
+    "5_b7": "V/bVII",
+    "7_b7": "V/bVII",
+    "2lydian": "II Lidio",
+    "7lydian": "VII Lidio",
+    "7mixolydian": "VII Mixolidio",
+    "5mixolydian": "V Mixolidio",
+    "4dorian": "IV Dórico",
+    "2dorian": "II Dórico",
+    "2phrygian": "II Frigio",
+    "7Frig": "VII Frigio",
+    "7aeolian":"VII Eólico",
+    "5aeolian": "V Eólico",
+    "5locrian": "V Locrio",
+    "3locrian": "II Locrio",
+}
+
+var progresionGradeOrderForCharts = [
+    "1M",
+    "1m",
+    "2d",
+    "2m",
+    "b3M",
+    "b3A",
+    "4M",
+    "4m",
+    "5M",
+    "b6M",
+    "6m",
+    "b7M",
+    "7d",
+    "5_5",
+    "7_5",
+    "5_4",
+    "7_4",
+    "5_2",
+    "7_2",
+    "5_6",
+    "7_6",
+    "5_b3",
+    "5_b6",
+    "7_b6",
+    "5_b7",
+    "7_b7",
+    "2lydian",
+    "7lydian",
+    "7mixolydian",
+    "5mixolydian",
+    "4dorian",
+    "2dorian",
+    "2phrygian",
+    "7Frig",
+    "7aeolian",
+    "5aeolian",
+    "5locrian",
+    "3locrian",
+]
+
 var handInputTable = {
     'major': 'major',
     'M': 'major',
@@ -344,7 +426,7 @@ function mergeObjectsAdd(firstObject, secondObject) {
 function clone(obj) {
     var result = Object.assign({}, obj);
     for (var k in result) {
-        if  (Array.isArray(result[k])){
+        if (Array.isArray(result[k])) {
             result[k] = result[k].slice()
         } else if ("object" === typeof result[k]) {
             result[k] = clone(result[k]);
@@ -358,8 +440,6 @@ function clone(obj) {
 function formatDates(d) {
     return d.getFullYear() + d.getMonth().toString().padStart(2, '0') + d.getDate().toString().padStart(2, '0')
 }
-
-
 
 var intervalsInHalfStep = {
     1: "2m",
