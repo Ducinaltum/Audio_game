@@ -11,7 +11,7 @@ $('#progresionPeriod .btn').click(function () {
 $('#chordsPeriod .btn').click(function () {
     $('#chordsPeriod .btn').removeClass('btn-primary').addClass('btn-default')
     $(this).addClass('btn-primary')
-    chordsCharts.initiate(this.id)
+    selectedChordsValues.dataSelection = chordsCharts.values[this.id + "Values"]
 })
 $('#showIntervalsStatistics').click(function () {
     if (intervalsCharts == undefined) startIntervalsChart();
@@ -26,6 +26,14 @@ $('#showProgresionStatistics').click(function () {
 var intervalsCharts = undefined;
 var chordsCharts = undefined;
 var progresionCharts = undefined;
+var selectedChordsValues = {
+    btnSelections: {
+        base: undefined,
+        seven: undefined,
+        extention: undefined
+    },
+    dataSelection: undefined
+};
 
 function startIntervalsChart() {
     intervalsCharts = {
@@ -42,7 +50,7 @@ function startIntervalsChart() {
                 show: false
             }
         }),
-        initiate: function (time = "week") {
+        initiate: function (time = "historic") {
             intervalsCharts.charts.simple.chart.data.datasets = [
                 {
                     label: 'Correctas',
@@ -85,7 +93,6 @@ function startIntervalsChart() {
     }
     intervalsCharts.initiate()
 }
-
 function createIntervalChart(kind) {
     return {
         chart: new Chart(document.getElementById("intervals" + kind + "Chart").getContext('2d'),
@@ -112,6 +119,11 @@ function createIntervalChart(kind) {
                         yAxes: [{
                             stacked: true
                         }]
+                    },
+                    plugins: {
+                        labels: {
+                            render:function(){}
+                        }
                     }
                 }
             })
@@ -122,308 +134,307 @@ function startChordsChart() {
     chordsCharts = {
         values: loadChartValues("chords", {
             major: {
-                positive: 0,
-                negative: 0,
-                '7': {
+                values: {
                     positive: 0,
                     negative: 0,
-                    'b9': {
-                        positive: 0,
-                        negative: 0,
-                    },
-                    '9': {
-                        positive: 0,
-                        negative: 0,
-                    },
-                    '#9': {
-                        positive: 0,
-                        negative: 0,
-                    },
-                    '#11': {
-                        positive: 0,
-                        negative: 0,
-                    },
-                    '13': {
-                        positive: 0,
-                        negative: 0,
-                    },
                 },
-                'majj7': {
-                    '9': {
-                        positive: 0,
-                        negative: 0,
+                children: {
+                    '7': {
+                        values: {
+                            positive: 0,
+                            negative: 0,
+                        },
+                        children: {
+                            'b9': {
+                                values: {
+                                    positive: 0,
+                                    negative: 0,
+                                },
+                            },
+                            '9': {
+                                values: {
+                                    positive: 0,
+                                    negative: 0,
+                                },
+                            },
+                            '#9': {
+                                values: {
+                                    positive: 0,
+                                    negative: 0,
+                                },
+                            },
+                            '#11': {
+                                values: {
+                                    positive: 0,
+                                    negative: 0,
+                                },
+                            },
+                            '13': {
+                                values: {
+                                    positive: 0,
+                                    negative: 0,
+                                },
+                            }
+                        }
                     },
-                    '#11': {
-                        positive: 0,
-                        negative: 0,
-                    },
-                    '13': {
-                        positive: 0,
-                        negative: 0,
-                    },
+                    'majj7': {
+                        values: {
+                            positive: 0,
+                            negative: 0,
+                        },
+                        children: {
+                            '9': {
+                                values: {
+                                    positive: 0,
+                                    negative: 0,
+                                },
+                            },
+                            '#11': {
+                                values: {
+                                    positive: 0,
+                                    negative: 0,
+                                },
+                            },
+                            '13': {
+                                values: {
+                                    positive: 0,
+                                    negative: 0,
+                                },
+                            }
+                        }
+                    }
                 }
             },
             minor: {
-                positive: 0,
-                negative: 0,
-                '7': {
+                values: {
                     positive: 0,
                     negative: 0,
-                    '9': {
-                        positive: 0,
-                        negative: 0,
-                    },
-                    '11': {
-                        positive: 0,
-                        negative: 0,
-                    },
-                    '13': {
-                        positive: 0,
-                        negative: 0,
-                    },
                 },
-                'majj7': {
-                    positive: 0,
-                    negative: 0,
-                    '9': {
-                        positive: 0,
-                        negative: 0,
+                children: {
+                    '7': {
+                        values: {
+                            positive: 0,
+                            negative: 0,
+                        },
+                        children: {
+                            '9': {
+                                values: {
+                                    positive: 0,
+                                    negative: 0,
+                                },
+                            },
+                            '11': {
+                                values: {
+                                    positive: 0,
+                                    negative: 0,
+                                },
+                            },
+                            '13': {
+                                values: {
+                                    positive: 0,
+                                    negative: 0,
+                                },
+                            },
+                        }
                     },
-                    '11': {
-                        positive: 0,
-                        negative: 0,
-                    },
-                    '13': {
-                        positive: 0,
-                        negative: 0,
-                    },
+                    'majj7': {
+                        values: {
+                            positive: 0,
+                            negative: 0,
+                        },
+                        children: {
+                            '9': {
+                                values: {
+                                    positive: 0,
+                                    negative: 0,
+                                },
+                            },
+                            '11': {
+                                values: {
+                                    positive: 0,
+                                    negative: 0,
+                                },
+                            },
+                            '13': {
+                                values: {
+                                    positive: 0,
+                                    negative: 0,
+                                },
+                            },
+                        }
+                    }
                 }
             },
             dim: {
-                positive: 0,
-                negative: 0,
-                'b7': {
+                values: {
                     positive: 0,
                     negative: 0,
                 },
-                '7': {
-                    positive: 0,
-                    negative: 0,
-                    '9': {
-                        positive: 0,
-                        negative: 0,
+                children: {
+                    'b7': {
+                        values: {
+                            positive: 0,
+                            negative: 0,
+                        },
                     },
-                    '11': {
-                        positive: 0,
-                        negative: 0,
-                    },
+                    '7': {
+                        values: {
+                            positive: 0,
+                            negative: 0,
+                        },
+                        children: {
+                            '9': {
+                                values: {
+                                    positive: 0,
+                                    negative: 0,
+                                },
+                            },
+                            '11': {
+                                values: {
+                                    positive: 0,
+                                    negative: 0,
+                                },
+                            },
+                        }
+                    }
                 }
             },
             aug: {
-                positive: 0,
-                negative: 0,
-                '7': {
+                values: {
                     positive: 0,
                     negative: 0,
-                    'b9': {
-                        positive: 0,
-                        negative: 0,
-                    },
-                    '9': {
-                        positive: 0,
-                        negative: 0,
-                    },
-                    '#9': {
-                        positive: 0,
-                        negative: 0,
-                    },
-                    '#11': {
-                        positive: 0,
-                        negative: 0,
-                    },
-                    '13': {
-                        positive: 0,
-                        negative: 0,
-                    },
                 },
-                'majj7': {
-                    positive: 0,
-                    negative: 0,
-                    '9': {
-                        positive: 0,
-                        negative: 0,
-                    },
-                    '#11': {
-                        positive: 0,
-                        negative: 0,
-                    },
-                    '13': {
-                        positive: 0,
-                        negative: 0,
-                    },
-                }
-            },
-        }),
-        initiate: function (time = "week") {
-            console.log(chordsCharts)
-            var selectedDataset = chordsCharts.values[time + "Values"]
-            console.log(selectedDataset)
-            if (selectedDataset != undefined) {
-                var triadDatasets = []
-                var sevenDatasets = []
-                var extendDatasets = []
-                Object.keys(selectedDataset).forEach(function (k) {
-                    const chord = selectedDataset[k]
-                    var cnvs = document.createElement('canvas');
-                    cnvs.id = k + "Chart";
-                    cnvs.width = 50;
-                    cnvs.height = 50;
-                    cnvs.style.zIndex = 8;
-                    cnvs.style.position = "absolute"
-                    var ctx = cnvs.getContext("2d");
-                    ctx.fillStyle = "rgba(255, 0, 0, 1)";
-                    ctx.fillRect(100, 100, 200, 200);
-                    var triadicChordChart = new Chart(cnvs.getContext('2d'),
-                        {
-                            type: 'doughnut',
-                            data: {
-                                datasets: [{
-                                    labels: ["correctas", "incorrectas"],
-                                    data: [chord.positive, chord.negative],
-                                    backgroundColor: [
-                                        "green",
-                                        "red",
-                                    ],
-                                    borderColor: [
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255,99,132,1)'
-                                    ],
-                                    borderWidth: 1
-                                }]
+                children: {
+                    '7': {
+                        values: {
+                            positive: 0,
+                            negative: 0,
+                        },
+                        children: {
+                            'b9': {
+                                values: {
+                                    positive: 0,
+                                    negative: 0,
+                                },
                             },
-                            options: {
-                                responsive: true,
-                                maintainAspectRatio: false,
-                                scales: {
-                                    yAxes: [{
-                                        ticks: {
-                                            beginAtZero:true
-                                        }
-                                    }]
+                            '9': {
+                                values: {
+                                    positive: 0,
+                                    negative: 0,
+                                },
+                            },
+                            '#9': {
+                                values: {
+                                    positive: 0,
+                                    negative: 0,
+                                },
+                            },
+                            '#11': {
+                                values: {
+                                    positive: 0,
+                                    negative: 0,
+                                },
+                            },
+                            '13': {
+                                values: {
+                                    positive: 0,
+                                    negative: 0,
+                                },
+                            }
+                        }
+                    },
+                    'majj7': {
+                        values: {
+                            positive: 0,
+                            negative: 0,
+                        },
+                        children: {
+                            '9': {
+                                values: {
+                                    positive: 0,
+                                    negative: 0,
+                                }
+                            },
+                            '#11': {
+                                values: {
+                                    positive: 0,
+                                    negative: 0,
+                                }
+                            },
+                            '13': {
+                                values: {
+                                    positive: 0,
+                                    negative: 0,
                                 }
                             }
-                        })
-                    triadDatasets.push(triadicChordChart)
-                })
-                /*
-                chordsCharts.charts.base.chart.data.datasets.forEach(function (e, index) {
-                    e.pointStyle = triadDatasets[index].canvas
-                    triadDatasets[index].canvas.width = 100
-                    triadDatasets[index].canvas.height = 100
-                    triadDatasets[index].canvas.maxWidth = 100
-                    triadDatasets[index].canvas.maxHeight = 100
-                    triadDatasets[index].canvas.style.left = index*50
-                    triadDatasets[index].canvas.style.top = index*50
-                    document.getElementById("statsChords").appendChild(triadDatasets[index].canvas)
-                    //document.getElementById("baseChordsChart").appendChild(triadDatasets[index].canvas)
-                })
-                chordsCharts.charts.base.chart.update()*/
+                        }
+                    }
+                }
             }
+        }),
+        initiate: function (time = "historic") {
+            selectedChordsValues.dataSelection = chordsCharts.values[time + "Values"]
         },
         charts: {
-            base: undefined,
-            seven: undefined,
-            extended: {
-                major: undefined,
-                minor: undefined,
-                dim: undefined,
-                aug: undefined
-            }
+            chart:undefined
         }
     }
-    //chordsCharts.charts.base = createChordsChart("base")
-    chordsCharts.initiate();
-}
-
-function createSingleChordKindChart(values, size = 20) {
-
+    chordsCharts.initiate()
+    chordsCharts.charts.chart = createChordsChart("major")
 }
 
 function createChordsChart(kind) {
     return {
-        chart: new Chart(document.getElementById(kind + "ChordsChart").getContext('2d'),
+        chart: new Chart(document.getElementById(kind + 'Chart'),
             {
-                type: 'bubble',
+                type: 'doughnut',
                 data: {
-                    labels: "Africa",
+                    labels: [
+                        'Mayor',
+                        'Menor',
+                        'Disminuido',
+                        'Aumentado',
+                    ],
                     datasets: [
-                        //DATASETS TRÍADAS
                         {
-                            //label: ["Mayor"],
-                            //pointStyle: "rect",
-                            backgroundColor: "rgba(255,221,50,0.2)",
-                            borderColor: "rgba(255,221,50,1)",
-                            data: [{
-                                x: 0,
-                                y: 0,
-                                r: 40
-                            }]
-                        }, {
-                            //label: ["Menor"],
-                            //pointStyle: triadicChordChart,
-                            backgroundColor: "rgba(60,186,159,0.2)",
-                            borderColor: "rgba(60,186,159,1)",
-                            data: [{
-                                x: 10,
-                                y: 10,
-                                r: 40
-                            }]
-                        }, {
-                            //label: ["Disminuido"],
-                            // pointStyle: pointCanvas,
-                            backgroundColor: "rgba(0,0,0,0.2)",
-                            borderColor: "#000",
-                            data: [{
-                                x: 20,
-                                y: 10,
-                                r: 40
-                            }]
-                        }, {
-                            //label: ["Aumentado"],
-                            // pointStyle: pointCanvas,
-                            backgroundColor: "rgba(193,46,12,0.2)",
-                            borderColor: "rgba(193,46,12,1)",
-                            data: [{
-                                x: 30,
-                                y: 0,
-                                r: 40
-                            }]
-                        }
-                        //DATASETS 7°
-                    ]
+                            data: [25, 25, 25, 25],
+                            backgroundColor: [
+                                'grey',
+                                'grey',
+                                'grey',
+                                'grey',
+                            ],
+                        },
+                    ],
                 },
                 options: {
-                    title: {
-                        display: true,
-                        text: 'Predicted world population (millions) in 2050'
-                    }, scales: {
-                        yAxes: [{
-                            scaleLabel: {
-                                display: true,
-                                labelString: "Happiness"
-                            }
-                        }],
-                        xAxes: [{
-                            scaleLabel: {
-                                display: true,
-                                labelString: "Tipos"
-                            }
-                        }]
+                    cutoutPercentage: 10,
+                    rotation: Math.PI,
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    legend: {
+                        display: false,
+                    },
+                    tooltips: {
+                        enabled: false
+                    },
+                    onClick: chartClickEvent,
+                    plugins: {
+                        labels: {
+                            render: 'label',
+                            fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                            fontColor: 'black',
+                            fontSize: 20,
+                            fontStyle: 'bold',
+                            showZero: false,
+                            arc: true,
+                        }
                     }
                 }
             })
     }
 }
+
 
 function loadChartValues(kind, structure) {
     var storageRoot = user.statistics
@@ -439,8 +450,6 @@ function loadChartValues(kind, structure) {
     datesStored.sort(function (a, b) { return b - a });
     historicValues = structure
     datesStored.forEach(function (day, index) {
-        console.log(day)
-        console.log(week)
         if (day < week && index > 0) {
             if (weekValues == undefined) {
                 weekValues = clone(historicValues)
@@ -476,16 +485,16 @@ var loadValues = {
         Object.keys(root).forEach(function (chordKind) {
             var brokenChord = chordKind.split("/")
             if (brokenChord.length == 1) {
-                obj[brokenChord[0]].positive = root[chordKind].correct
-                obj[brokenChord[0]].negative = root[chordKind].times - root[chordKind].correct
+                obj[brokenChord[0]].values.positive = root[chordKind].correct
+                obj[brokenChord[0]].values.negative = root[chordKind].times - root[chordKind].correct
             }
             else if (brokenChord.length == 2) {
-                obj[brokenChord[0]][brokenChord[1]].positive = root[chordKind].correct
-                obj[brokenChord[0]][brokenChord[1]].negative = root[chordKind].times - root[chordKind].correct
+                obj[brokenChord[0]].children[brokenChord[1]].values.positive = root[chordKind].correct
+                obj[brokenChord[0]].children[brokenChord[1]].values.negative = root[chordKind].times - root[chordKind].correct
             }
             else if (brokenChord.length == 3) {
-                obj[brokenChord[0]][brokenChord[1]][brokenChord[2]].positive = root[chordKind].correct
-                obj[brokenChord[0]][brokenChord[1]][brokenChord[2]].negative = root[chordKind].times - root[chordKind].correct
+                obj[brokenChord[0]].children[brokenChord[1]].children[brokenChord[2]].values.positive = root[chordKind].correct
+                obj[brokenChord[0]].children[brokenChord[1]].children[brokenChord[2]].values.negative = root[chordKind].times - root[chordKind].correct
             }
         })
 
@@ -548,7 +557,6 @@ function startProgresionChart() {
     if (Object.keys(progresionCharts.values.historicValues).length > 2) progresionCharts.charts.modal = createProgresionChart("modal")
     progresionCharts.initiate()
 }
-
 function createProgresionChart(kind) {
     return {
         chart: new Chart(document.getElementById(kind + "ProgresionChart").getContext('2d'), {
@@ -574,8 +582,111 @@ function createProgresionChart(kind) {
                     yAxes: [{
                         stacked: true
                     }]
+                },
+                plugins: {
+                    labels: {
+                        render:function(){}
+                    }
                 }
             }
         })
     }
 }
+
+
+const hasSelectedLabels = ['Correctas', 'Incorrectas']
+const hasSelectedColors = ['green', 'red']
+function ocuppySpace(elements, value) {
+    return Array(Object.keys(elements).length).fill(value);
+}
+
+var showInChart = {
+    base: {
+        isSelected: false,
+        data: undefined
+    },
+    seven: {
+        isSelected: false,
+        data: undefined
+    },
+    extention: {
+        isSelected: false,
+        data: undefined
+    }
+}
+
+function chartClickEvent(event, array) {
+    //Este valor indica cual de los aros fue clickeado
+    if (!array[0]) return
+    const circle = array[0]._datasetIndex
+    //Este valor indica cual de las porciones del aro fue tocada
+    const valIndex = array[0]._index - (circle * 2)
+    if (circle == 0 && !showInChart.base.isSelected) {
+        $("#statsBase").html(updateChartData(showInChart.base, selectedChordsValues.dataSelection, valIndex, circle))
+    }
+    else if (circle == 1 && !showInChart.seven.isSelected) {
+        $("#statsseven").html(updateChartData(showInChart.seven, showInChart.base.data, valIndex, circle))
+    }
+    else if (circle == 2 && !showInChart.extention.isSelected) {
+        $("#statsExtensions").html(updateChartData(showInChart.extention, showInChart.seven.data, valIndex, circle))
+
+    }
+    chordsCharts.charts.chart.chart.update();
+
+}
+
+function updateChartData(pointedData, source, index, circle) {
+    var key = Object.keys(source)[index]
+    if (source[key].values.positive != 0 || source[key].values.negative != 0) {
+        var labels = (function () {
+            var arr = [];
+            for (let c = -1; c < circle; c++) {
+                arr = arr.concat(['Correctas', 'Incorrectas']);
+            }
+            return arr;
+        })().concat((function () {
+            let val = source[key].hasOwnProperty('children') ? Object.keys(source[key].children) : [];
+            return val
+        }()
+        ))
+        var previousData = (function () {
+            var arr = [];
+            for (let c = 0; c < circle; c++) {
+                arr = arr.concat([0, 0]);
+            }
+            return arr;
+        })().concat([source[key].values.positive, source[key].values.negative])
+        var colours = (function () {
+            var arr = [];
+            for (let c = -1; c < circle; c++) {
+                arr = arr.concat(['green', 'red']);
+            }
+            return arr;
+        })().concat((function () {
+            let val = source[key].hasOwnProperty('children') ? ocuppySpace(source[key].children, 'grey') : [];
+            return val
+        }()
+        ))
+        pointedData.isSelected = true
+        pointedData.data = source[key].children
+        chordsCharts.charts.chart.chart.data.labels = labels
+        chordsCharts.charts.chart.chart.data.datasets[circle] = {
+            data: previousData,
+            backgroundColor: colours
+        }
+        if (source[key].hasOwnProperty('children')) {
+            chordsCharts.charts.chart.chart.data.datasets[circle + 1] = {
+                data: Array(previousData.length).fill(0).concat(ocuppySpace(source[key].children, 1)),
+                backgroundColor: colours
+            }
+        }
+        return key;
+    }
+    return '&nbsp';
+}
+
+
+$("#stats .panel").on("transitionend", function(event){    
+    console.log("end of the animation");
+    this.scrollIntoView(true);
+})

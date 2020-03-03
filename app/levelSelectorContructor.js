@@ -97,7 +97,7 @@ var nodeMaker = {
     exercise: function (element) {
         var node = document.createElement("div");
         node.id = element.title
-        node.innerHTML = `<br><h4">` + element.title + `</h4>`
+        node.innerHTML = `<br><h4>` + element.title + `</h4>`
         return node;
     },
     group: function (element) {
@@ -276,3 +276,10 @@ code:"_Four",
 code:"_Eight",
 
 */
+
+$("#levelSelectorBack").click(function(){
+    $("#mainMenuHeader").show().prop('disabled', false); 
+    $("#mainMenu").show().prop('disabled', false);
+    $("#exerciseSelectorHeader").hide().prop('disabled', true);
+    $("#exerciseSelector").hide().prop('disabled', true);
+})

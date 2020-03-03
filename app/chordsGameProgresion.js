@@ -104,7 +104,6 @@ chordLevelMaker = {
 var chordsLevelsTree = {
     kind: "mode",
     title: "Acordes",
-    //class: "tab-pane fade",
     class: "item",
     color: "pink",
     code: "Cho",

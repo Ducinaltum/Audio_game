@@ -34,7 +34,7 @@ function progressRestore() {
     $(".progress-bar-danger").attr('aria-valuenow', 0).css('width', 0 + '%');
 }
 
-$("#exerciseBackButton").click(function(){
+$("#exerciseBack").click(function(){
     MIDI.stopAllNotes();
     currentExercise = null
     hideIndividualExercisesUI()
@@ -44,3 +44,4 @@ $("#exerciseBackButton").click(function(){
     $("#exerciseSelector").show().prop('disabled', false);
     document.getElementById("carouselEjercicios").style.marginTop = (document.getElementById("exerciseSelectorNav").offsetHeight) + "px";
 })
+
