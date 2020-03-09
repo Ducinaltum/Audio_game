@@ -7,7 +7,7 @@
             </div>
             <div class="modal-body">
                 <div class="text-center">
-                    
+
                 </div>
                 <div class="text-center">
                     <h3 id='endLevelPrimary'></h3>
@@ -26,12 +26,11 @@
     </div>
 </div>
 
-
 <div id="selectionOfExercise" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header text-center">
-                <h2 id="exerciseSelectorTitle"class="modal-title"> Nombre de nivel </h2>
+                <h2 id="exerciseSelectorTitle" class="modal-title"> Nombre de nivel </h2>
             </div>
             <div class="modal-body">
                 <!--En los constructores del contenido deberia hacerce un div row-->
@@ -39,7 +38,81 @@
                 </div>
             </div>
             <div class="modal-footer">
-                
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="registerModal" class="modal fade" >
+    <div class="modal-dialog" style="width: 50vw;">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title">Registrarse</h2>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <div class="form-group" style="text-align: center;">
+                        <label for="registerUsrLbl">Nombre de usuario:</label>
+                        <input type="text" class="form-control" id="registerUsr">
+                    </div>
+                    <div class="form-group" style="text-align: center;">
+                        <label for="registerPwdLbl">Contraseña:</label>
+                        <input type="password" class="form-control" id="registerPwd">
+                    </div>
+                    <div style="text-align: center;">
+                        <button class="btn btn-default type=" button">
+                            Crear usuario
+                        </button>
+                    </div>
+                </div>
+                <br>
+                <div class="text-center">
+                    <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">
+                        Registrarse a través de Facebook
+                    </button>
+                    <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">
+                        Registrarse a través de Google
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="logInModal" class="modal fade" >
+    <div class="modal-dialog" style="width: 50vw;">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title">Iniciar Sesión</h2>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <div class="form-group" style="text-align: center;">
+                        <label for="logInUsrLbl">Nombre de usuario:</label>
+                        <input type="text" class="form-control" id="logInUsr">
+                    </div>
+                    <div class="form-group" style="text-align: center;">
+                        <label for="logInPwdLbl">Contraseña:</label>
+                        <input type="password" class="form-control" id="logInPwd">
+                    </div>
+                    <div style="text-align: center;">
+                        <button class="btn btn-default" type=" button">
+                            Crear usuario
+                        </button>
+                    </div>
+                </div>
+                <br>
+                <div class="text-center">
+                    <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">
+                        Registrarse a través de Facebook
+                    </button>
+                    <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">
+                        Registrarse a través de Google
+                    </button>
+                </div>
             </div>
         </div>
     </div>

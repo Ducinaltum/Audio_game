@@ -20,7 +20,7 @@ $('#showChordsStatistics').click(function () {
     if (chordsCharts == undefined) startChordsChart();
 })
 $('#showProgresionStatistics').click(function () {
-    if (chordsCharts == undefined) startProgresionChart();
+    if (progresionCharts == undefined) startProgresionChart();
 })
 
 var intervalsCharts = undefined;
@@ -122,7 +122,7 @@ function createIntervalChart(kind) {
                     },
                     plugins: {
                         labels: {
-                            render:function(){}
+                            render: function () { }
                         }
                     }
                 }
@@ -376,13 +376,12 @@ function startChordsChart() {
             selectedChordsValues.dataSelection = chordsCharts.values[time + "Values"]
         },
         charts: {
-            chart:undefined
+            chart: undefined
         }
     }
     chordsCharts.initiate()
     chordsCharts.charts.chart = createChordsChart("major")
 }
-
 function createChordsChart(kind) {
     return {
         chart: new Chart(document.getElementById(kind + 'Chart'),
@@ -409,7 +408,7 @@ function createChordsChart(kind) {
                 },
                 options: {
                     cutoutPercentage: 10,
-                    rotation: Math.PI,
+                    rotation: Math.PI * 1.3,
                     responsive: true,
                     maintainAspectRatio: true,
                     legend: {
@@ -428,13 +427,25 @@ function createChordsChart(kind) {
                             fontStyle: 'bold',
                             showZero: false,
                             arc: true,
+                        },
+                        datalabels: {
+                            formatter: function (value, context) {
+                                if (value == 0) {
+                                    return ''
+                                }
+                                return context.chart.data.labels[context.dataIndex];
+                            },
+                            color: 'black',
+                            font: {
+                                weight: 'bold'
+                            }
                         }
+
                     }
                 }
             })
     }
 }
-
 
 function loadChartValues(kind, structure) {
     var storageRoot = user.statistics
@@ -464,7 +475,6 @@ function loadChartValues(kind, structure) {
     })
     return { weekValues, monthValues, historicValues }
 }
-
 var loadValues = {
     intervals: function (root, obj) {
         var chart = obj.simple
@@ -555,6 +565,7 @@ function startProgresionChart() {
     if (progresionCharts.values.historicValues.major != undefined) progresionCharts.charts.major = createProgresionChart("major")
     if (progresionCharts.values.historicValues.minor != undefined) progresionCharts.charts.minor = createProgresionChart("minor")
     if (Object.keys(progresionCharts.values.historicValues).length > 2) progresionCharts.charts.modal = createProgresionChart("modal")
+    console.log("Hi")
     progresionCharts.initiate()
 }
 function createProgresionChart(kind) {
@@ -585,7 +596,7 @@ function createProgresionChart(kind) {
                 },
                 plugins: {
                     labels: {
-                        render:function(){}
+                        render: function () { }
                     }
                 }
             }
@@ -596,8 +607,28 @@ function createProgresionChart(kind) {
 
 const hasSelectedLabels = ['Correctas', 'Incorrectas']
 const hasSelectedColors = ['green', 'red']
+
+function setValuesWithNameOffset(positive, negative) {
+    const offsetPerc = 0.2
+    var name = ((positive + negative) / (1 - offsetPerc)) - positive - negative
+    return [name, positive, negative]
+}
+
 function ocuppySpace(elements, value) {
     return Array(Object.keys(elements).length).fill(value);
+}
+
+function setChartColorSpace(elements) {
+    var arr = []
+    Object.keys(elements).forEach(function (key) {
+        if (elements[key].values.positive != 0 || elements[key].values.negative != 0) {
+            arr.push('dimgray')
+        }
+        else {
+            arr.push('darkgray')
+        }
+    })
+    return arr
 }
 
 var showInChart = {
@@ -622,51 +653,56 @@ function chartClickEvent(event, array) {
     //Este valor indica cual de las porciones del aro fue tocada
     const valIndex = array[0]._index - (circle * 2)
     if (circle == 0 && !showInChart.base.isSelected) {
-        $("#statsBase").html(updateChartData(showInChart.base, selectedChordsValues.dataSelection, valIndex, circle))
+        $("#statsBase").html(formatModeToDisplay[updateChartData(showInChart.base, selectedChordsValues.dataSelection, valIndex, circle)])
     }
     else if (circle == 1 && !showInChart.seven.isSelected) {
         $("#statsseven").html(updateChartData(showInChart.seven, showInChart.base.data, valIndex, circle))
     }
     else if (circle == 2 && !showInChart.extention.isSelected) {
         $("#statsExtensions").html(updateChartData(showInChart.extention, showInChart.seven.data, valIndex, circle))
-
     }
     chordsCharts.charts.chart.chart.update();
 
 }
 
 function updateChartData(pointedData, source, index, circle) {
-    var key = Object.keys(source)[index]
+    //Hay que restarle circle por que mágicamente agrega un valor por ciclo
+    var key = Object.keys(source)[index - circle]
     if (source[key].values.positive != 0 || source[key].values.negative != 0) {
+        console.log(key)
+        //Etiquetas actual
         var labels = (function () {
-            var arr = [];
-            for (let c = -1; c < circle; c++) {
-                arr = arr.concat(['Correctas', 'Incorrectas']);
-            }
+            let arr = chordsCharts.charts.chart.chart.data.labels.slice(0, chordsCharts.charts.chart.chart.data.labels.length - Object.keys(source).length)
+            let kind= circle == 0? formatModeToDisplay[key]: key;
+            arr = arr.concat([formatModeToDisplay[key]|| key, 'Correctas', 'Incorrectas']);
+            console.log(arr)
             return arr;
-        })().concat((function () {
-            let val = source[key].hasOwnProperty('children') ? Object.keys(source[key].children) : [];
-            return val
-        }()
-        ))
+        })()
+            .concat((function () {
+                let val = source[key].hasOwnProperty('children') ? Object.keys(source[key].children) : [];
+                return val
+            }()))
+        //Valores actual
         var previousData = (function () {
             var arr = [];
             for (let c = 0; c < circle; c++) {
-                arr = arr.concat([0, 0]);
+                arr = arr.concat([0, 0, 0]);
             }
             return arr;
-        })().concat([source[key].values.positive, source[key].values.negative])
+        })().concat(setValuesWithNameOffset(source[key].values.positive, source[key].values.negative))
+        //console.log(previousData)
+        //Colores actual y siguiente
         var colours = (function () {
             var arr = [];
             for (let c = -1; c < circle; c++) {
-                arr = arr.concat(['green', 'red']);
+                arr = arr.concat(['grey', 'green', 'red']);
             }
             return arr;
         })().concat((function () {
-            let val = source[key].hasOwnProperty('children') ? ocuppySpace(source[key].children, 'grey') : [];
+            let val = source[key].hasOwnProperty('children') ? setChartColorSpace(source[key].children, 'grey') : [];
             return val
-        }()
-        ))
+        }()))
+        //console.log(colours)
         pointedData.isSelected = true
         pointedData.data = source[key].children
         chordsCharts.charts.chart.chart.data.labels = labels
@@ -685,8 +721,27 @@ function updateChartData(pointedData, source, index, circle) {
     return '&nbsp';
 }
 
+$('#statsClear').click(function () {
+    $("#statsBase").html('&nbsp')
+    $("#statsseven").html('&nbsp')
+    $("#statsExtensions").html('&nbsp')
+    Object.keys(showInChart).forEach(function (key) {
+        showInChart[key].isSelected = false;
+        showInChart[key].data = undefined;
+    })
+    chordsCharts.charts.chart.chart.data.labels = Object.keys(selectedChordsValues.dataSelection).map(function(e){
+        return formatModeToDisplay[e]||e})
+    chordsCharts.charts.chart.chart.data.datasets = [
+        {
+            data: ocuppySpace(selectedChordsValues.dataSelection, 1),
+            backgroundColor: setChartColorSpace(selectedChordsValues.dataSelection, 'grey')
+        }
+    ]
+    chordsCharts.charts.chart.chart.update();
+})
 
-$("#stats .panel").on("transitionend", function(event){    
+
+$("#stats .panel").on("transitionend", function (event) {
     console.log("end of the animation");
     this.scrollIntoView(true);
 })

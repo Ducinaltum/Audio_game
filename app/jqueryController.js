@@ -136,7 +136,7 @@ function goToExerciseSelector(){
     $("#mainMenu").hide().prop('disabled', true);
     $("#exerciseSelectorHeader").show().prop('disabled', false); 
     $("#exerciseSelector").show().prop('disabled', false);
-    document.getElementById("carouselEjercicios").style.marginTop = (document.getElementById("exerciseSelectorNav").offsetHeight) + "px";
+    //document.getElementById("carouselEjercicios").style.marginTop = (document.getElementById("exerciseSelectorNav").offsetHeight) + "px";
 }
 
 //Este bloque sirve para que el carrusel de selección de ejercicio no se autoanime

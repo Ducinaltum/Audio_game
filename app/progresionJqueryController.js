@@ -75,6 +75,7 @@ $('#Progresion #inputFields .chord-bar').focus(function () {
     if (activeChordIndex != index) activeChordIndex = index;
     responseChords[activeChordIndex].updateButtons()
     var valueToShow = responseChords[activeChordIndex].getChordAsString();
+    console.log(valueToShow)
     if (valueToShow == '') {
         valueToShow = '&nbsp'
     }
@@ -107,6 +108,7 @@ function loadValue(field, button) {
 }
 
 function discardValue(field, button) {
+    console.log("hi")
     $(button).removeClass('btn-primary').addClass('btn-default')
     responseChords[activeChordIndex][field] = undefined;
     $(individualFields.grade[activeChordIndex]).focus();
