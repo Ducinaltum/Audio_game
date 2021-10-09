@@ -169,11 +169,14 @@ function generateSelectionInterface(layer, father, pointer, brothers, codeName) 
 }
 
 function buildSaverObject(pointer, newname){
-    if(newname!= "") {
-        pointer[newname] = pointer[newname] || {}
+    /*
+    if(newname != "") {
+        console.log(newname);
+        console.log(pointer);
+        pointer[newname] = pointer[newname]!=null? pointer[newname] : {};
         return pointer[newname]
     }
-    else return pointer
+    else */ return pointer
 }
 
 

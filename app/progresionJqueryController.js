@@ -75,7 +75,6 @@ $('#Progresion #inputFields .chord-bar').focus(function () {
     if (activeChordIndex != index) activeChordIndex = index;
     responseChords[activeChordIndex].updateButtons()
     var valueToShow = responseChords[activeChordIndex].getChordAsString();
-    console.log(valueToShow)
     if (valueToShow == '') {
         valueToShow = '&nbsp'
     }

@@ -6,16 +6,13 @@ var player;
 var isPlaying = false;
 
 MIDI.loadPlugin({
-    soundfontUrl: "../MIDI.js/soundfont/",
+    soundfontUrl: "MIDI.js/soundfont/",
     instrument: "acoustic_grand_piano",
     onprogress: function (state, progress) {
         console.log(state, progress);
     },
     onsuccess: function () {
         MIDI.setVolume(0, 127);
-        //MIDI.noteOn(0, 60, 127,0)
-        //MIDI.noteOff(0, 60, 10)  
-        //Mostrar UI
     }
 });
 
@@ -54,17 +51,3 @@ function playSequence() {
         setStop();
     }, (duration) * 1000);
 }
-/*
-function notesTest() {
-    var test = []
-    for (let index = 0; index < 300; index++) {
-        const element = new Note(index, index)
-        test.push(element)
-    }
-    loadOnBuffer(test)
-}
-*/
-
-
-
-

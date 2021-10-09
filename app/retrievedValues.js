@@ -56,6 +56,7 @@ function SaveManager(ex) {
         save = {};
         save[typeofExercice] = obj;
         date = setDate();
+        if(user.statistics == null) user.statistics = {};
         savePoint = user.statistics
         if (!(date in savePoint)) {
             savePoint[date] = save;
