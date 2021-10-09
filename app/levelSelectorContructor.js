@@ -5,6 +5,7 @@ function ExerciseLevel(ex) {
     this.start = function () {
         icon = document.getElementById(exercise.code);
         icon.addEventListener("click", exerciseClick, false);
+        icon.setAttribute("transform", "scale(0.5)");
         modalBlock = createModalBlock();
     }
     const exerciseClick = function (e) {
@@ -49,11 +50,12 @@ function LessonLevel(ex) {
 
     this.start = function (node) {
         //if(user[exercise.code] == undefined) user[exercise.code] = 0;
-        const element = `<svg id=svg` + exercise.code + ` width="200" height="200" shape-rendering="antialiasing">`
+        const element = `<svg id=` + exercise.code + ` width="200" height="200" shape-rendering="antialiasing">`
             + levelIcon(exercise.code) + `</svg>`;
         node.insertAdjacentHTML('beforeend', element)
         icon = node.querySelector("#" + exercise.code);
         icon.addEventListener("click", lessonClick, false);
+        icon.setAttribute("transform", "scale(0.5)");
     }
 }
 
@@ -102,15 +104,16 @@ var nodeMaker = {
     },
     group: function (element) {
         var node = document.createElement("div");
-        var frame = `<svg id=svg` + element.code + ` width="200" height="200" shape-rendering="antialiasing">` + levelIcon(element.code) + `</svg>`
+        var frame = `<svg id=` + element.code + ` width="200" height="200" shape-rendering="antialiasing">` + levelIcon(element.code) + `</svg>`
         node.id = "div" + element.code
         node.innerHTML = frame;
+        node.style.textAlign = "center"
         icons.levels[element.code] = new ExerciseLevel(element)
         return node;
     },
     level: function (element) {
         var node = document.createElement("div");
-        var frame = `<svg id=svg` + element.code + ` width="200" height="200" shape-rendering="antialiasing">` + levelIcon(element.code) + `</svg>`
+        var frame = `<svg id=` + element.code + ` width="200" height="200" shape-rendering="antialiasing">` + levelIcon(element.code) + `</svg>`
         node.id = "div" + element.code
         node.innerHTML = frame;
         icons.levels[element.code] = new ExerciseLevel(element)
